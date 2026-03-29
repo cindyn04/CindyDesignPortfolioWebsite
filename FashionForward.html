@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FashionForward Supply Chain — Cindy Nguyen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF8F4;
+    --warm-white: #F5F1EB;
+    --plum: #8B3A7E;
+    --plum-light: #B05AA2;
+    --plum-pale: #F3E6F1;
+    --ink: #1A1219;
+    --ink-soft: #3D2E3A;
+    --muted: #8A7885;
+    --border: #E2D8DF;
+    --teal: #2D8B7A;
+    --amber: #C47A2C;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 60px;
+    transition: background 0.4s, padding 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(250,248,244,0.92);
+    backdrop-filter: blur(12px);
+    padding: 16px 60px;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 400; letter-spacing: 0.02em;
+    color: var(--ink); text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-logo span { color: var(--plum); }
+  .nav-back {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--plum); }
+
+  /* HERO */
+  .case-hero {
+    min-height: 88vh;
+    background: var(--ink);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 120px 60px 72px;
+    position: relative; overflow: hidden;
+  }
+  .case-hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -150px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(139,58,126,0.2) 0%, transparent 65%);
+    border-radius: 50%;
+  }
+  .case-hero::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--plum), transparent);
+  }
+  .hero-meta {
+    display: flex; gap: 32px; margin-bottom: 32px;
+    opacity: 0; animation: fadeUp 0.7s 0.1s forwards;
+  }
+  .hero-meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .hero-meta-label {
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+  .hero-meta-value { font-size: 13px; color: rgba(255,255,255,0.7); }
+  .case-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(44px, 7vw, 88px);
+    font-weight: 300; line-height: 1.0;
+    color: white; max-width: 820px;
+    opacity: 0; animation: fadeUp 0.8s 0.25s forwards;
+  }
+  .case-title em { font-style: italic; color: var(--plum-light); }
+  .case-tagline {
+    margin-top: 24px; max-width: 580px;
+    font-size: 17px; line-height: 1.7;
+    color: rgba(255,255,255,0.5);
+    opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-tags {
+    display: flex; gap: 10px; margin-top: 36px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
+  }
+  .hero-tag {
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 6px 14px; border: 1px solid rgba(139,58,126,0.5);
+    color: var(--plum-light);
+  }
+  .scroll-hint {
+    position: absolute; bottom: 40px; right: 60px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    opacity: 0; animation: fadeIn 1s 0.8s forwards;
+  }
+
+  /* LAYOUT */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 60px; }
+  .section { padding: 80px 0; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+
+  /* SECTION LABELS */
+  .section-eyebrow {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 32px;
+  }
+  .eyebrow-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--plum); opacity: 0.6;
+  }
+  .eyebrow-label {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .eyebrow-line { flex: 1; height: 1px; background: var(--border); }
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 300; line-height: 1.15; color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .section-heading em { font-style: italic; color: var(--plum); }
+
+  /* OVERVIEW STATS */
+  .overview-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
+  }
+  .overview-body {
+    font-size: 16px; line-height: 1.8; color: var(--ink-soft);
+  }
+  .stats-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--border); border: 1px solid var(--border);
+  }
+  .stat-box {
+    background: var(--cream);
+    padding: 28px 24px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px; font-weight: 300; color: var(--plum); line-height: 1;
+  }
+  .stat-label { font-size: 12px; letter-spacing: 0.08em; color: var(--muted); }
+
+  /* PROBLEM / SOLUTION TWO-COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .panel {
+    padding: 32px;
+    background: var(--warm-white);
+    border-left: 3px solid var(--border);
+  }
+  .panel.accent { border-left-color: var(--plum); }
+  .panel.teal-accent { border-left-color: var(--teal); }
+  .panel-label {
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 12px;
+  }
+  .panel-text { font-size: 15px; line-height: 1.75; color: var(--ink-soft); }
+  .panel-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 400; color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  /* RESEARCH 3-COL */
+  .research-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .research-card {
+    padding: 28px;
+    border: 1px solid var(--border);
+    background: var(--cream);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .research-icon {
+    width: 36px; height: 36px;
+    background: var(--plum-pale);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .research-title {
+    font-size: 14px; font-weight: 500; color: var(--ink); letter-spacing: 0.02em;
+  }
+  .research-body { font-size: 13px; line-height: 1.7; color: var(--muted); }
+
+  /* INSIGHTS LIST */
+  .insights-list { display: flex; flex-direction: column; gap: 0; }
+  .insight-row {
+    display: grid; grid-template-columns: 48px 1fr;
+    gap: 20px; padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .insight-row:first-child { border-top: 1px solid var(--border); }
+  .insight-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; color: var(--plum); padding-top: 2px;
+  }
+  .insight-text { font-size: 15px; line-height: 1.7; color: var(--ink-soft); }
+  .insight-text strong { color: var(--ink); font-weight: 500; }
+
+  /* STAKEHOLDER TABLE */
+  .stakeholder-table { width: 100%; border-collapse: collapse; }
+  .stakeholder-table th {
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); text-align: left;
+    padding: 12px 16px; background: var(--warm-white);
+    border-bottom: 1px solid var(--border);
+  }
+  .stakeholder-table td {
+    padding: 16px; font-size: 13px; line-height: 1.6;
+    color: var(--ink-soft); border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .stakeholder-table tr:hover td { background: var(--warm-white); }
+  .role-badge {
+    display: inline-block;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 3px 9px; background: var(--plum-pale); color: var(--plum);
+  }
+
+  /* DESIGN OUTCOMES */
+  .outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .outcome-card {
+    padding: 32px;
+    border: 1px solid var(--border);
+    background: var(--cream);
+    display: flex; flex-direction: column; gap: 14px;
+    transition: border-color 0.25s, background 0.25s;
+  }
+  .outcome-card:hover { border-color: var(--plum); background: var(--warm-white); }
+  .outcome-header {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .outcome-icon {
+    width: 40px; height: 40px; background: var(--plum-pale);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .outcome-title { font-size: 16px; font-weight: 500; color: var(--ink); }
+  .outcome-body { font-size: 13px; line-height: 1.7; color: var(--muted); }
+  .outcome-features {
+    list-style: none; display: flex; flex-direction: column; gap: 6px;
+  }
+  .outcome-features li {
+    font-size: 12px; color: var(--ink-soft); line-height: 1.6;
+    padding-left: 14px; position: relative;
+  }
+  .outcome-features li::before {
+    content: '→'; position: absolute; left: 0; color: var(--plum); font-size: 10px;
+  }
+
+  /* KEY FEATURES */
+  .features-strip {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border);
+    margin-top: 32px;
+  }
+  .feature-box {
+    background: var(--cream); padding: 24px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .feature-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--plum); margin-top: 6px; flex-shrink: 0;
+  }
+  .feature-text { font-size: 13px; line-height: 1.65; color: var(--ink-soft); }
+
+  /* REFLECTION */
+  .reflection-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 60px; align-items: start; }
+  .reflection-aside {
+    padding: 32px;
+    background: var(--ink); color: white;
+  }
+  .reflection-aside-label {
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3); margin-bottom: 16px;
+  }
+  .reflection-aside-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 300; line-height: 1.5;
+    color: rgba(255,255,255,0.85); font-style: italic;
+  }
+  .reflection-items { display: flex; flex-direction: column; gap: 24px; }
+  .reflection-item { padding: 24px; border-left: 2px solid var(--plum-pale); }
+  .reflection-item-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+  .reflection-item-body { font-size: 14px; line-height: 1.7; color: var(--muted); }
+
+  /* BOTTOM NAV */
+  .case-footer {
+    background: var(--warm-white);
+    padding: 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none;
+    transition: gap 0.2s, color 0.2s;
+  }
+  .back-link:hover { gap: 14px; color: var(--plum); }
+  .next-project {
+    text-align: right;
+  }
+  .next-label {
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); display: block; margin-bottom: 6px;
+  }
+  .next-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; font-weight: 400; color: var(--ink);
+    text-decoration: none; display: flex; align-items: center; gap: 10px;
+    justify-content: flex-end; transition: gap 0.2s, color 0.2s;
+  }
+  .next-title:hover { gap: 14px; color: var(--plum); }
+
+  /* DESIGN MOCKUP PLACEHOLDER */
+  .mockup-bar {
+    height: 320px;
+    background: linear-gradient(135deg, #D6B8D3 0%, #A870A4 40%, #8B3A7E 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .mockup-bar::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40zm0-40h2l-2 2V0zm0 4l4-4h2l-6 6V4zm0 4l8-8h2L40 10V8zm0 4L52 0h2L40 14v-2zm0 4L56 0h2L40 18v-2zm0 4L60 0h2L40 22v-2zm0 4L64 0h2L40 26v-2zm0 4L68 0h2L40 30v-2zm0 4L72 0h2L40 34v-2zm0 4L76 0h2L40 38v-2zm0 4L80 0v2L42 40h-2zm4 0L80 4v2L46 40h-2zm4 0L80 8v2L50 40h-2zm4 0L80 12v2L54 40h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .mockup-screen {
+    background: white;
+    width: 520px; height: 260px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    border-radius: 4px;
+    padding: 20px;
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 140px 1fr; gap: 0;
+    overflow: hidden;
+  }
+  .mock-sidebar {
+    background: #F8F4FF; border-right: 1px solid #EDE4F0;
+    padding: 14px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .mock-sidebar-item {
+    height: 8px; border-radius: 4px; background: #D8C8D5;
+  }
+  .mock-sidebar-item.active { background: var(--plum); width: 70%; }
+  .mock-main { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .mock-topbar { display: flex; gap: 8px; margin-bottom: 4px; }
+  .mock-kpi {
+    flex: 1; height: 40px; background: #F8F4FF;
+    border: 1px solid #EDE4F0; border-radius: 2px;
+  }
+  .mock-chart-row { display: flex; gap: 8px; flex: 1; }
+  .mock-chart { flex: 1; background: #F8F4FF; border: 1px solid #EDE4F0; border-radius: 2px; }
+  .mock-chart-sm { width: 40%; background: #F3E6F1; border: 1px solid #EDE4F0; border-radius: 2px; }
+  .mock-table-row { height: 8px; background: #EDE4F0; border-radius: 3px; width: 90%; }
+  .mock-table-row.short { width: 60%; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(.25,.46,.45,.94), transform 0.7s cubic-bezier(.25,.46,.45,.94);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 860px) {
+    nav, .case-hero, .container, .case-footer { padding-left: 24px; padding-right: 24px; }
+    nav.scrolled { padding-left: 24px; padding-right: 24px; }
+    .case-hero { padding-top: 110px; }
+    .overview-grid, .two-col, .research-cols, .outcomes-grid,
+    .reflection-grid, .features-strip { grid-template-columns: 1fr; }
+    .stakeholder-table { font-size: 12px; }
+    .mockup-screen { width: 90%; height: auto; grid-template-columns: 80px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="cindy-portfolio.html" class="nav-logo">🌸 <span>Cindy</span> Nguyen</a>
+  <a href="cindy-portfolio.html#projects" class="nav-back">← All Projects</a>
+</nav>
+
+<!-- HERO -->
+<div class="case-hero">
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Company</span>
+      <span class="hero-meta-value">FashionForward INC</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Role</span>
+      <span class="hero-meta-value">UX Designer</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Timeline</span>
+      <span class="hero-meta-value">Apr – Jun 2025 · 3 months</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Tools</span>
+      <span class="hero-meta-value">Figma, Azure DevOps, Miro</span>
+    </div>
+  </div>
+  <h1 class="case-title">Supply Chain<br><em>Toolkit</em></h1>
+  <p class="case-tagline">Designing transparent, zero-waste supply chain management for FashionForward — replacing fragmented manual systems with a centralized dashboard that gives managers total visibility and control.</p>
+  <div class="hero-tags">
+    <span class="hero-tag">UI/UX Design</span>
+    <span class="hero-tag">Product Design</span>
+    <span class="hero-tag">UX Research</span>
+    <span class="hero-tag">University Case Study</span>
+  </div>
+  <div class="scroll-hint">Scroll to explore ↓</div>
+</div>
+
+<!-- MOCKUP BAR -->
+<div class="mockup-bar">
+  <div class="mockup-screen">
+    <div class="mock-sidebar">
+      <div class="mock-sidebar-item active"></div>
+      <div class="mock-sidebar-item" style="width:85%"></div>
+      <div class="mock-sidebar-item" style="width:75%"></div>
+      <div class="mock-sidebar-item" style="width:80%"></div>
+      <div class="mock-sidebar-item" style="width:60%"></div>
+      <div class="mock-sidebar-item" style="width:85%"></div>
+    </div>
+    <div class="mock-main">
+      <div class="mock-topbar">
+        <div class="mock-kpi"></div>
+        <div class="mock-kpi"></div>
+        <div class="mock-kpi"></div>
+        <div class="mock-kpi"></div>
+      </div>
+      <div class="mock-chart-row" style="height: 80px;">
+        <div class="mock-chart"></div>
+        <div class="mock-chart-sm"></div>
+      </div>
+      <div class="mock-table-row"></div>
+      <div class="mock-table-row short"></div>
+      <div class="mock-table-row"></div>
+    </div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div style="padding: 0 60px;">
+<div style="max-width: 980px; margin: 0 auto;">
+
+  <!-- 01 OVERVIEW -->
+  <div class="section reveal">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">01</span>
+      <span class="eyebrow-label">Overview</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <div class="overview-grid">
+      <div>
+        <h2 class="section-heading">The <em>Challenge</em></h2>
+        <p class="overview-body">FashionForward is a sustainable apparel brand dedicated to minimizing its environmental footprint by reducing textile waste sent to landfills. Despite their mission, they were operating with fragmented, manual systems — causing tracking errors, slow audits, and a lack of real-time visibility across their global supply chain.</p>
+        <p class="overview-body" style="margin-top: 16px;">Analysts were spending <strong style="color: var(--plum);">60% of their time</strong> on manual data cleaning. Tracing a single product took up to <strong style="color: var(--plum);">three weeks</strong>.</p>
+      </div>
+      <div class="stats-row">
+        <div class="stat-box">
+          <span class="stat-num">200+</span>
+          <span class="stat-label">Suppliers across 25 countries</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">60%</span>
+          <span class="stat-label">Of analyst time lost to manual data cleaning</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">3wk</span>
+          <span class="stat-label">Average trace lag for a single product</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">30%</span>
+          <span class="stat-label">Projected reduction in quality issues</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 PROBLEM & SOLUTION -->
+  <div class="section reveal">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">02</span>
+      <span class="eyebrow-label">Problem &amp; Solution</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <div class="two-col">
+      <div class="panel accent">
+        <div class="panel-label">The Problem</div>
+        <div class="panel-heading">How might we replace FashionForward's slow, inaccurate system with a centralized dashboard that provides reliable data for both tracking and auditing?</div>
+        <p class="panel-text">Communication silos, lack of real-time visibility, data inconsistencies, and no centralized platform for supplier performance were creating cascading operational failures across a 25-country network.</p>
+      </div>
+      <div class="panel teal-accent">
+        <div class="panel-label">The Solution</div>
+        <div class="panel-heading">A unified dashboard with two core functions: reliable tracking and accelerated auditing.</div>
+        <p class="panel-text">Consolidate all disparate data sources into a single warehouse. Automate data ingestion to ensure real-time accuracy. Design dedicated views for live shipment tracking and instant compliance report generation — turning weeks of work into seconds.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 RESEARCH -->
+  <div class="section reveal">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">03</span>
+      <span class="eyebrow-label">UX Research</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h2 class="section-heading">A <em>multi-method</em> research strategy</h2>
+    <div class="research-cols">
+      <div class="research-card">
+        <div class="research-icon">🗂</div>
+        <div class="research-title">Stakeholder Interviews</div>
+        <div class="research-body">Surfaced that analysts spent 60% of their time on manual data cleaning. Stakeholders required automated compliance alerts, streamlined onboarding, and verifiable data.</div>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🔍</div>
+        <div class="research-title">Internal Systems Analysis</div>
+        <div class="research-body">Analysis of ERP, supplier, and logistics systems revealed fragmented integration and manual reconciliation — including a three-week average trace lag that underscored the need for real-time interoperability.</div>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">📡</div>
+        <div class="research-title">External Research</div>
+        <div class="research-body">Findings supported using IoT sensors and RFID for real-time tracking and blockchain (Hyperledger Fabric) for immutable compliance records — enhancing transparency and accuracy across the network.</div>
+      </div>
+    </div>
+
+    <!-- Stakeholder needs table -->
+    <div style="margin-top: 48px;">
+      <div class="section-eyebrow" style="margin-bottom: 20px;">
+        <span class="eyebrow-label">Stakeholder Needs</span>
+        <div class="eyebrow-line"></div>
+      </div>
+      <table class="stakeholder-table">
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Primary Need</th>
+            <th>Pain Point Addressed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="role-badge">Logistics Coordinator</span></td>
+            <td>Real-time shipment visibility and route alerts</td>
+            <td>Inability to monitor live shipment status across 25 countries</td>
+          </tr>
+          <tr>
+            <td><span class="role-badge">Supply Chain Analyst</span></td>
+            <td>Automated compliance reporting and data validation</td>
+            <td>60% of time spent on manual data cleaning and reconciliation</td>
+          </tr>
+          <tr>
+            <td><span class="role-badge">Supplier Relations Manager</span></td>
+            <td>Centralized onboarding and performance portal</td>
+            <td>Fragmented communication with 200+ global suppliers</td>
+          </tr>
+          <tr>
+            <td><span class="role-badge">Sustainability Officer</span></td>
+            <td>Automated sustainability metrics and audit trails</td>
+            <td>Manual tracing of materials for ESG compliance reports</td>
+          </tr>
+          <tr>
+            <td><span class="role-badge">Chief Technology Officer</span></td>
+            <td>Scalable, secure microservices architecture</td>
+            <td>Legacy systems unable to handle cross-border data at scale</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 04 KEY INSIGHTS -->
+  <div class="section reveal">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">04</span>
+      <span class="eyebrow-label">Key Insights</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <div class="insights-list">
+      <div class="insight-row">
+        <span class="insight-num">01</span>
+        <p class="insight-text"><strong>Data silos cause cascading delays.</strong> Fragmented ERP, supplier, and logistics systems meant no single source of truth — every handoff introduced errors and lag time.</p>
+      </div>
+      <div class="insight-row">
+        <span class="insight-num">02</span>
+        <p class="insight-text"><strong>Auditing is manual and reactive.</strong> Compliance teams were assembling reports by hand from disconnected documents, making sustainability audits a weeks-long process instead of an instant pull.</p>
+      </div>
+      <div class="insight-row">
+        <span class="insight-num">03</span>
+        <p class="insight-text"><strong>Global teams lack shared context.</strong> Without a unified dashboard, cross-functional teams (logistics, procurement, sustainability) made decisions from different data snapshots, leading to misaligned priorities.</p>
+      </div>
+      <div class="insight-row">
+        <span class="insight-num">04</span>
+        <p class="insight-text"><strong>Supplier onboarding is a bottleneck.</strong> No centralized supplier portal meant onboarding was slow and inconsistent, creating gaps in certification tracking and performance monitoring.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 DESIGN OUTCOMES -->
+  <div class="section reveal">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">05</span>
+      <span class="eyebrow-label">Design Outcomes</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h2 class="section-heading">Four <em>dashboards,</em> one toolkit</h2>
+    <div class="outcomes-grid">
+      <div class="outcome-card">
+        <div class="outcome-header">
+          <div class="outcome-icon">📊</div>
+          <div class="outcome-title">Centralized Analytics Dashboard</div>
+        </div>
+        <div class="outcome-body">The command center for supply chain managers — real-time monitoring, performance analytics, and compliance oversight in a single view.</div>
+        <ul class="outcome-features">
+          <li>Navigation panel across Logistics, Orders, Revenue, Suppliers, Customers</li>
+          <li>KPI tiles: total revenue, shipments, orders, delivered items</li>
+          <li>Data visualizations for sales trends and shipping performance</li>
+          <li>Shipment tracking and supplier compliance with live statuses</li>
+          <li>Audit and IoT risk tracking with workflow progress indicators</li>
+        </ul>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-header">
+          <div class="outcome-icon">🏭</div>
+          <div class="outcome-title">Warehouse Dashboard</div>
+        </div>
+        <div class="outcome-body">Tracks and manages shipment data alongside live IoT sensor performance for warehouse operations teams.</div>
+        <ul class="outcome-features">
+          <li>Shipment Product List with tracking number, courier, status, transit time</li>
+          <li>Filter by time range, export to CSV</li>
+          <li>IoT device management: add/delete sensors</li>
+          <li>Live sensor activity trends with insight and low-stock request actions</li>
+        </ul>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-header">
+          <div class="outcome-icon">🧵</div>
+          <div class="outcome-title">Garment Production Dashboard</div>
+        </div>
+        <div class="outcome-body">Manages clothing manufacturing orders from raw materials through finished goods with full cost and schedule visibility.</div>
+        <ul class="outcome-features">
+          <li>Work order details: product info, planned quantity, production status, costs</li>
+          <li>Bill of Materials tracking: fabric, thread, buttons, zippers with storage locations</li>
+          <li>Production operations tracker: workstations, staff assignments, progress timelines</li>
+          <li>Actions: purchase materials, export reports, finish production</li>
+        </ul>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-header">
+          <div class="outcome-icon">✅</div>
+          <div class="outcome-title">Certificate Verification Center</div>
+        </div>
+        <div class="outcome-body">Independently verifies all supplier sustainability claims — ensuring certifications are authentic, accurate, and current.</div>
+        <ul class="outcome-features">
+          <li>Kanban workflow: To Do → In Progress → Completed</li>
+          <li>Supplier info display: certificate type, validity dates</li>
+          <li>Collaboration tools: comments, discussion threads, progress updates</li>
+          <li>Export verified certificates, generate sustainability report summaries</li>
+          <li>Full audit trail for accountability and traceability</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Key features strip -->
+    <div class="features-strip reveal reveal-delay-1">
+      <div class="feature-box">
+        <div class="feature-dot"></div>
+        <span class="feature-text">End-to-end traceability of materials, components, and finished products</span>
+      </div>
+      <div class="feature-box">
+        <div class="feature-dot"></div>
+        <span class="feature-text">Real-time inventory and shipment visibility via IoT sensors and RFID</span>
+      </div>
+      <div class="feature-box">
+        <div class="feature-dot"></div>
+        <span class="feature-text">Automated compliance monitoring and certification alerts</span>
+      </div>
+      <div class="feature-box">
+        <div class="feature-dot"></div>
+        <span class="feature-text">Centralized multilingual supplier portal for onboarding and document management</span>
+      </div>
+      <div class="feature-box">
+        <div class="feature-dot"></div>
+        <span class="feature-text">Sustainability metrics and automated reporting</span>
+      </div>
+      <div class="feature-box">
+        <div class="feature-dot"></div>
+        <span class="feature-text">Secure, role-based access control built on permission blockchain</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 REFLECTION -->
+  <div class="section reveal" style="border-bottom: none;">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">06</span>
+      <span class="eyebrow-label">Reflection &amp; Takeaways</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <div class="reflection-grid">
+      <div class="reflection-aside">
+        <div class="reflection-aside-label">Key Takeaway</div>
+        <div class="reflection-aside-quote">"Even advanced systems fail without unified data standards and cross-department collaboration."</div>
+      </div>
+      <div class="reflection-items">
+        <div class="reflection-item">
+          <div class="reflection-item-title">Stakeholder-centered design drives real impact</div>
+          <div class="reflection-item-body">Listening to diverse roles — from logistics coordinators to sustainability officers — surfaced insights that shaped practical, role-specific solutions rather than a one-size-fits-all dashboard.</div>
+        </div>
+        <div class="reflection-item">
+          <div class="reflection-item-title">Systems thinking connects technical and business priorities</div>
+          <div class="reflection-item-body">Combining IoT, blockchain, and predictive analytics required understanding how each piece affected the whole. Seeing those interdependencies strengthened my ability to balance innovation with feasibility.</div>
+        </div>
+        <div class="reflection-item">
+          <div class="reflection-item-title">Translating complexity into clarity</div>
+          <div class="reflection-item-body">The core design challenge was distilling a global, multi-role supply chain into screens that felt intuitive and actionable — not overwhelming. Every feature earned its place by directly serving a stakeholder need.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end max-width -->
+</div><!-- end padding -->
+
+<!-- FOOTER NAV -->
+<div class="case-footer">
+  <a href="cindy-portfolio.html#projects" class="back-link">← Back to all projects</a>
+  <div class="next-project">
+    <span class="next-label">Next Project</span>
+    <a href="#" class="next-title">Travel Diary: WayPoint →</a>
+  </div>
+</div>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
