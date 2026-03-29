@@ -1,2 +1,3 @@
 # CindyDesignPortfolioWebsite
-Cindy Nguyen's User Experience Design Portfolio
+Cindy Nguyen User Experience Design portfolio website 
+Established 2026
