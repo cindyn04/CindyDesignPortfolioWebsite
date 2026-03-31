@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bike Works Design System — Cindy Nguyen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF8F4;
+    --warm-white: #F5F1EB;
+    --plum: #8B3A7E;
+    --plum-light: #B05AA2;
+    --plum-pale: #F3E6F1;
+    --ink: #1A1219;
+    --ink-soft: #3D2E3A;
+    --muted: #8A7885;
+    --border: #E2D8DF;
+    --teal: #2D8B7A;
+    --amber: #C47A2C;
+    /* Bike Works accent colors — used sparingly as project accents */
+    --bw-blue: #2B63C7;
+    --bw-yellow: #F5C518;
+    --bw-navy: #0D1F4E;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 60px;
+    transition: background 0.4s, padding 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(250,248,244,0.92);
+    backdrop-filter: blur(12px);
+    padding: 16px 60px;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 400; letter-spacing: 0.02em;
+    color: var(--ink); text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-logo span { color: var(--plum); }
+  .nav-back {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--plum); }
+
+  /* ── HERO ── */
+  .case-hero {
+    min-height: 88vh;
+    background: var(--bw-navy);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 120px 60px 72px;
+    position: relative; overflow: hidden;
+  }
+  .case-hero::before {
+    content: '';
+    position: absolute; top: -160px; right: -100px;
+    width: 560px; height: 560px;
+    background: radial-gradient(circle, rgba(43,99,199,0.35) 0%, transparent 65%);
+    border-radius: 50%;
+  }
+  .case-hero::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--bw-yellow), transparent);
+  }
+  /* diagonal stripe texture */
+  .case-hero-texture {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 28px,
+      rgba(245,197,24,.03) 28px,
+      rgba(245,197,24,.03) 56px
+    );
+    pointer-events: none;
+  }
+  .hero-meta {
+    display: flex; gap: 32px; margin-bottom: 32px;
+    opacity: 0; animation: fadeUp 0.7s 0.1s forwards;
+    position: relative; z-index: 1;
+  }
+  .hero-meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .hero-meta-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+  .hero-meta-value { font-size: 13px; color: rgba(255,255,255,0.7); }
+  .case-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(44px, 7vw, 88px);
+    font-weight: 300; line-height: 1.0;
+    color: white; max-width: 820px;
+    opacity: 0; animation: fadeUp 0.8s 0.25s forwards;
+    position: relative; z-index: 1;
+  }
+  .case-title em { font-style: italic; color: var(--bw-yellow); }
+  .case-tagline {
+    margin-top: 24px; max-width: 600px;
+    font-size: 17px; line-height: 1.7;
+    color: rgba(255,255,255,0.5);
+    opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+    position: relative; z-index: 1;
+  }
+  .hero-tags {
+    display: flex; gap: 10px; margin-top: 36px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
+    position: relative; z-index: 1;
+  }
+  .hero-tag {
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 6px 14px; border: 1px solid rgba(43,99,199,0.6);
+    color: rgba(79,138,232,0.9);
+  }
+  .scroll-hint {
+    position: absolute; bottom: 40px; right: 60px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    opacity: 0; animation: fadeIn 1s 0.8s forwards;
+  }
+
+  /* ── MOCKUP BAR ── */
+  .mockup-bar {
+    height: 340px;
+    background: linear-gradient(135deg, var(--bw-navy) 0%, #1A3A8A 50%, var(--bw-blue) 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden; gap: 24px; padding: 0 40px;
+  }
+  .mockup-bar::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(-45deg, transparent, transparent 18px, rgba(245,197,24,.04) 18px, rgba(245,197,24,.04) 36px);
+  }
+  .mockup-screen {
+    background: white;
+    width: 480px; height: 280px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+    border-radius: 6px;
+    padding: 16px;
+    position: relative; z-index: 1;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .mock-topnav { height: 28px; background: #2B63C7; border-radius: 3px 3px 0 0; margin: -16px -16px 12px; display: flex; align-items: center; padding: 0 14px; gap: 8px; }
+  .mock-nav-dot { width: 32px; height: 6px; background: rgba(255,255,255,.2); border-radius: 3px; }
+  .mock-nav-dot.active { background: var(--bw-yellow); width: 24px; }
+  .mock-nav-logo { width: 16px; height: 16px; background: var(--bw-yellow); border-radius: 2px; margin-right: 8px; }
+  .mock-body { display: grid; grid-template-columns: 100px 1fr; gap: 10px; height: calc(100% - 40px); }
+  .mock-sidebar { display: flex; flex-direction: column; gap: 5px; }
+  .mock-sidebar-item { height: 7px; border-radius: 3px; background: #EEF0F4; }
+  .mock-sidebar-item.active-item { background: #2B63C7; }
+  .mock-main { display: flex; flex-direction: column; gap: 8px; }
+  .mock-color-strip { height: 24px; background: linear-gradient(90deg, #2B63C7, #4F8AE8, #F5C518, #0D1F4E); border-radius: 3px; opacity: .3; }
+  .mock-type-rows { display: flex; flex-direction: column; gap: 4px; }
+  .mock-type-row { height: 6px; background: #EEF0F4; border-radius: 3px; }
+  .mock-type-row.h1 { height: 14px; background: #0D1F4E; width: 70%; }
+  .mock-type-row.h2 { height: 10px; background: #2B63C7; width: 50%; }
+  .mock-btn-row { display: flex; gap: 6px; margin-top: 4px; }
+  .mock-btn { height: 18px; border-radius: 2px; }
+  .mock-btn.primary { width: 64px; background: #2B63C7; }
+  .mock-btn.cta { width: 48px; background: #F5C518; }
+  .mock-btn.outline { width: 56px; border: 1.5px solid #2B63C7; }
+  .mock-card-row { display: flex; gap: 6px; }
+  .mock-card { flex: 1; height: 36px; background: #F7F8FA; border: 1px solid #EEF0F4; border-radius: 4px; border-top: 3px solid #2B63C7; }
+  .mock-card:nth-child(2) { border-top-color: #F5C518; }
+  .mock-card:nth-child(3) { border-top-color: #0D1F4E; }
+
+  .mockup-screen-sm {
+    background: white;
+    width: 160px; height: 240px;
+    box-shadow: 0 16px 40px rgba(0,0,0,.3);
+    border-radius: 12px;
+    padding: 12px 10px;
+    position: relative; z-index: 1;
+    flex-shrink: 0;
+    display: flex; flex-direction: column; gap: 6px;
+    overflow: hidden;
+  }
+  .mock-mobile-top { height: 32px; background: #2B63C7; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+  .mock-mobile-logo { width: 14px; height: 14px; background: var(--bw-yellow); border-radius: 2px; }
+  .mock-mobile-item { height: 7px; background: #EEF0F4; border-radius: 3px; }
+  .mock-mobile-item.blue { background: #2B63C7; }
+  .mock-mobile-item.yellow { background: #F5C518; width: 60%; }
+  .mock-mobile-btn { height: 20px; background: #F5C518; border-radius: 3px; margin-top: 4px; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 60px; }
+  .section { padding: 80px 0; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+
+  .section-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+  .eyebrow-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--bw-blue); opacity: 0.7; }
+  .eyebrow-label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .eyebrow-line { flex: 1; height: 1px; background: var(--border); }
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 300; line-height: 1.15; color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .section-heading em { font-style: italic; color: var(--plum); }
+
+  /* ── OVERVIEW ── */
+  .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .overview-body { font-size: 16px; line-height: 1.8; color: var(--ink-soft); }
+  .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .stat-box { background: var(--cream); padding: 28px 24px; display: flex; flex-direction: column; gap: 6px; }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; color: var(--bw-blue); line-height: 1; }
+  .stat-label { font-size: 12px; letter-spacing: 0.08em; color: var(--muted); }
+
+  /* ── PANELS ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .panel { padding: 32px; background: var(--warm-white); border-left: 3px solid var(--border); }
+  .panel.blue-accent { border-left-color: var(--bw-blue); }
+  .panel.yellow-accent { border-left-color: var(--bw-yellow); }
+  .panel-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .panel-text { font-size: 15px; line-height: 1.75; color: var(--ink-soft); }
+  .panel-heading { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--ink); margin-bottom: 10px; }
+
+  /* ── RESEARCH CARDS ── */
+  .research-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .research-card { padding: 28px; border: 1px solid var(--border); background: var(--cream); display: flex; flex-direction: column; gap: 10px; }
+  .research-icon { width: 36px; height: 36px; background: #EEF3FD; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .research-title { font-size: 14px; font-weight: 500; color: var(--ink); letter-spacing: 0.02em; }
+  .research-body { font-size: 13px; line-height: 1.7; color: var(--muted); }
+
+  /* ── INSIGHTS ── */
+  .insights-list { display: flex; flex-direction: column; gap: 0; }
+  .insight-row { display: grid; grid-template-columns: 48px 1fr; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--border); align-items: start; }
+  .insight-row:first-child { border-top: 1px solid var(--border); }
+  .insight-num { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--bw-blue); padding-top: 2px; }
+  .insight-text { font-size: 15px; line-height: 1.7; color: var(--ink-soft); }
+  .insight-text strong { color: var(--ink); font-weight: 500; }
+
+  /* ── DESIGN DECISIONS TABLE ── */
+  .decisions-table { width: 100%; border-collapse: collapse; }
+  .decisions-table th { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 12px 16px; background: var(--warm-white); border-bottom: 1px solid var(--border); }
+  .decisions-table td { padding: 18px 16px; font-size: 13px; line-height: 1.65; color: var(--ink-soft); border-bottom: 1px solid var(--border); vertical-align: top; }
+  .decisions-table tr:hover td { background: var(--warm-white); }
+  .component-badge { display: inline-block; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 9px; background: #EEF3FD; color: var(--bw-blue); }
+  .source-cite { font-size: 11px; font-style: italic; color: var(--muted); margin-top: 4px; }
+
+  /* ── COMPONENT SHOWCASE ── */
+  .showcase-frame {
+    background: var(--bw-navy);
+    border-radius: 8px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .showcase-frame::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(-45deg, transparent, transparent 18px, rgba(245,197,24,.03) 18px, rgba(245,197,24,.03) 36px);
+  }
+  .showcase-inner { position: relative; z-index: 1; }
+  .showcase-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: 20px; }
+  /* inline mini-component previews */
+  .mini-color-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .mini-swatch { width: 40px; height: 40px; border-radius: 4px; }
+  .mini-type-stack { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+  .mini-btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+  .mini-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 8px 16px; border: none; cursor: pointer; border-radius: 2px;
+  }
+  .mini-btn-primary { background: var(--bw-blue); color: white; }
+  .mini-btn-cta { background: var(--bw-yellow); color: var(--bw-navy); }
+  .mini-btn-outline { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,.4); }
+  .mini-card-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .mini-card {
+    background: white; border-radius: 6px; padding: 14px 16px; min-width: 130px;
+    border-top: 3px solid var(--bw-blue);
+    font-size: 11px;
+  }
+  .mini-card-num { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: var(--bw-navy); line-height: 1; }
+  .mini-card-lbl { font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .mini-card.yellow-top { border-top-color: var(--bw-yellow); }
+  .mini-card.navy-bg { background: var(--bw-navy); border-top: none; }
+  .mini-card.navy-bg .mini-card-num { color: var(--bw-yellow); }
+  .mini-card.navy-bg .mini-card-lbl { color: rgba(255,255,255,.5); }
+  .mini-nav-preview {
+    background: var(--bw-blue); border-radius: 4px;
+    display: flex; align-items: center; gap: 6px;
+    padding: 10px 16px; margin-bottom: 24px;
+  }
+  .mini-nav-logo { width: 22px; height: 22px; background: var(--bw-yellow); border-radius: 2px; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .mini-nav-text { font-size: 13px; font-weight: 600; color: white; letter-spacing: .05em; text-transform: uppercase; margin-right: 12px; }
+  .mini-nav-link { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); padding: 4px 8px; border-radius: 2px; }
+  .mini-nav-link.act { color: var(--bw-yellow); background: rgba(255,255,255,.08); }
+  .mini-nav-link-spacer { flex: 1; }
+  .mini-nav-support { background: var(--bw-yellow); color: var(--bw-navy); font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; }
+
+  /* ── OUTCOMES ── */
+  .outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .outcome-card { padding: 32px; border: 1px solid var(--border); background: var(--cream); display: flex; flex-direction: column; gap: 14px; transition: border-color 0.25s, background 0.25s; }
+  .outcome-card:hover { border-color: var(--bw-blue); background: var(--warm-white); }
+  .outcome-header { display: flex; align-items: center; gap: 12px; }
+  .outcome-icon { width: 40px; height: 40px; background: #EEF3FD; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .outcome-title { font-size: 16px; font-weight: 500; color: var(--ink); }
+  .outcome-body { font-size: 13px; line-height: 1.7; color: var(--muted); }
+  .outcome-features { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .outcome-features li { font-size: 12px; color: var(--ink-soft); line-height: 1.6; padding-left: 14px; position: relative; }
+  .outcome-features li::before { content: '→'; position: absolute; left: 0; color: var(--bw-blue); font-size: 10px; }
+
+  /* ── REFLECTION ── */
+  .reflection-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 60px; align-items: start; }
+  .reflection-aside { padding: 32px; background: var(--bw-navy); color: white; }
+  .reflection-aside-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 16px; }
+  .reflection-aside-quote { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; line-height: 1.5; color: rgba(255,255,255,0.85); font-style: italic; }
+  .reflection-aside-quote span { color: var(--bw-yellow); }
+  .reflection-items { display: flex; flex-direction: column; gap: 24px; }
+  .reflection-item { padding: 24px; border-left: 2px solid #EEF3FD; }
+  .reflection-item-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+  .reflection-item-body { font-size: 14px; line-height: 1.7; color: var(--muted); }
+
+  /* ── DESIGN SYSTEM CTA ── */
+  .ds-cta {
+    background: linear-gradient(135deg, var(--bw-navy) 0%, #1A3A8A 100%);
+    border-radius: 8px;
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 48px;
+  }
+  .ds-cta::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(-45deg, transparent, transparent 18px, rgba(245,197,24,.04) 18px, rgba(245,197,24,.04) 36px);
+  }
+  .ds-cta-content { position: relative; z-index: 1; }
+  .ds-cta-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 10px; }
+  .ds-cta-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: white; line-height: 1.2; margin-bottom: 10px; }
+  .ds-cta-title em { font-style: italic; color: var(--bw-yellow); }
+  .ds-cta-desc { font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.6; max-width: 420px; }
+  .ds-cta-btn {
+    position: relative; z-index: 1;
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    background: var(--bw-yellow); color: var(--bw-navy);
+    padding: 14px 28px; border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-weight: 500;
+    text-decoration: none;
+    transition: opacity .2s, transform .2s;
+    white-space: nowrap; flex-shrink: 0;
+    border-radius: 2px;
+  }
+  .ds-cta-btn:hover { opacity: .9; transform: translateY(-1px); }
+
+  /* ── FOOTER NAV ── */
+  .case-footer { background: var(--warm-white); padding: 60px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); }
+  .back-link { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; transition: gap 0.2s, color 0.2s; }
+  .back-link:hover { gap: 14px; color: var(--plum); }
+  .next-project { text-align: right; }
+  .next-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+  .next-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 10px; justify-content: flex-end; transition: gap 0.2s, color 0.2s; }
+  .next-title:hover { gap: 14px; color: var(--plum); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(.25,.46,.45,.94), transform 0.7s cubic-bezier(.25,.46,.45,.94); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+
+  @media (max-width: 860px) {
+    nav, .case-hero, .container, .case-footer { padding-left: 24px; padding-right: 24px; }
+    nav.scrolled { padding-left: 24px; padding-right: 24px; }
+    .case-hero { padding-top: 110px; }
+    .overview-grid, .two-col, .research-cols, .outcomes-grid, .reflection-grid { grid-template-columns: 1fr; }
+    .ds-cta { flex-direction: column; padding: 32px; }
+    .mockup-screen-sm { display: none; }
+    .mockup-screen { width: 90%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="Homepage.html" class="nav-logo">🌸 <span>Cindy</span> Nguyen</a>
+  <a href="Homepage.html" class="nav-back">← All Projects</a>
+</nav>
+
+<!-- HERO -->
+<div class="case-hero">
+  <div class="case-hero-texture"></div>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Organization</span>
+      <span class="hero-meta-value">Bike Works Seattle</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Role</span>
+      <span class="hero-meta-value">UX Designer</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Type</span>
+      <span class="hero-meta-value">Design System</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Methods</span>
+      <span class="hero-meta-value">User Interviews · Competitive Analysis · Lit. Review</span>
+    </div>
+  </div>
+  <h1 class="case-title">Bike Works<br><em>Design System</em></h1>
+  <p class="case-tagline">Building a research-backed design system for a South Seattle nonprofit — solving accessibility failures, information hierarchy issues, and brand inconsistency identified across user interviews, a site audit, and competitive analysis.</p>
+  <div class="hero-tags">
+    <span class="hero-tag">Design Systems</span>
+    <span class="hero-tag">UX Research</span>
+    <span class="hero-tag">Accessibility</span>
+    <span class="hero-tag">Nonprofit · Community</span>
+    <span class="hero-tag">University Case Study</span>
+  </div>
+  <div class="scroll-hint">Scroll to explore ↓</div>
+</div>
+
+<!-- MOCKUP BAR -->
+<div class="mockup-bar">
+  <div class="mockup-screen">
+    <div class="mock-topnav">
+      <div class="mock-nav-logo"></div>
+      <div class="mock-nav-dot active"></div>
+      <div class="mock-nav-dot"></div>
+      <div class="mock-nav-dot"></div>
+      <div class="mock-nav-dot"></div>
+      <div class="mock-nav-dot"></div>
+    </div>
+    <div class="mock-body">
+      <div class="mock-sidebar">
+        <div class="mock-sidebar-item active-item" style="width:80%"></div>
+        <div class="mock-sidebar-item" style="width:70%"></div>
+        <div class="mock-sidebar-item" style="width:85%"></div>
+        <div class="mock-sidebar-item" style="width:60%"></div>
+        <div class="mock-sidebar-item" style="width:75%"></div>
+        <div class="mock-sidebar-item" style="width:65%"></div>
+      </div>
+      <div class="mock-main">
+        <div class="mock-color-strip"></div>
+        <div class="mock-type-rows">
+          <div class="mock-type-row h1"></div>
+          <div class="mock-type-row h2"></div>
+          <div class="mock-type-row" style="width:80%"></div>
+          <div class="mock-type-row" style="width:65%"></div>
+        </div>
+        <div class="mock-btn-row">
+          <div class="mock-btn primary"></div>
+          <div class="mock-btn cta"></div>
+          <div class="mock-btn outline"></div>
+        </div>
+        <div class="mock-card-row">
+          <div class="mock-card"></div>
+          <div class="mock-card"></div>
+          <div class="mock-card"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mockup-screen-sm">
+    <div class="mock-mobile-top"><div class="mock-mobile-logo"></div></div>
+    <div class="mock-mobile-item blue" style="width:80%"></div>
+    <div class="mock-mobile-item" style="width:95%"></div>
+    <div class="mock-mobile-item" style="width:70%"></div>
+    <div class="mock-mobile-item yellow"></div>
+    <div class="mock-mobile-item" style="width:85%"></div>
+    <div class="mock-mobile-item" style="width:60%"></div>
+    <div class="mock-mobile-btn"></div>
+  </div>
+</div>
+
+<!-- BODY CONTENT -->
+<div style="padding: 0 60px;">
+<div style="max-width: 1040px; margin: 0 auto;">
+
+  <!-- 01 OVERVIEW -->
+  <div class="section reveal">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">01</span>
+      <span class="eyebrow-label">Overview</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <div class="overview-grid">
+      <div>
+        <h2 class="section-heading">The <em>Challenge</em></h2>
+        <p class="overview-body">Bike Works is a South Seattle nonprofit that uses bicycling as a vehicle for youth empowerment and social justice — running free youth drop-ins, an Earn-a-Bike program, and a community bike shop on a sliding scale. Their mission is powerful; their digital presence wasn't keeping up.</p>
+        <p class="overview-body" style="margin-top: 16px;">A project discovery audit and three user interviews revealed an outdated site with accessibility failures, a confusing dual-nav, information hierarchy problems, and brand inconsistency that made it hard for first-time visitors to understand what Bike Works even does.</p>
+      </div>
+      <div class="stats-row">
+        <div class="stat-box">
+          <span class="stat-num">3</span>
+          <span class="stat-label">User interviews conducted</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">7</span>
+          <span class="stat-label">Site accessibility & UX failures identified</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">14</span>
+          <span class="stat-label">Academic papers reviewed on cycling equity</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">5</span>
+          <span class="stat-label">Competitor design systems analyzed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 PROBLEM & SOLUTION -->
+  <div class="section reveal">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">02</span>
+      <span class="eyebrow-label">Problem &amp; Solution</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <div class="two-col">
+      <div class="panel blue-accent">
+        <div class="panel-label">The Problem</div>
+        <div class="panel-heading">How might we rebuild Bike Works' visual language to be accessible, clear, and community-authentic — without losing the bold identity that makes them recognizable?</div>
+        <p class="panel-text">The existing yellow-background site failed accessibility contrast tests, confused new visitors with unclear information hierarchy, relied on two overlapping nav bars, and had no consistent component system guiding layout decisions across pages.</p>
+      </div>
+      <div class="panel yellow-accent">
+        <div class="panel-label">The Solution</div>
+        <div class="panel-heading">A comprehensive, research-justified design system with every token, component, and pattern traced back to a specific user or research finding.</div>
+        <p class="panel-text">Rather than redesigning by intuition, every decision — from demoting yellow to an accent-only color, to the single consolidated nav, to the 4px spacing grid — is documented with the precise interview quote, audit finding, or academic source that motivated it.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 RESEARCH -->
+  <div class="section reveal">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">03</span>
+      <span class="eyebrow-label">Research Foundation</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h2 class="section-heading">Four <em>research inputs,</em> one system</h2>
+    <div class="research-cols">
+      <div class="research-card">
+        <div class="research-icon">🗣️</div>
+        <div class="research-title">User Interviews (×3)</div>
+        <div class="research-body">Michael Lee (bike commuter), Leo Fan (university student), and Roderick McClain (Comms & Grants Manager). Each surface distinct needs: clarity for new visitors, hierarchy for scanners, and accessibility for internal stakeholders.</div>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🏗️</div>
+        <div class="research-title">Project Discovery Audit</div>
+        <div class="research-body">Identified 7 structural UX failures: yellow accessibility failures, dual nav confusion, information overload, no consistent content structure, uneven spacing, buried identity, and excessively long text-heavy pages.</div>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🔍</div>
+        <div class="research-title">Competitor Analysis</div>
+        <div class="research-body">Analyzed Banana Boat, Sunny D, Gregg's Cycle, Montlake Bicycle Shop, and Mello Fellos for color system decisions, component patterns, and design system coherence. Each comparison directly informed a system decision.</div>
+      </div>
+    </div>
+    <div class="research-cols" style="margin-top: 24px;">
+      <div class="research-card">
+        <div class="research-icon">📚</div>
+        <div class="research-title">Academic Literature (×14)</div>
+        <div class="research-body">Papers on cycling equity, bike advocacy in underserved communities, sustainable transportation, and community trust-building. Confirmed that visible impact data and community-authentic messaging are critical for Bike Works' audience.</div>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">♿</div>
+        <div class="research-title">WCAG Accessibility Review</div>
+        <div class="research-body">Every color pairing in the system was evaluated against WCAG AA contrast ratios. Yellow (#F5C518) was demoted to accent-only after failing as a large background color — a change directly requested by internal stakeholders.</div>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🚲</div>
+        <div class="research-title">Bike Works Mission Alignment</div>
+        <div class="research-body">Values: Bicycling, Access, Youth, Environment, Community, Social Justice, Education. Every component — from the FREE badge prominence to the sliding scale alert — serves the mission of equitable access for underserved South Seattle communities.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 KEY INSIGHTS -->
+  <div class="section reveal">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">04</span>
+      <span class="eyebrow-label">Key Research Findings</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <div class="insights-list">
+      <div class="insight-row">
+        <span class="insight-num">01</span>
+        <p class="insight-text"><strong>New visitors can't identify what Bike Works does.</strong> Michael Lee said "as an organization, it's hard to understand what they are — volunteers, taking donations, a little bit weird." The hero pattern was redesigned to answer who/what/for whom within the first viewport.</p>
+      </div>
+      <div class="insight-row">
+        <span class="insight-num">02</span>
+        <p class="insight-text"><strong>Yellow-as-background fails accessibility and creates reading fatigue.</strong> Roderick McClain flagged that "bold yellow background will likely fail accessibility tests." Leo Fan noted that "color contrast works, but extended reading is tiring." Yellow was demoted to accent-only use.</p>
+      </div>
+      <div class="insight-row">
+        <span class="insight-num">03</span>
+        <p class="insight-text"><strong>Free and low-cost services are the most compelling content.</strong> Leo Fan was "immediately drawn to Free and Low-Cost Services" and found programs like Earn-a-Bike "highly valuable." The FREE badge became the most visually prominent badge in the entire system.</p>
+      </div>
+      <div class="insight-row">
+        <span class="insight-num">04</span>
+        <p class="insight-text"><strong>Two nav bars confuse user journeys.</strong> The site audit directly identified "the website contains two nav bars, which could confuse the user and their journey." The system consolidates everything — links, icons, search, Support CTA — into one bar.</p>
+      </div>
+      <div class="insight-row">
+        <span class="insight-num">05</span>
+        <p class="insight-text"><strong>Uneven spacing signals an unpolished, untrustworthy product.</strong> The audit noted "a lot of uneven spacing in the left side" and footer link spacing issues. A strict 4px base spacing scale eliminates all ad-hoc values, creating visual rhythm that builds credibility.</p>
+      </div>
+      <div class="insight-row">
+        <span class="insight-num">06</span>
+        <p class="insight-text"><strong>Community-authentic organizations must communicate impact to build trust.</strong> Academic research on cycling equity found that youth and low-income communities disengage when organizations don't clearly demonstrate tangible impact. Stat cards (300+ bikes, FREE, 27 years) directly address this.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 DESIGN SYSTEM PREVIEW -->
+  <div class="section reveal">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">05</span>
+      <span class="eyebrow-label">System Overview</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h2 class="section-heading">10 sections, <em>every decision justified</em></h2>
+    <p style="font-size:15px;line-height:1.75;color:var(--ink-soft);max-width:640px;margin-bottom:40px;">The completed design system documents colors, typography, buttons, forms, cards, navigation, badges, icons, spacing, and assembled patterns — each section paired with a research rationale panel citing the specific interview, audit finding, or literature source behind the decision.</p>
+
+    <!-- Live component preview -->
+    <div class="showcase-frame">
+      <div class="showcase-inner">
+        <div class="showcase-label">Navigation · Color · Buttons · Cards — live previews</div>
+
+        <div class="mini-nav-preview">
+          <div class="mini-nav-logo">🚲</div>
+          <span class="mini-nav-text">Bike Works</span>
+          <span class="mini-nav-link act">Home</span>
+          <span class="mini-nav-link">Programs</span>
+          <span class="mini-nav-link">Volunteering</span>
+          <span class="mini-nav-link">Services</span>
+          <span class="mini-nav-link-spacer"></span>
+          <span class="mini-nav-support">Support</span>
+        </div>
+
+        <div class="mini-color-row">
+          <div class="mini-swatch" style="background:#2B63C7" title="BW Blue"></div>
+          <div class="mini-swatch" style="background:#1A4A9E" title="Blue Dark"></div>
+          <div class="mini-swatch" style="background:#4F8AE8" title="Blue Light"></div>
+          <div class="mini-swatch" style="background:#F5C518" title="Yellow — accent only"></div>
+          <div class="mini-swatch" style="background:#D4A800" title="Yellow Dark"></div>
+          <div class="mini-swatch" style="background:#0D1F4E" title="Navy"></div>
+          <div class="mini-swatch" style="background:#EEF0F4" title="Gray 100"></div>
+          <div class="mini-swatch" style="background:#8A93A8" title="Gray 400"></div>
+          <div class="mini-swatch" style="background:#2BA87A" title="Success"></div>
+          <div class="mini-swatch" style="background:#E0404A" title="Error"></div>
+        </div>
+
+        <div class="mini-btn-row">
+          <button class="mini-btn mini-btn-primary">Support Us</button>
+          <button class="mini-btn mini-btn-outline">Learn More</button>
+          <button class="mini-btn mini-btn-cta">Get a Bike →</button>
+        </div>
+
+        <div class="mini-card-row">
+          <div class="mini-card">
+            <div class="mini-card-num">300+</div>
+            <div class="mini-card-lbl">Bikes Annually</div>
+          </div>
+          <div class="mini-card yellow-top">
+            <div class="mini-card-num">Free</div>
+            <div class="mini-card-lbl">Youth Drop-In</div>
+          </div>
+          <div class="mini-card navy-bg">
+            <div class="mini-card-num">27yrs</div>
+            <div class="mini-card-lbl">In Community</div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-card-num">$0</div>
+            <div class="mini-card-lbl">To Participate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-cta">
+      <div class="ds-cta-content">
+        <div class="ds-cta-label">Full Design System Document</div>
+        <div class="ds-cta-title">View the complete <em>annotated system</em></div>
+        <div class="ds-cta-desc">10 sections · colors · typography · buttons · forms · cards · navigation · badges · spacing · assembled patterns — every decision traced to a research source.</div>
+      </div>
+      <a href="BW_Annotated.html" class="ds-cta-btn">Open Design System →</a>
+    </div>
+  </div>
+
+  <!-- 06 DESIGN DECISIONS -->
+  <div class="section reveal">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">06</span>
+      <span class="eyebrow-label">Key Design Decisions</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h2 class="section-heading">Research to <em>decision</em></h2>
+    <table class="decisions-table">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Decision Made</th>
+          <th>Research Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="component-badge">Color</span></td>
+          <td>Yellow demoted to accent-only; blue (#2B63C7) becomes dominant interactive color on white backgrounds</td>
+          <td>Roderick McClain interview: "bold yellow background will likely fail accessibility tests." WCAG AA contrast audit.<div class="source-cite">Competitor: Mello Fellos — "yellow used sparingly as accent only."</div></td>
+        </tr>
+        <tr>
+          <td><span class="component-badge">Navigation</span></td>
+          <td>Single consolidated nav bar replacing dual-nav system; Support CTA always visible</td>
+          <td>Project discovery audit: "The website contains two nav bars, which could confuse the user and their journey."<div class="source-cite">Roderick McClain: donation promotion needs visibility.</div></td>
+        </tr>
+        <tr>
+          <td><span class="component-badge">Typography</span></td>
+          <td>Barlow Condensed for display; 16px body with 1.7 line-height; strict 7-step type scale</td>
+          <td>Leo Fan: "felt the site contained a lot of text — suggested communicating key information faster."<div class="source-cite">WCAG 1.4.8: line spacing minimum 1.5× — exceeded.</div></td>
+        </tr>
+        <tr>
+          <td><span class="component-badge">Cards</span></td>
+          <td>Age badge as first visible signal on every program card; FREE badge as most prominent badge style</td>
+          <td>Michael Lee: "hard to understand what they are." Leo Fan: "immediately drawn to Free and Low-Cost Services."</td>
+        </tr>
+        <tr>
+          <td><span class="component-badge">Spacing</span></td>
+          <td>4px base unit grid eliminating all ad-hoc pixel values across every component</td>
+          <td>Project discovery audit: "a lot of uneven spacing in the left side" and "footer components don't have a lot of spacing between the links."</td>
+        </tr>
+        <tr>
+          <td><span class="component-badge">Stat Cards</span></td>
+          <td>Impact numbers (300+ bikes, FREE, 27yrs) surfaced on homepage in high-contrast navy/yellow cards</td>
+          <td>Literature review: cycling equity research shows underserved communities disengage without demonstrated tangible impact and trust signals.</td>
+        </tr>
+        <tr>
+          <td><span class="component-badge">Hero</span></td>
+          <td>Plain-language mission + "Bikes for All" eyebrow answers who/what/for-whom before any scrolling</td>
+          <td>Michael Lee: "should provide a brief description of what kind of services they provide." All 3 interviewees struggled to identify Bike Works' identity on first visit.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 07 OUTCOMES -->
+  <div class="section reveal">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">07</span>
+      <span class="eyebrow-label">System Deliverables</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h2 class="section-heading">What the <em>system includes</em></h2>
+    <div class="outcomes-grid">
+      <div class="outcome-card">
+        <div class="outcome-header">
+          <div class="outcome-icon">🎨</div>
+          <div class="outcome-title">Foundation Tokens</div>
+        </div>
+        <div class="outcome-body">The complete visual DNA — every value needed to implement the system in code.</div>
+        <ul class="outcome-features">
+          <li>10-color primary palette with WCAG compliance labels</li>
+          <li>6-step neutral gray scale</li>
+          <li>3 semantic colors (success, warning, error)</li>
+          <li>9-step spacing scale on 4px base grid</li>
+          <li>5 border radius values from 4px to pill</li>
+          <li>CSS custom properties for all tokens</li>
+        </ul>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-header">
+          <div class="outcome-icon">🔠</div>
+          <div class="outcome-title">Typography System</div>
+        </div>
+        <div class="outcome-body">7-level type scale with usage guidelines and rationale for each step.</div>
+        <ul class="outcome-features">
+          <li>Display / H1 / H2 / H3 / Eyebrow / Body / Caption</li>
+          <li>Barlow Condensed for display contexts</li>
+          <li>Barlow for all body reading</li>
+          <li>Accessible line-height and size minimums</li>
+        </ul>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-header">
+          <div class="outcome-icon">🧩</div>
+          <div class="outcome-title">UI Components</div>
+        </div>
+        <div class="outcome-body">Production-ready components with all interactive states documented.</div>
+        <ul class="outcome-features">
+          <li>5 button variants × 4 sizes × 3 states</li>
+          <li>Form inputs, selects, textarea, checkboxes</li>
+          <li>Program, stat, horizontal, and alert cards</li>
+          <li>Navigation bar, breadcrumb, tabs, pagination</li>
+          <li>Badges, status indicators, filter tags</li>
+          <li>Icon library with 16 community-relevant icons</li>
+        </ul>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-header">
+          <div class="outcome-icon">📐</div>
+          <div class="outcome-title">Assembled Patterns</div>
+        </div>
+        <div class="outcome-body">4 full-section patterns showing components in real page context.</div>
+        <ul class="outcome-features">
+          <li>Hero section — new visitor orientation</li>
+          <li>Earn-a-Bike progress tracker</li>
+          <li>Donation CTA — sliding scale communication</li>
+          <li>Schedule listing — where to find us</li>
+          <li>Each annotated with its specific research justification</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 08 REFLECTION -->
+  <div class="section reveal" style="border-bottom: none;">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">08</span>
+      <span class="eyebrow-label">Reflection &amp; Takeaways</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <div class="reflection-grid">
+      <div class="reflection-aside">
+        <div class="reflection-aside-label">Key Takeaway</div>
+        <div class="reflection-aside-quote">"A design system isn't just a component library — it's an <span>argument</span> for every decision, made visible."</div>
+      </div>
+      <div class="reflection-items">
+        <div class="reflection-item">
+          <div class="reflection-item-title">Research-first design produces defensible work</div>
+          <div class="reflection-item-body">Documenting the specific user quote or audit finding behind every token forced me to question vague intuitions. If I couldn't cite a source for a decision, that was a signal to either do more research or reconsider the decision entirely.</div>
+        </div>
+        <div class="reflection-item">
+          <div class="reflection-item-title">Accessibility and brand identity aren't in conflict</div>
+          <div class="reflection-item-body">The yellow accessibility failure could have felt like a loss of brand identity. Instead, restricting yellow to accent-only made it more powerful — more visually impactful as a CTA color than it ever was as a background. Constraints produce better design.</div>
+        </div>
+        <div class="reflection-item">
+          <div class="reflection-item-title">Design systems for nonprofits must earn community trust</div>
+          <div class="reflection-item-body">Reading the academic literature on cycling equity and bike advocacy in underserved communities changed how I thought about hierarchy decisions. Surfacing "FREE" and "300+ bikes" as primary signals wasn't just a UX choice — it was about making the organization's equity mission legible to the communities it serves.</div>
+        </div>
+        <div class="reflection-item">
+          <div class="reflection-item-title">Portfolio annotation transforms work into process evidence</div>
+          <div class="reflection-item-body">Building the rationale panels directly into the design system document means anyone reviewing this work can see not just what was built, but why — demonstrating the full research-to-decision-to-component loop that separates UX thinking from visual styling.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end max-width -->
+</div><!-- end padding -->
+
+<!-- FOOTER NAV -->
+<div class="case-footer">
+  <a href="cindy-portfolio.html" class="back-link">← Back to all projects</a>
+  <div class="next-project">
+    <span class="next-label">Next Project</span>
+    <a href="FashionForward.html" class="next-title">Supply Chain Toolkit →</a>
+  </div>
+</div>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>

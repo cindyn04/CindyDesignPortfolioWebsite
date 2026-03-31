@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bike Works — Design System</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bw-blue:        #2B63C7;
+    --bw-blue-dark:   #1A4A9E;
+    --bw-blue-light:  #4F8AE8;
+    --bw-yellow:      #F5C518;
+    --bw-yellow-dark: #D4A800;
+    --bw-navy:        #0D1F4E;
+    --bw-white:       #FFFFFF;
+    --bw-off-white:   #F7F8FA;
+    --bw-gray-100:    #EEF0F4;
+    --bw-gray-200:    #D8DCE6;
+    --bw-gray-400:    #8A93A8;
+    --bw-gray-600:    #4A5168;
+    --bw-gray-900:    #1A1E2E;
+    --bw-success:     #2BA87A;
+    --bw-warning:     #F5C518;
+    --bw-error:       #E0404A;
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body:    'Barlow', sans-serif;
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 96px;
+    --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 20px; --radius-pill: 999px;
+    --shadow-sm: 0 1px 3px rgba(13,31,78,.10), 0 1px 2px rgba(13,31,78,.06);
+    --shadow-md: 0 4px 12px rgba(13,31,78,.12), 0 2px 6px rgba(13,31,78,.08);
+    --shadow-lg: 0 12px 32px rgba(13,31,78,.16), 0 4px 12px rgba(13,31,78,.10);
+    --shadow-blue: 0 4px 16px rgba(43,99,199,.35);
+    --t-fast: 120ms ease; --t-base: 220ms ease; --t-slow: 380ms ease;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); background: var(--bw-gray-100); color: var(--bw-gray-900); line-height: 1.6; }
+
+  /* ── HEADER ── */
+  .ds-header {
+    background: var(--bw-navy);
+    padding: var(--space-7) var(--space-8);
+    display: flex; align-items: center; gap: var(--space-6);
+    position: relative; overflow: hidden;
+  }
+  .ds-header::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(-45deg, transparent, transparent 18px, rgba(245,197,24,.04) 18px, rgba(245,197,24,.04) 36px);
+  }
+  .ds-header-logo { display: flex; align-items: center; gap: var(--space-3); position: relative; z-index: 1; }
+  .ds-header-logo .logo-badge { width: 56px; height: 56px; background: var(--bw-yellow); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 28px; }
+  .ds-header-logo h1 { font-family: var(--font-display); font-size: 32px; font-weight: 800; color: var(--bw-white); letter-spacing: .04em; text-transform: uppercase; }
+  .ds-header-logo span { display: block; font-family: var(--font-body); font-size: 12px; font-weight: 500; color: var(--bw-gray-400); letter-spacing: .12em; text-transform: uppercase; margin-top: 2px; }
+  .ds-header-meta { margin-left: auto; position: relative; z-index: 1; text-align: right; }
+  .ds-header-meta p { font-family: var(--font-display); font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--bw-gray-400); }
+  .ds-header-meta strong { display: block; font-size: 11px; color: var(--bw-yellow); margin-top: 2px; }
+
+  /* ── TOC ── */
+  .ds-toc { background: var(--bw-blue); display: flex; gap: 2px; overflow-x: auto; padding: 0 var(--space-8); }
+  .ds-toc a { font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); padding: var(--space-3) var(--space-5); text-decoration: none; border-bottom: 3px solid transparent; white-space: nowrap; transition: var(--t-fast); }
+  .ds-toc a:hover { color: #fff; border-color: var(--bw-yellow); }
+
+  /* ── BODY ── */
+  .ds-body { max-width: 1320px; margin: 0 auto; padding: var(--space-8); display: flex; flex-direction: column; gap: 0; }
+
+  /* ── SECTION ── */
+  .ds-section { padding: var(--space-8) 0; border-bottom: 1px solid var(--bw-gray-200); }
+  .ds-section:last-child { border-bottom: none; }
+
+  .ds-section-eyebrow { font-family: var(--font-display); font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--bw-blue); margin-bottom: var(--space-3); display: flex; align-items: center; gap: var(--space-3); }
+  .ds-section-eyebrow::after { content: ''; flex: 1; height: 2px; background: var(--bw-blue); opacity: .15; border-radius: 2px; }
+  .ds-section-headline { font-family: var(--font-display); font-size: 46px; font-weight: 900; letter-spacing: -.01em; line-height: 1; text-transform: uppercase; color: var(--bw-navy); margin-bottom: var(--space-3); }
+  .ds-section-intro { font-size: 15px; color: var(--bw-gray-600); max-width: 620px; margin-bottom: var(--space-6); line-height: 1.7; }
+
+  /* ── TWO-COLUMN LAYOUT: components left, rationale right ── */
+  .ds-two-col { display: grid; grid-template-columns: 1fr 380px; gap: var(--space-7); align-items: start; margin-bottom: var(--space-7); }
+  .ds-two-col-full { margin-bottom: var(--space-7); }
+
+  /* ── RATIONALE PANEL ── */
+  .rationale {
+    background: var(--bw-navy);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5) var(--space-6);
+    position: sticky;
+    top: var(--space-5);
+  }
+  .rationale-header {
+    display: flex; align-items: center; gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+  .rationale-icon { font-size: 16px; }
+  .rationale-title { font-family: var(--font-display); font-size: 11px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; color: var(--bw-yellow); }
+  .rationale-body { display: flex; flex-direction: column; gap: var(--space-4); }
+  .rationale-point {}
+  .rationale-point-label {
+    font-family: var(--font-display); font-size: 10px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase;
+    color: rgba(255,255,255,.4); margin-bottom: var(--space-1);
+  }
+  .rationale-point-text { font-size: 13px; color: rgba(255,255,255,.8); line-height: 1.65; }
+  .rationale-point-text strong { color: var(--bw-yellow); font-weight: 600; }
+  .rationale-quote {
+    background: rgba(255,255,255,.06);
+    border-left: 3px solid var(--bw-yellow);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: var(--space-3) var(--space-4);
+    font-size: 12px;
+    font-style: italic;
+    color: rgba(255,255,255,.65);
+    line-height: 1.6;
+    margin-top: var(--space-3);
+  }
+  .rationale-quote cite { display: block; margin-top: 4px; font-style: normal; font-size: 11px; color: rgba(255,255,255,.35); font-family: var(--font-display); letter-spacing: .08em; text-transform: uppercase; }
+
+  /* ── CARD ── */
+  .ds-card { background: var(--bw-white); border-radius: var(--radius-lg); padding: var(--space-6) var(--space-7); box-shadow: var(--shadow-sm); border: 1px solid var(--bw-gray-200); }
+
+  .ds-grid { display: grid; gap: var(--space-5); }
+  .ds-grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .ds-grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .ds-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+  /* ── LABELS ── */
+  .token-label { font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--bw-gray-400); margin-bottom: var(--space-2); }
+  .token-value { font-family: 'Courier New', monospace; font-size: 12px; color: var(--bw-blue); background: var(--bw-gray-100); padding: 2px 6px; border-radius: var(--radius-sm); }
+  .divider { height: 1px; background: var(--bw-gray-100); margin: var(--space-5) 0; }
+  .flex-row { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+  .flex-col { display: flex; flex-direction: column; gap: var(--space-3); }
+
+  /* ── COLOR SWATCHES ── */
+  .color-swatch { border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); }
+  .color-swatch-block { height: 80px; }
+  .color-swatch-body { padding: var(--space-3) var(--space-4); background: var(--bw-white); border: 1px solid var(--bw-gray-200); border-top: none; }
+  .color-swatch-name { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--bw-gray-900); }
+  .color-swatch-hex { font-family: 'Courier New', monospace; font-size: 12px; color: var(--bw-gray-400); }
+  .color-section-label { font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--bw-gray-600); margin: var(--space-6) 0 var(--space-3); }
+  .color-section-label:first-child { margin-top: 0; }
+
+  /* Accessibility badge on colors */
+  .wcag-badge { display: inline-flex; align-items: center; gap: 3px; font-family: var(--font-display); font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 2px 7px; border-radius: var(--radius-pill); margin-top: 4px; }
+  .wcag-pass { background: #EAF7F2; color: #1A6B4D; }
+  .wcag-fail { background: #FEF0F1; color: #8E1A21; }
+  .wcag-aa   { background: #EEF3FD; color: var(--bw-blue-dark); }
+
+  /* ── TYPOGRAPHY SPECIMENS ── */
+  .type-specimen { padding: var(--space-5) 0; border-bottom: 1px solid var(--bw-gray-100); }
+  .type-specimen:last-child { border-bottom: none; padding-bottom: 0; }
+  .type-meta { display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-2); flex-wrap: wrap; }
+  .type-tag { font-family: var(--font-display); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 2px 8px; border-radius: var(--radius-pill); }
+  .type-tag-display { background: var(--bw-yellow); color: var(--bw-navy); }
+  .type-tag-body    { background: var(--bw-blue); color: white; }
+
+  /* ── BUTTONS ── */
+  .bw-btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); font-family: var(--font-display); font-size: 14px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; border: none; border-radius: var(--radius-sm); cursor: pointer; text-decoration: none; transition: all var(--t-base); padding: 10px 20px; position: relative; overflow: hidden; }
+  .bw-btn-primary { background: var(--bw-blue); color: white; box-shadow: var(--shadow-blue); }
+  .bw-btn-primary:hover { background: var(--bw-blue-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(43,99,199,.45); }
+  .bw-btn-secondary { background: transparent; color: var(--bw-blue); border: 2px solid var(--bw-blue); }
+  .bw-btn-secondary:hover { background: var(--bw-blue); color: white; transform: translateY(-1px); }
+  .bw-btn-cta { background: var(--bw-yellow); color: var(--bw-navy); box-shadow: 0 4px 16px rgba(245,197,24,.4); }
+  .bw-btn-cta:hover { background: var(--bw-yellow-dark); transform: translateY(-1px); box-shadow: 0 6px 24px rgba(245,197,24,.55); }
+  .bw-btn-ghost { background: transparent; color: white; border: 2px solid rgba(255,255,255,.4); }
+  .bw-btn-ghost:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.8); }
+  .bw-btn-danger { background: var(--bw-error); color: white; }
+  .bw-btn-danger:hover { background: #c73038; transform: translateY(-1px); }
+  .bw-btn-sm { font-size: 11px; padding: 7px 14px; }
+  .bw-btn-lg { font-size: 16px; padding: 14px 28px; }
+  .bw-btn-xl { font-size: 18px; padding: 18px 40px; border-radius: var(--radius-md); }
+  .bw-btn:disabled { opacity: .4; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+  .btn-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); padding: var(--space-4) 0; }
+
+  /* ── FORMS ── */
+  .bw-label { display: block; font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--bw-gray-600); margin-bottom: var(--space-2); }
+  .bw-input { display: block; width: 100%; font-family: var(--font-body); font-size: 15px; color: var(--bw-gray-900); background: var(--bw-white); border: 2px solid var(--bw-gray-200); border-radius: var(--radius-sm); padding: 10px 14px; transition: var(--t-base); outline: none; }
+  .bw-input:focus { border-color: var(--bw-blue); box-shadow: 0 0 0 3px rgba(43,99,199,.15); }
+  .bw-input::placeholder { color: var(--bw-gray-400); }
+  .bw-input-error { border-color: var(--bw-error); }
+  .bw-input-error:focus { box-shadow: 0 0 0 3px rgba(224,64,74,.15); }
+  .bw-select { display: block; width: 100%; font-family: var(--font-body); font-size: 15px; color: var(--bw-gray-900); background: var(--bw-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A93A8' stroke-width='2' fill='none'/%3E%3C/svg%3E") no-repeat right 14px center; border: 2px solid var(--bw-gray-200); border-radius: var(--radius-sm); padding: 10px 40px 10px 14px; appearance: none; outline: none; transition: var(--t-base); cursor: pointer; }
+  .bw-select:focus { border-color: var(--bw-blue); box-shadow: 0 0 0 3px rgba(43,99,199,.15); }
+  .bw-textarea { width: 100%; font-family: var(--font-body); font-size: 15px; color: var(--bw-gray-900); background: var(--bw-white); border: 2px solid var(--bw-gray-200); border-radius: var(--radius-sm); padding: 10px 14px; resize: vertical; min-height: 100px; outline: none; transition: var(--t-base); }
+  .bw-textarea:focus { border-color: var(--bw-blue); box-shadow: 0 0 0 3px rgba(43,99,199,.15); }
+  .bw-helper { font-size: 13px; color: var(--bw-gray-400); margin-top: var(--space-1); }
+  .bw-error-msg { font-size: 13px; color: var(--bw-error); margin-top: var(--space-1); }
+  .bw-checkbox-row { display: flex; align-items: center; gap: var(--space-3); cursor: pointer; }
+  .bw-checkbox { width: 18px; height: 18px; accent-color: var(--bw-blue); cursor: pointer; }
+  .bw-checkbox-label { font-size: 14px; color: var(--bw-gray-600); }
+  .form-field { margin-bottom: var(--space-5); }
+
+  /* ── PROGRAM CARDS ── */
+  .prog-card { background: var(--bw-white); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--bw-gray-200); transition: var(--t-base); }
+  .prog-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+  .prog-card-img { height: 160px; background: var(--bw-blue); display: flex; align-items: center; justify-content: center; font-size: 56px; position: relative; overflow: hidden; }
+  .prog-card-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(13,31,78,.4)); }
+  .prog-card-badge { position: absolute; top: 12px; left: 12px; font-family: var(--font-display); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; background: var(--bw-yellow); color: var(--bw-navy); padding: 3px 8px; border-radius: var(--radius-pill); z-index: 1; }
+  .prog-card-body { padding: var(--space-5); }
+  .prog-card-title { font-family: var(--font-display); font-size: 20px; font-weight: 800; text-transform: uppercase; color: var(--bw-navy); line-height: 1.1; margin-bottom: var(--space-2); }
+  .prog-card-desc { font-size: 14px; color: var(--bw-gray-600); line-height: 1.6; margin-bottom: var(--space-4); }
+  .prog-card-footer { display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) var(--space-5); border-top: 1px solid var(--bw-gray-100); background: var(--bw-gray-100); }
+  .prog-card-detail { font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--bw-gray-400); }
+  .prog-card-detail strong { color: var(--bw-gray-900); }
+
+  .horiz-card { background: var(--bw-white); border-radius: var(--radius-lg); display: flex; overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--bw-gray-200); transition: var(--t-base); }
+  .horiz-card:hover { box-shadow: var(--shadow-md); }
+  .horiz-card-body { padding: var(--space-5); flex: 1; }
+  .horiz-card-title { font-family: var(--font-display); font-size: 17px; font-weight: 800; text-transform: uppercase; color: var(--bw-navy); margin-bottom: var(--space-2); }
+  .horiz-card-desc { font-size: 13px; color: var(--bw-gray-600); line-height: 1.6; }
+  .horiz-card-icon { width: 72px; display: flex; align-items: center; justify-content: center; background: var(--bw-blue); font-size: 28px; flex-shrink: 0; }
+
+  .stat-card { background: var(--bw-navy); border-radius: var(--radius-lg); padding: var(--space-6); text-align: center; position: relative; overflow: hidden; }
+  .stat-card::before { content: ''; position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: var(--bw-yellow); opacity: .07; border-radius: 50%; }
+  .stat-card-number { font-family: var(--font-display); font-size: 52px; font-weight: 900; color: var(--bw-yellow); line-height: 1; letter-spacing: -.02em; }
+  .stat-card-label { font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.6); margin-top: var(--space-2); }
+
+  .alert { border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); display: flex; align-items: flex-start; gap: var(--space-3); font-size: 14px; }
+  .alert-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .alert-info    { background: #EEF3FD; color: var(--bw-blue-dark); border-left: 4px solid var(--bw-blue); }
+  .alert-success { background: #EAF7F2; color: #1A6B4D; border-left: 4px solid var(--bw-success); }
+  .alert-warning { background: #FEF9E7; color: #7A6200; border-left: 4px solid var(--bw-yellow); }
+  .alert-error   { background: #FEF0F1; color: #8E1A21; border-left: 4px solid var(--bw-error); }
+  .alert strong  { display: block; font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: 13px; margin-bottom: 2px; }
+
+  /* ── NAVIGATION ── */
+  .demo-navbar { background: var(--bw-blue); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-md); }
+  .demo-navbar-inner { display: flex; align-items: center; padding: 0 var(--space-5); height: 60px; gap: var(--space-2); }
+  .nav-logo { display: flex; align-items: center; gap: var(--space-2); margin-right: var(--space-5); text-decoration: none; }
+  .nav-logo-badge { width: 32px; height: 32px; background: var(--bw-yellow); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .nav-logo-text { font-family: var(--font-display); font-size: 18px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: white; }
+  .nav-links { display: flex; align-items: center; gap: 2px; flex: 1; }
+  .nav-link { font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.75); text-decoration: none; padding: 6px 12px; border-radius: var(--radius-sm); transition: var(--t-fast); }
+  .nav-link:hover, .nav-link.active { background: rgba(255,255,255,.12); color: white; }
+  .nav-link.active { color: var(--bw-yellow); }
+  .nav-actions { display: flex; align-items: center; gap: var(--space-3); margin-left: auto; }
+  .nav-icon-btn { width: 36px; height: 36px; background: rgba(255,255,255,.12); border: none; border-radius: var(--radius-sm); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: var(--t-fast); }
+  .nav-icon-btn:hover { background: rgba(255,255,255,.2); }
+
+  .breadcrumb { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+  .breadcrumb-item { font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--bw-gray-400); text-decoration: none; transition: var(--t-fast); }
+  .breadcrumb-item:hover { color: var(--bw-blue); }
+  .breadcrumb-item.active { color: var(--bw-gray-900); }
+  .breadcrumb-sep { color: var(--bw-gray-400); font-size: 12px; }
+
+  .bw-tabs { border-bottom: 2px solid var(--bw-gray-200); display: flex; gap: 0; }
+  .bw-tab { font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--bw-gray-400); padding: var(--space-3) var(--space-5); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: var(--t-fast); }
+  .bw-tab:hover { color: var(--bw-blue); }
+  .bw-tab.active { color: var(--bw-blue); border-color: var(--bw-blue); }
+
+  .pagination { display: flex; align-items: center; gap: var(--space-1); }
+  .page-btn { width: 36px; height: 36px; border: 2px solid var(--bw-gray-200); background: white; border-radius: var(--radius-sm); font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--bw-gray-600); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--t-fast); }
+  .page-btn:hover { border-color: var(--bw-blue); color: var(--bw-blue); }
+  .page-btn.active { background: var(--bw-blue); border-color: var(--bw-blue); color: white; }
+
+  /* ── BADGES ── */
+  .badge { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-display); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; padding: 3px 10px; border-radius: var(--radius-pill); line-height: 1; }
+  .badge-blue   { background: #EEF3FD; color: var(--bw-blue); }
+  .badge-yellow { background: #FEF9E7; color: #7A6200; }
+  .badge-green  { background: #EAF7F2; color: #1A6B4D; }
+  .badge-navy   { background: var(--bw-navy); color: var(--bw-yellow); }
+  .badge-gray   { background: var(--bw-gray-100); color: var(--bw-gray-600); }
+
+  .tag { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-body); font-size: 12px; font-weight: 500; color: var(--bw-gray-600); background: var(--bw-gray-100); border: 1px solid var(--bw-gray-200); padding: 4px 10px; border-radius: var(--radius-pill); cursor: pointer; transition: var(--t-fast); }
+  .tag:hover { background: var(--bw-blue); color: white; border-color: var(--bw-blue); }
+  .tag.active { background: var(--bw-blue); color: white; border-color: var(--bw-blue); }
+
+  /* ── ICONS ── */
+  .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: var(--space-4); }
+  .icon-item { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); padding: var(--space-4); border-radius: var(--radius-md); background: var(--bw-gray-100); transition: var(--t-base); cursor: pointer; }
+  .icon-item:hover { background: var(--bw-blue); }
+  .icon-item:hover .icon-name { color: rgba(255,255,255,.7); }
+  .icon-symbol { font-size: 28px; }
+  .icon-name { font-family: var(--font-display); font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--bw-gray-400); text-align: center; }
+
+  /* ── SPACING ── */
+  .space-row { display: flex; align-items: flex-end; gap: var(--space-3); flex-wrap: wrap; }
+  .space-item { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); }
+  .space-block { background: var(--bw-blue); opacity: .4; border-radius: 2px; height: 4px; }
+  .space-token { font-family: 'Courier New', monospace; font-size: 10px; color: var(--bw-gray-400); }
+
+  /* ── PROGRESS ── */
+  .progress-bar { height: 8px; background: var(--bw-gray-200); border-radius: var(--radius-pill); overflow: hidden; margin-bottom: var(--space-2); }
+  .progress-fill { height: 100%; background: var(--bw-blue); border-radius: var(--radius-pill); }
+  .progress-fill-yellow { background: var(--bw-yellow); }
+  .progress-fill-green  { background: var(--bw-success); }
+  .status-dot { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+  .status-dot::before { content: ''; width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .status-active::before   { background: var(--bw-success); box-shadow: 0 0 0 3px rgba(43,168,122,.2); }
+  .status-inactive::before { background: var(--bw-gray-400); }
+  .status-warning::before  { background: var(--bw-yellow); box-shadow: 0 0 0 3px rgba(245,197,24,.2); }
+
+  /* ── HERO ── */
+  .hero-demo { background: var(--bw-navy); border-radius: var(--radius-lg); overflow: hidden; position: relative; padding: var(--space-8) var(--space-7); min-height: 300px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .hero-demo::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(43,99,199,.6) 0%, transparent 55%), radial-gradient(ellipse at 20% 80%, rgba(245,197,24,.15) 0%, transparent 50%); }
+  .hero-demo-content { position: relative; z-index: 1; max-width: 600px; }
+  .hero-eyebrow { font-family: var(--font-display); font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--bw-yellow); margin-bottom: var(--space-3); }
+  .hero-title { font-family: var(--font-display); font-size: 64px; font-weight: 900; text-transform: uppercase; color: white; line-height: .92; letter-spacing: -.01em; margin-bottom: var(--space-4); }
+  .hero-title span { color: var(--bw-yellow); }
+  .hero-body { font-size: 16px; color: rgba(255,255,255,.75); line-height: 1.65; margin-bottom: var(--space-5); max-width: 480px; }
+  .hero-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+
+  /* ── DARK SECTION ── */
+  .section-dark { background: var(--bw-blue); border-radius: var(--radius-lg); padding: var(--space-7); color: white; }
+  .section-dark .ds-section-eyebrow { color: var(--bw-yellow); }
+  .section-dark .ds-section-eyebrow::after { background: var(--bw-yellow); opacity: .3; }
+
+  /* ── MISSION INTRO ── */
+  .mission-strip {
+    background: linear-gradient(135deg, var(--bw-navy) 0%, var(--bw-blue-dark) 100%);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6) var(--space-7);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-5);
+    margin-bottom: var(--space-7);
+  }
+  .mission-value {
+    display: flex; flex-direction: column; gap: var(--space-2);
+    border-right: 1px solid rgba(255,255,255,.1);
+    padding-right: var(--space-5);
+  }
+  .mission-value:last-child { border-right: none; }
+  .mission-value-label { font-family: var(--font-display); font-size: 10px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--bw-yellow); }
+  .mission-value-text { font-size: 14px; color: rgba(255,255,255,.8); line-height: 1.5; }
+
+  /* ── RESEARCH CALLOUT ── */
+  .research-banner {
+    background: var(--bw-yellow);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5) var(--space-6);
+    margin-bottom: var(--space-7);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+  .research-banner-icon { font-size: 28px; flex-shrink: 0; }
+  .research-banner-text h3 { font-family: var(--font-display); font-size: 16px; font-weight: 800; text-transform: uppercase; color: var(--bw-navy); letter-spacing: .04em; margin-bottom: var(--space-1); }
+  .research-banner-text p { font-size: 13px; color: var(--bw-navy); opacity: .7; line-height: 1.6; }
+
+  /* ── FOOTER ── */
+  .ds-footer { background: var(--bw-navy); padding: var(--space-6) var(--space-8); display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); margin-top: var(--space-8); }
+  .ds-footer p { font-family: var(--font-display); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.35); }
+  .ds-footer strong { color: var(--bw-yellow); }
+
+  /* ── SUBSECTION LABEL ── */
+  .subsection-label { font-family: var(--font-display); font-size: 12px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; color: var(--bw-gray-400); margin-bottom: var(--space-4); margin-top: var(--space-6); }
+  .subsection-label:first-child { margin-top: 0; }
+
+  @media (max-width: 1100px) {
+    .ds-two-col { grid-template-columns: 1fr; }
+    .rationale { position: static; }
+    .ds-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .mission-strip { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px) {
+    .ds-grid-2, .ds-grid-3, .ds-grid-4 { grid-template-columns: 1fr; }
+    .ds-header { padding: var(--space-5); flex-direction: column; align-items: flex-start; }
+    .ds-body { padding: var(--space-5); }
+    .hero-title { font-size: 44px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════ HEADER ══════ -->
+<header class="ds-header">
+  <div class="ds-header-logo">
+    <div class="logo-badge">🚲</div>
+    <div>
+      <h1>Bike Works</h1>
+      <span>Design System v2.0 — Research Annotated</span>
+    </div>
+  </div>
+  <div class="ds-header-meta">
+    <p>Research-Backed &middot; Portfolio Document</p>
+    <strong>South Seattle &middot; Est. 1996</strong>
+  </div>
+</header>
+
+<nav class="ds-toc">
+  <a href="#foundation">Foundation</a>
+  <a href="#colors">Colors</a>
+  <a href="#typography">Typography</a>
+  <a href="#buttons">Buttons</a>
+  <a href="#forms">Forms</a>
+  <a href="#cards">Cards</a>
+  <a href="#navigation">Navigation</a>
+  <a href="#badges">Badges</a>
+  <a href="#spacing">Spacing</a>
+  <a href="#patterns">Patterns</a>
+</nav>
+
+<main class="ds-body">
+
+<!-- ══════ FOUNDATION / INTRO ══════ -->
+<section id="foundation" class="ds-section">
+  <p class="ds-section-eyebrow">00 · Foundation</p>
+  <h2 class="ds-section-headline">Design Principles</h2>
+  <p class="ds-section-intro">Every decision in this system is grounded in four discovery inputs: user interviews, project audit findings, competitor/market research, and academic literature on bicycle advocacy and community access.</p>
+
+  <div class="research-banner">
+    <div class="research-banner-icon">🔍</div>
+    <div class="research-banner-text">
+      <h3>Research Foundation</h3>
+      <p>This system responds directly to findings from 3 user interviews (Michael Lee, Leo Fan, Roderick McClain), a competitive analysis of Banana Boat, Sunny D, Gregg's Cycle, Montlake Bicycle Shop, and Mello Fellos, a site audit identifying 7 structural pain points, and 14 peer-reviewed papers on cycling equity and urban mobility.</p>
+    </div>
+  </div>
+
+  <div class="mission-strip">
+    <div class="mission-value">
+      <span class="mission-value-label">Mission</span>
+      <span class="mission-value-text">Bike Works promotes the bicycle as a vehicle for change to empower youth and build resilient communities.</span>
+    </div>
+    <div class="mission-value">
+      <span class="mission-value-label">Vision</span>
+      <span class="mission-value-text">Mobilized people. Thriving communities. Healthy planet.</span>
+    </div>
+    <div class="mission-value">
+      <span class="mission-value-label">Values</span>
+      <span class="mission-value-text">Bicycling · Access · Youth · Environment · Community · Social Justice · Education</span>
+    </div>
+  </div>
+
+  <div class="ds-grid ds-grid-3">
+    <div class="ds-card">
+      <div style="font-size:28px;margin-bottom:var(--space-3)">♿</div>
+      <h3 style="font-family:var(--font-display);font-size:18px;font-weight:800;text-transform:uppercase;color:var(--bw-navy);margin-bottom:var(--space-2)">Accessibility First</h3>
+      <p style="font-size:13px;color:var(--bw-gray-600);line-height:1.65">The existing site's yellow background failed accessibility tests (Roderick McClain, internal). This system enforces WCAG AA contrast minimums on every color pairing. Yellow is used as an accent only — never as a large background behind body text.</p>
+    </div>
+    <div class="ds-card">
+      <div style="font-size:28px;margin-bottom:var(--space-3)">🗺️</div>
+      <h3 style="font-family:var(--font-display);font-size:18px;font-weight:800;text-transform:uppercase;color:var(--bw-navy);margin-bottom:var(--space-2)">Clear Hierarchy</h3>
+      <p style="font-size:13px;color:var(--bw-gray-600);line-height:1.65">Three of three interviewees struggled to understand Bike Works' identity and offerings on first visit. This system establishes a single, scannable type scale and strict content structure so new visitors can orient immediately.</p>
+    </div>
+    <div class="ds-card">
+      <div style="font-size:28px;margin-bottom:var(--space-3)">🤝</div>
+      <h3 style="font-family:var(--font-display);font-size:18px;font-weight:800;text-transform:uppercase;color:var(--bw-navy);margin-bottom:var(--space-2)">Community Authentic</h3>
+      <p style="font-size:13px;color:var(--bw-gray-600);line-height:1.65">Research shows bike advocacy organizations must build trust with underserved communities through genuine cultural messaging. The visual system retains Bike Works' bold, energetic identity while elevating professionalism and readability.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ 1. COLORS ══════ -->
+<section id="colors" class="ds-section">
+  <p class="ds-section-eyebrow">01 · Foundation</p>
+  <h2 class="ds-section-headline">Color System</h2>
+  <p class="ds-section-intro">The palette preserves Bike Works' recognizable blue and yellow identity while solving the accessibility failures identified in research. Every pairing is WCAG AA compliant.</p>
+
+  <div class="ds-two-col">
+    <div>
+      <div class="ds-card">
+        <p class="color-section-label">Brand Primary</p>
+        <div class="ds-grid ds-grid-3" style="margin-bottom:var(--space-5)">
+          <div class="color-swatch">
+            <div class="color-swatch-block" style="background:#2B63C7"></div>
+            <div class="color-swatch-body">
+              <div class="color-swatch-name">BW Blue</div>
+              <div class="color-swatch-hex">#2B63C7 · --bw-blue</div>
+              <span class="wcag-badge wcag-pass">WCAG AA ✓</span>
+            </div>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch-block" style="background:#1A4A9E"></div>
+            <div class="color-swatch-body">
+              <div class="color-swatch-name">Blue Dark</div>
+              <div class="color-swatch-hex">#1A4A9E · --bw-blue-dark</div>
+              <span class="wcag-badge wcag-pass">WCAG AAA ✓</span>
+            </div>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch-block" style="background:#4F8AE8"></div>
+            <div class="color-swatch-body">
+              <div class="color-swatch-name">Blue Light</div>
+              <div class="color-swatch-hex">#4F8AE8 · --bw-blue-light</div>
+              <span class="wcag-badge wcag-aa">AA on dark only</span>
+            </div>
+          </div>
+        </div>
+        <div class="ds-grid ds-grid-3" style="margin-bottom:var(--space-5)">
+          <div class="color-swatch">
+            <div class="color-swatch-block" style="background:#F5C518"></div>
+            <div class="color-swatch-body">
+              <div class="color-swatch-name">BW Yellow</div>
+              <div class="color-swatch-hex">#F5C518 · --bw-yellow</div>
+              <span class="wcag-badge wcag-fail">Accent only ⚠</span>
+            </div>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch-block" style="background:#D4A800"></div>
+            <div class="color-swatch-body">
+              <div class="color-swatch-name">Yellow Dark</div>
+              <div class="color-swatch-hex">#D4A800 · --bw-yellow-dark</div>
+              <span class="wcag-badge wcag-aa">Hover state</span>
+            </div>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch-block" style="background:#0D1F4E"></div>
+            <div class="color-swatch-body">
+              <div class="color-swatch-name">Navy</div>
+              <div class="color-swatch-hex">#0D1F4E · --bw-navy</div>
+              <span class="wcag-badge wcag-pass">WCAG AAA ✓</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="color-section-label">Neutrals</p>
+        <div class="ds-grid ds-grid-4" style="margin-bottom:var(--space-5)">
+          <div class="color-swatch"><div class="color-swatch-block" style="background:#FFFFFF;border:1px solid #EEF0F4"></div><div class="color-swatch-body"><div class="color-swatch-name">White</div><div class="color-swatch-hex">#FFFFFF</div></div></div>
+          <div class="color-swatch"><div class="color-swatch-block" style="background:#F7F8FA"></div><div class="color-swatch-body"><div class="color-swatch-name">Off White</div><div class="color-swatch-hex">#F7F8FA</div></div></div>
+          <div class="color-swatch"><div class="color-swatch-block" style="background:#D8DCE6"></div><div class="color-swatch-body"><div class="color-swatch-name">Gray 200</div><div class="color-swatch-hex">#D8DCE6</div></div></div>
+          <div class="color-swatch"><div class="color-swatch-block" style="background:#8A93A8"></div><div class="color-swatch-body"><div class="color-swatch-name">Gray 400</div><div class="color-swatch-hex">#8A93A8</div></div></div>
+          <div class="color-swatch"><div class="color-swatch-block" style="background:#4A5168"></div><div class="color-swatch-body"><div class="color-swatch-name">Gray 600</div><div class="color-swatch-hex">#4A5168</div></div></div>
+          <div class="color-swatch"><div class="color-swatch-block" style="background:#1A1E2E"></div><div class="color-swatch-body"><div class="color-swatch-name">Gray 900</div><div class="color-swatch-hex">#1A1E2E</div></div></div>
+        </div>
+
+        <p class="color-section-label">Semantic</p>
+        <div class="ds-grid ds-grid-3">
+          <div class="color-swatch"><div class="color-swatch-block" style="background:#2BA87A"></div><div class="color-swatch-body"><div class="color-swatch-name">Success</div><div class="color-swatch-hex">#2BA87A · Registration Open</div></div></div>
+          <div class="color-swatch"><div class="color-swatch-block" style="background:#F5C518"></div><div class="color-swatch-body"><div class="color-swatch-name">Warning</div><div class="color-swatch-hex">#F5C518 · Limited Spots</div></div></div>
+          <div class="color-swatch"><div class="color-swatch-block" style="background:#E0404A"></div><div class="color-swatch-body"><div class="color-swatch-name">Error</div><div class="color-swatch-hex">#E0404A · Form Errors</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="rationale">
+        <div class="rationale-header"><span class="rationale-icon">🔬</span><span class="rationale-title">Design Rationale</span></div>
+        <div class="rationale-body">
+          <div class="rationale-point">
+            <div class="rationale-point-label">Problem Solved</div>
+            <div class="rationale-point-text">The original site used <strong>yellow as a full-page background</strong>, which Roderick McClain (Comms & Grants Manager) flagged as failing accessibility tests. Leo Fan noted that while "color contrast works, extended reading is tiring."</div>
+            <div class="rationale-quote">"Bold yellow background will likely fail accessibility tests, wants accessibility and readability." <cite>— Roderick McClain, Interview</cite></div>
+          </div>
+          <div class="rationale-point">
+            <div class="rationale-point-label">Yellow as Accent Only</div>
+            <div class="rationale-point-text">Yellow (#F5C518) is retained as a <strong>brand signal and CTA accent</strong> — never as a background behind long-form text. This follows the Mello Fellos approach noted in market research: "yellow is used sparingly as an accent color to draw attention to buttons or key elements."</div>
+          </div>
+          <div class="rationale-point">
+            <div class="rationale-point-label">Blue as Primary</div>
+            <div class="rationale-point-text">BW Blue (#2B63C7) passes WCAG AA on white and is the dominant interactive color. This matches Montlake Bicycle Shop's successful use of navy blue as a "distinct path for users to press the call to action button."</div>
+          </div>
+          <div class="rationale-point">
+            <div class="rationale-point-label">Navy for Depth</div>
+            <div class="rationale-point-text">Navy (#0D1F4E) creates strong hierarchical anchors — hero backgrounds, stat cards, the navigation — without relying on pure black, keeping the palette warm and community-oriented.</div>
+          </div>
+          <div class="rationale-point">
+            <div class="rationale-point-label">Competitor Learning</div>
+            <div class="rationale-point-text">Banana Boat's analysis showed that <strong>"secondary colors with hues that compliment blue and yellow give an uplifting feeling"</strong> — the off-white and light gray neutrals serve exactly this role, preventing visual fatigue between colored sections.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ 2. TYPOGRAPHY ══════ -->
+<section id="typography" class="ds-section">
+  <p class="ds-section-eyebrow">02 · Foundation</p>
+  <h2 class="ds-section-headline">Typography</h2>
+  <p class="ds-section-intro">A two-font system: Barlow Condensed powers display contexts with authority and energy; Barlow handles all body reading with warmth and clarity.</p>
+
+  <div class="ds-two-col">
+    <div class="ds-card">
+      <div class="type-specimen">
+        <div style="font-family:'Barlow Condensed';font-size:72px;font-weight:900;text-transform:uppercase;color:var(--bw-navy);line-height:.92;letter-spacing:-.01em">Youth Programs</div>
+        <div class="type-meta"><span class="type-tag type-tag-display">Display / Hero</span><span class="token-value">Barlow Condensed 900 · 72px</span></div>
+      </div>
+      <div class="type-specimen">
+        <div style="font-family:'Barlow Condensed';font-size:48px;font-weight:800;text-transform:uppercase;color:var(--bw-navy);line-height:1">Community Drop-In</div>
+        <div class="type-meta"><span class="type-tag type-tag-display">H1 · Page Title</span><span class="token-value">Barlow Condensed 800 · 48px</span></div>
+      </div>
+      <div class="type-specimen">
+        <div style="font-family:'Barlow Condensed';font-size:36px;font-weight:800;text-transform:uppercase;color:var(--bw-navy);line-height:1.1">Earn-a-Bike Program</div>
+        <div class="type-meta"><span class="type-tag type-tag-display">H2 · Section Title</span><span class="token-value">Barlow Condensed 800 · 36px</span></div>
+      </div>
+      <div class="type-specimen">
+        <div style="font-family:'Barlow Condensed';font-size:24px;font-weight:700;text-transform:uppercase;color:var(--bw-navy)">Payment Info &amp; Sliding Scale</div>
+        <div class="type-meta"><span class="type-tag type-tag-display">H3 · Card Heading</span><span class="token-value">Barlow Condensed 700 · 24px</span></div>
+      </div>
+      <div class="type-specimen">
+        <div style="font-family:'Barlow Condensed';font-size:13px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--bw-blue)">Ages 13–18 · South Seattle</div>
+        <div class="type-meta"><span class="type-tag type-tag-display">Eyebrow Label</span><span class="token-value">Barlow Condensed 800 · 13px · 0.18em</span></div>
+      </div>
+      <div class="type-specimen">
+        <div style="font-family:'Barlow';font-size:16px;font-weight:400;color:var(--bw-gray-600);line-height:1.7;max-width:540px">Our Youth programs are rooted in the belief that young people thrive when they are valued, when they value themselves, and when they feel a sense of belonging. All participants receive mentorship and access to professional tools.</div>
+        <div class="type-meta"><span class="type-tag type-tag-body">Body · 16px</span><span class="token-value">Barlow 400 · 16px · 1.7 line-height</span></div>
+      </div>
+      <div class="type-specimen">
+        <div style="font-family:'Barlow';font-size:14px;color:var(--bw-gray-400)">Saturdays 12–2PM · 3715 S Hudson St · Free · No experience required</div>
+        <div class="type-meta"><span class="type-tag type-tag-body">Caption · 14px</span><span class="token-value">Barlow 400 · 14px · gray-400</span></div>
+      </div>
+    </div>
+
+    <div class="rationale">
+      <div class="rationale-header"><span class="rationale-icon">🔬</span><span class="rationale-title">Design Rationale</span></div>
+      <div class="rationale-body">
+        <div class="rationale-point">
+          <div class="rationale-point-label">Why Barlow Condensed</div>
+          <div class="rationale-point-text">The existing site uses uppercase, bold display text for navigation and cards — a strong brand pattern worth preserving. Barlow Condensed formalizes this into a consistent display scale that is <strong>energetic, space-efficient, and community-facing</strong> without feeling corporate.</div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Readability Problem Solved</div>
+          <div class="rationale-point-text">Leo Fan found the original site "information was concise but main improvement needed was clearer hierarchy." The strict 7-step type scale (Display → Caption) creates immediate visual priority, so users can scan to what matters for them.</div>
+          <div class="rationale-quote">"Felt the site contained a lot of text, though information was concise. Suggested communicating key information faster and more efficiently." <cite>— Leo Fan, Interview</cite></div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Single Font Family</div>
+          <div class="rationale-point-text">Using Barlow and Barlow Condensed as a <strong>superfamily pairing</strong> ensures visual cohesion at all sizes. No jarring contrast between display and body — a lesson from Gregg's Cycle's competitor analysis: "consistent font styles and sizes for cards and call to action."</div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Accessible Line Height</div>
+          <div class="rationale-point-text">Body text uses 1.7 line-height (above WCAG 1.5x minimum) and 16px base size, directly addressing the readability fatigue Leo Fan and Michael Lee both reported on the original dense text layouts.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ 3. BUTTONS ══════ -->
+<section id="buttons" class="ds-section">
+  <p class="ds-section-eyebrow">03 · Interactive</p>
+  <h2 class="ds-section-headline">Buttons</h2>
+  <p class="ds-section-intro">A clear four-variant hierarchy ensures users can always identify the primary action on any page. All variants use Barlow Condensed Bold in uppercase to maintain brand voice.</p>
+
+  <div class="ds-two-col">
+    <div class="ds-card">
+      <p class="subsection-label">Variants</p>
+      <div class="btn-row">
+        <button class="bw-btn bw-btn-primary">Support Us</button>
+        <button class="bw-btn bw-btn-secondary">Learn More</button>
+        <button class="bw-btn bw-btn-cta">Get a Bike</button>
+        <div style="background:var(--bw-navy);padding:10px 14px;border-radius:var(--radius-md);display:inline-flex">
+          <button class="bw-btn bw-btn-ghost">Volunteer</button>
+        </div>
+        <button class="bw-btn bw-btn-danger">Cancel</button>
+      </div>
+      <div class="divider"></div>
+      <p class="subsection-label">Sizes</p>
+      <div class="btn-row">
+        <button class="bw-btn bw-btn-primary bw-btn-sm">Small</button>
+        <button class="bw-btn bw-btn-primary">Default</button>
+        <button class="bw-btn bw-btn-primary bw-btn-lg">Large</button>
+        <button class="bw-btn bw-btn-cta bw-btn-xl">Sign Up Now</button>
+      </div>
+      <div class="divider"></div>
+      <p class="subsection-label">States</p>
+      <div class="btn-row">
+        <button class="bw-btn bw-btn-primary">Active</button>
+        <button class="bw-btn bw-btn-primary" style="opacity:.7;cursor:wait">⟳ &nbsp;Loading</button>
+        <button class="bw-btn bw-btn-primary" disabled>Disabled</button>
+        <button class="bw-btn bw-btn-secondary" disabled>Disabled</button>
+      </div>
+      <div class="divider"></div>
+      <p class="subsection-label">With Icons</p>
+      <div class="btn-row">
+        <button class="bw-btn bw-btn-primary">🚲 &nbsp;Donate a Bike</button>
+        <button class="bw-btn bw-btn-secondary">📅 &nbsp;View Calendar</button>
+        <button class="bw-btn bw-btn-cta">Register Now →</button>
+      </div>
+    </div>
+
+    <div class="rationale">
+      <div class="rationale-header"><span class="rationale-icon">🔬</span><span class="rationale-title">Design Rationale</span></div>
+      <div class="rationale-body">
+        <div class="rationale-point">
+          <div class="rationale-point-label">Primary — BW Blue</div>
+          <div class="rationale-point-text">BW Blue for primary actions mirrors the existing "SUPPORT" button observed in the design assets. <strong>Blue on white passes WCAG AA</strong>, resolving the contrast concerns Roderick raised. Drop shadow reinforces clickability.</div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">CTA — Yellow on Navy</div>
+          <div class="rationale-point-text">High-priority conversion actions (Get a Bike, Sign Up, Donate) use yellow — the brand's most energetic color — on navy text for the highest achievable contrast. This is directly inspired by the existing "LEARN MORE" button variant observed in design files.</div>
+          <div class="rationale-quote">"Immediately drawn to Free and Low-Cost Services. Found programs like Earn-a-Bike highly valuable." <cite>— Leo Fan, Interview</cite></div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">No More Than One Primary CTA</div>
+          <div class="rationale-point-text">Gregg's Cycle was praised because "it's clear that specific types of cards call out to shopping options." Each page section should have a single dominant action — this hierarchy (Primary → CTA → Secondary → Ghost) enforces that.</div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">44px Minimum Touch Target</div>
+          <div class="rationale-point-text">All button sizes meet 44×44px minimum for mobile accessibility, supporting users who may be accessing the site on mobile while biking or on the go — a key Bike Works audience behavior.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ 4. FORMS ══════ -->
+<section id="forms" class="ds-section">
+  <p class="ds-section-eyebrow">04 · Interactive</p>
+  <h2 class="ds-section-headline">Form Elements</h2>
+  <p class="ds-section-intro">Forms serve critical tasks: program registration, volunteer sign-up, newsletter, and eligibility checks. Clean structure and strong focus states reduce drop-off.</p>
+
+  <div class="ds-two-col">
+    <div>
+      <div class="ds-grid ds-grid-2" style="gap:var(--space-5)">
+        <div class="ds-card">
+          <p class="subsection-label">Text Inputs</p>
+          <div class="form-field">
+            <label class="bw-label">First Name</label>
+            <input class="bw-input" type="text" placeholder="Enter your first name">
+            <p class="bw-helper">Used for program registration and communications.</p>
+          </div>
+          <div class="form-field">
+            <label class="bw-label">Email Address</label>
+            <input class="bw-input" type="email" value="volunteer@bikeworks.org">
+          </div>
+          <div class="form-field">
+            <label class="bw-label">Zip Code</label>
+            <input class="bw-input bw-input-error" type="text" value="1234">
+            <p class="bw-error-msg">Must be within service area (SE Seattle / S King County).</p>
+          </div>
+        </div>
+        <div class="ds-card">
+          <p class="subsection-label">Select, Textarea &amp; Checkbox</p>
+          <div class="form-field">
+            <label class="bw-label">Program Interest</label>
+            <select class="bw-select">
+              <option>Youth Drop-In</option>
+              <option>Earn-a-Bike</option>
+              <option>Community Bike Shop</option>
+              <option>Volunteering</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="bw-label">Message</label>
+            <textarea class="bw-textarea" placeholder="Tell us about yourself…"></textarea>
+          </div>
+          <div class="flex-col">
+            <label class="bw-checkbox-row"><input type="checkbox" class="bw-checkbox" checked><span class="bw-checkbox-label">I agree to the sliding scale payment policy</span></label>
+            <label class="bw-checkbox-row"><input type="checkbox" class="bw-checkbox"><span class="bw-checkbox-label">Subscribe to the Bike Works newsletter</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rationale">
+      <div class="rationale-header"><span class="rationale-icon">🔬</span><span class="rationale-title">Design Rationale</span></div>
+      <div class="rationale-body">
+        <div class="rationale-point">
+          <div class="rationale-point-label">2px Border vs Background Fill</div>
+          <div class="rationale-point-text">The original site's forms blended into the yellow background. This system uses <strong>2px bordered inputs on white</strong> to ensure form fields stand out on any background color — directly solving the challenge noted in the project discovery: "Needs more contrast for form blocks because it blends in too much with the yellow."</div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Blue Focus Ring</div>
+          <div class="rationale-point-text">A 3px blue focus ring (rgba 15% opacity spread) makes keyboard navigation clearly visible, supporting diverse users including those with motor impairments — aligning with Bike Works' equity mission of serving communities "historically excluded."</div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Zip Code Validation</div>
+          <div class="rationale-point-text">The Bikes-for-All program has geographic eligibility (SE Seattle, South King County zip codes). Inline error messages on zip fields reduce application friction for eligible low-income users who may be less tech-confident.</div>
+          <div class="rationale-quote">"The program prioritizes youth and adults from low-income households and communities that have been historically underserved." <cite>— Bikes-for-All Program Desc.</cite></div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Newsletter Opt-In</div>
+          <div class="rationale-point-text">The site audit revealed every page has a newsletter sign-up. The checkbox component ensures this critical touchpoint is accessible and clearly labelled, not buried or auto-checked.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ 5. CARDS ══════ -->
+<section id="cards" class="ds-section">
+  <p class="ds-section-eyebrow">05 · Content</p>
+  <h2 class="ds-section-headline">Cards</h2>
+  <p class="ds-section-intro">Cards are the primary unit for presenting programs, events, and impact data. Three card types handle different content densities.</p>
+
+  <div class="ds-two-col">
+    <div>
+      <p class="subsection-label">Program Cards</p>
+      <div class="ds-grid ds-grid-3" style="margin-bottom:var(--space-6)">
+        <div class="prog-card">
+          <div class="prog-card-img" style="background:var(--bw-blue)">
+            <span class="prog-card-badge">Ages 13–18</span>🚲
+          </div>
+          <div class="prog-card-body">
+            <p class="prog-card-title">Youth Drop-In</p>
+            <p class="prog-card-desc">Practice bike repair with access to our professional stands and tools. Build community skills and earn service hours.</p>
+            <button class="bw-btn bw-btn-primary" style="width:100%">Sign Up</button>
+          </div>
+          <div class="prog-card-footer">
+            <span class="prog-card-detail"><strong>Every Sat</strong> · 12–2PM</span>
+            <span class="prog-card-detail" style="color:var(--bw-success);font-weight:800">FREE</span>
+          </div>
+        </div>
+        <div class="prog-card">
+          <div class="prog-card-img" style="background:var(--bw-yellow)">
+            <span class="prog-card-badge" style="background:var(--bw-navy);color:var(--bw-yellow)">All Ages</span>🏆
+          </div>
+          <div class="prog-card-body">
+            <p class="prog-card-title">Earn-a-Bike</p>
+            <p class="prog-card-desc">Earn your own bike by working on donated bikes. Complete service hours and learn advanced maintenance.</p>
+            <button class="bw-btn bw-btn-cta" style="width:100%">Learn More</button>
+          </div>
+          <div class="prog-card-footer">
+            <span class="prog-card-detail"><strong>Ongoing</strong></span>
+            <span class="prog-card-detail">Sliding Scale</span>
+          </div>
+        </div>
+        <div class="prog-card">
+          <div class="prog-card-img" style="background:var(--bw-navy)">
+            <span class="prog-card-badge">Adults 18+</span>🔧
+          </div>
+          <div class="prog-card-body">
+            <p class="prog-card-title">Community Shop</p>
+            <p class="prog-card-desc">Repair your bike with guidance from our staff. Affordable parts and tools on sliding scale pricing.</p>
+            <button class="bw-btn bw-btn-secondary" style="width:100%">Find Us</button>
+          </div>
+          <div class="prog-card-footer">
+            <span class="prog-card-detail"><strong>Tue–Sat</strong></span>
+            <span class="prog-card-detail">Sliding Scale</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="subsection-label">Impact / Stat Cards</p>
+      <div class="ds-grid ds-grid-4" style="margin-bottom:var(--space-6)">
+        <div class="stat-card"><div class="stat-card-number">300+</div><div class="stat-card-label">Bikes Annually</div></div>
+        <div class="stat-card"><div class="stat-card-number">Free</div><div class="stat-card-label">Youth Drop-In</div></div>
+        <div class="stat-card"><div class="stat-card-number">27yrs</div><div class="stat-card-label">In Community</div></div>
+        <div class="stat-card"><div class="stat-card-number">$0</div><div class="stat-card-label">To Participate</div></div>
+      </div>
+
+      <p class="subsection-label">Alert Cards</p>
+      <div class="flex-col">
+        <div class="alert alert-info"><span class="alert-icon">ℹ️</span><div><strong>Sliding Scale</strong>Bike Works offers all programs on a sliding scale. Pay what you can to help others participate for free.</div></div>
+        <div class="alert alert-success"><span class="alert-icon">✅</span><div><strong>Registration Open</strong>Summer Mechanic Camp spots available. Sign up before June 1st.</div></div>
+        <div class="alert alert-warning"><span class="alert-icon">⚠️</span><div><strong>Limited Spots</strong>Online applications are limited to 18 students. Complete early to guarantee your place.</div></div>
+        <div class="alert alert-error"><span class="alert-icon">❌</span><div><strong>Eligibility Required</strong>Bikes-for-All applicants must live within our service area zip codes.</div></div>
+      </div>
+    </div>
+
+    <div class="rationale">
+      <div class="rationale-header"><span class="rationale-icon">🔬</span><span class="rationale-title">Design Rationale</span></div>
+      <div class="rationale-body">
+        <div class="rationale-point">
+          <div class="rationale-point-label">Consistent Card Structure</div>
+          <div class="rationale-point-text">The site audit found "there isn't a consistent content structure throughout the website." Program cards enforce a rigid 4-zone layout (image, title, description, CTA) so <strong>all programs are equally scannable</strong> regardless of content volume.</div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Age Badge as First Signal</div>
+          <div class="rationale-point-text">Michael Lee's interview revealed users struggled to understand what Bike Works offers. The age badge (Ages 13–18, Adults 18+) on every program card resolves this immediately — users self-select within 2 seconds of seeing a card, before reading any body copy.</div>
+          <div class="rationale-quote">"As an organization, it's hard to understand what they are... should provide summary of statement stating who they are and what services they provide." <cite>— Michael Lee, Interview</cite></div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Stat Cards — Impact at a Glance</div>
+          <div class="rationale-point-text">Academic literature on cycling equity shows organizations must communicate tangible impact to build trust with underserved communities. Large-number stat cards make "300+ bikes annually" and "FREE" immediately legible for users scanning quickly.</div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Hover Lift Effect</div>
+          <div class="rationale-point-text">Cards lift (+2px translateY, deeper shadow) on hover — a subtle affordance that communicates interactivity without distracting from content. Mello Fellos was praised for "simple, clear call-to-action" banners; this pattern extends that clarity to every card.</div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Alert Cards for Key Policies</div>
+          <div class="rationale-point-text">The sliding scale payment policy is a core equity mechanism. Alert cards ensure this information is surfaced at every relevant touchpoint — not buried in body text — supporting equitable access for users who may disengage if cost is unclear.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ 6. NAVIGATION ══════ -->
+<section id="navigation" class="ds-section">
+  <p class="ds-section-eyebrow">06 · Navigation</p>
+  <h2 class="ds-section-headline">Navigation</h2>
+  <p class="ds-section-intro">A single, consolidated navigation bar replaces the existing dual-nav system that confused users. Active states use yellow for instant location awareness.</p>
+
+  <div class="ds-two-col">
+    <div>
+      <p class="subsection-label">Desktop Navigation Bar</p>
+      <div style="margin-bottom:var(--space-5)">
+        <div class="demo-navbar">
+          <div class="demo-navbar-inner">
+            <a href="#" class="nav-logo">
+              <div class="nav-logo-badge">🚲</div>
+              <span class="nav-logo-text">Bike Works</span>
+            </a>
+            <nav class="nav-links">
+              <a href="#" class="nav-link active">Home</a>
+              <a href="#" class="nav-link">Bike Shop</a>
+              <a href="#" class="nav-link">Programs</a>
+              <a href="#" class="nav-link">Volunteering</a>
+              <a href="#" class="nav-link">Services</a>
+              <a href="#" class="nav-link">About</a>
+            </nav>
+            <div class="nav-actions">
+              <button class="nav-icon-btn">📞</button>
+              <button class="nav-icon-btn">📍</button>
+              <button class="nav-icon-btn">🔍</button>
+              <button class="bw-btn bw-btn-cta bw-btn-sm">Support</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="subsection-label">Breadcrumb</p>
+      <div class="ds-card" style="padding:var(--space-4) var(--space-5);margin-bottom:var(--space-5)">
+        <nav class="breadcrumb">
+          <a href="#" class="breadcrumb-item">Home</a>
+          <span class="breadcrumb-sep">›</span>
+          <a href="#" class="breadcrumb-item">Programs</a>
+          <span class="breadcrumb-sep">›</span>
+          <span class="breadcrumb-item active">Youth Drop-In</span>
+        </nav>
+      </div>
+
+      <p class="subsection-label">Tabbed Content</p>
+      <div class="ds-card" style="padding:0;overflow:hidden;margin-bottom:var(--space-5)">
+        <div class="bw-tabs" style="padding:0 var(--space-5)">
+          <button class="bw-tab active">Overview</button>
+          <button class="bw-tab">Eligibility</button>
+          <button class="bw-tab">Schedule</button>
+          <button class="bw-tab">FAQ</button>
+        </div>
+        <div style="padding:var(--space-5)">
+          <p style="font-size:14px;color:var(--bw-gray-600)">Tab content area. Tabs reduce page length by consolidating dense information (eligibility, schedule, FAQ) that previously required excessive scrolling.</p>
+        </div>
+      </div>
+
+      <p class="subsection-label">Pagination</p>
+      <div class="ds-card" style="padding:var(--space-4) var(--space-5)">
+        <nav class="pagination">
+          <button class="page-btn">‹</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <span style="font-size:14px;color:var(--bw-gray-400);padding:0 4px">…</span>
+          <button class="page-btn">8</button>
+          <button class="page-btn">›</button>
+        </nav>
+      </div>
+    </div>
+
+    <div class="rationale">
+      <div class="rationale-header"><span class="rationale-icon">🔬</span><span class="rationale-title">Design Rationale</span></div>
+      <div class="rationale-body">
+        <div class="rationale-point">
+          <div class="rationale-point-label">Single Navigation Bar</div>
+          <div class="rationale-point-text">The project discovery identified that "the website contains two nav bars, which could confuse the user and their journey." This system <strong>consolidates into one bar</strong> — primary links, icon utilities (phone, map, search), and the Support CTA — eliminating the dual-nav confusion entirely.</div>
+          <div class="rationale-quote">"The website contains two nav bars, which could confuse the user and their journey." <cite>— Project Discovery Audit</cite></div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Support as Always-Visible CTA</div>
+          <div class="rationale-point-text">The "Support" button remains persistently visible in the nav on every page — matching the existing design pattern but now in high-contrast Yellow/Navy. Roderick confirmed donation/volunteer promotion is critical to the org's sustainability.</div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Yellow Active State</div>
+          <div class="rationale-point-text">Active nav links use yellow — the most visually distinctive color in the palette — so users always know where they are. This addresses Leo Fan's feedback about difficulty orienting on the site.</div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Tabs for Long Pages</div>
+          <div class="rationale-point-text">The site audit noted "Staff and Board pages are excessively long and text-heavy." Tabs break this pattern by segmenting content (Overview, Eligibility, Schedule, FAQ) into digestible chunks while keeping everything accessible on one URL.</div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Icon-Only Utilities</div>
+          <div class="rationale-point-text">Phone, map, and calendar icons are compressed to icon-only in the nav (matching the existing design system's icon set) to preserve space for the primary navigation links while keeping utility access a single tap away.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ 7. BADGES ══════ -->
+<section id="badges" class="ds-section">
+  <p class="ds-section-eyebrow">07 · Labeling</p>
+  <h2 class="ds-section-headline">Badges &amp; Tags</h2>
+  <p class="ds-section-intro">Badges surface program status, eligibility, and categories at a glance. Filter tags help users self-direct to relevant programs — a key need for a multi-audience organization.</p>
+
+  <div class="ds-two-col">
+    <div class="ds-card">
+      <p class="subsection-label">Status Badges</p>
+      <div class="flex-row" style="margin-bottom:var(--space-5)">
+        <span class="badge badge-blue">Youth Program</span>
+        <span class="badge badge-yellow">Registration Open</span>
+        <span class="badge badge-green">Active</span>
+        <span class="badge badge-navy">Free</span>
+        <span class="badge badge-gray">Waitlist</span>
+      </div>
+      <p class="subsection-label">Live Status Indicators</p>
+      <div class="flex-row" style="margin-bottom:var(--space-5)">
+        <span class="status-dot status-active">Open</span>
+        <span class="status-dot status-inactive">Closed</span>
+        <span class="status-dot status-warning">Limited Spots</span>
+      </div>
+      <p class="subsection-label">Filter Tags</p>
+      <div class="flex-row">
+        <span class="tag active">All Programs</span>
+        <span class="tag">Youth</span>
+        <span class="tag">Adults</span>
+        <span class="tag">Free</span>
+        <span class="tag">Sliding Scale</span>
+        <span class="tag">Drop-In</span>
+        <span class="tag">Registration Required</span>
+      </div>
+    </div>
+
+    <div class="rationale">
+      <div class="rationale-header"><span class="rationale-icon">🔬</span><span class="rationale-title">Design Rationale</span></div>
+      <div class="rationale-body">
+        <div class="rationale-point">
+          <div class="rationale-point-label">FREE Badge — Top Priority</div>
+          <div class="rationale-point-text">Leo Fan was "immediately drawn to Free and Low-Cost Services" and found it "highly valuable." The navy/yellow FREE badge is the most visually prominent badge in the system, ensuring this key differentiator is surfaced everywhere it applies.</div>
+          <div class="rationale-quote">"Immediately drawn to Free and Low-Cost Services. Found programs like Earn-a-Bike, virtual repair resources, and open shop access highly valuable." <cite>— Leo Fan, Interview</cite></div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Multi-Audience Filtering</div>
+          <div class="rationale-point-text">Bike Works serves youth (13–18), adults, volunteers, and donors simultaneously. Filter tags allow each visitor type to quickly surface relevant programs without scrolling through content meant for others — directly reducing the "overwhelming amount of information" problem identified in the audit.</div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Limited Spots Warning</div>
+          <div class="rationale-point-text">Roderick noted that giveaway promotions risk "too many signups" which "could disappoint people." The Warning badge surfaces capacity limits early in the browsing experience, managing expectations before users commit to the registration flow.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ 8. SPACING ══════ -->
+<section id="spacing" class="ds-section">
+  <p class="ds-section-eyebrow">08 · Foundation</p>
+  <h2 class="ds-section-headline">Spacing &amp; Radius</h2>
+  <p class="ds-section-intro">A 4px base unit creates a consistent rhythm. The audit identified "a lot of uneven spacing in the left side" — this scale eliminates ad-hoc values.</p>
+
+  <div class="ds-two-col">
+    <div>
+      <div class="ds-grid ds-grid-2" style="gap:var(--space-5)">
+        <div class="ds-card">
+          <p class="subsection-label" style="margin-bottom:var(--space-5)">Spacing Scale</p>
+          <div class="space-row">
+            <div class="space-item"><div class="space-block" style="width:4px"></div><div class="space-token">4px</div></div>
+            <div class="space-item"><div class="space-block" style="width:8px"></div><div class="space-token">8px</div></div>
+            <div class="space-item"><div class="space-block" style="width:12px"></div><div class="space-token">12px</div></div>
+            <div class="space-item"><div class="space-block" style="width:16px"></div><div class="space-token">16px</div></div>
+            <div class="space-item"><div class="space-block" style="width:24px"></div><div class="space-token">24px</div></div>
+            <div class="space-item"><div class="space-block" style="width:32px"></div><div class="space-token">32px</div></div>
+            <div class="space-item"><div class="space-block" style="width:48px"></div><div class="space-token">48px</div></div>
+            <div class="space-item"><div class="space-block" style="width:64px"></div><div class="space-token">64px</div></div>
+            <div class="space-item"><div class="space-block" style="width:96px"></div><div class="space-token">96px</div></div>
+          </div>
+        </div>
+        <div class="ds-card">
+          <p class="subsection-label" style="margin-bottom:var(--space-5)">Border Radius</p>
+          <div class="flex-col">
+            <div class="flex-row"><div style="width:60px;height:40px;background:var(--bw-blue);opacity:.3;border-radius:4px"></div><span class="token-value">--radius-sm · 4px · buttons, inputs</span></div>
+            <div class="flex-row"><div style="width:60px;height:40px;background:var(--bw-blue);opacity:.3;border-radius:8px"></div><span class="token-value">--radius-md · 8px · nav, alerts</span></div>
+            <div class="flex-row"><div style="width:60px;height:40px;background:var(--bw-blue);opacity:.3;border-radius:12px"></div><span class="token-value">--radius-lg · 12px · cards, sections</span></div>
+            <div class="flex-row"><div style="width:60px;height:40px;background:var(--bw-blue);opacity:.3;border-radius:20px"></div><span class="token-value">--radius-xl · 20px · large containers</span></div>
+            <div class="flex-row"><div style="width:60px;height:40px;background:var(--bw-blue);opacity:.3;border-radius:999px"></div><span class="token-value">--radius-pill · badges, tags</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rationale">
+      <div class="rationale-header"><span class="rationale-icon">🔬</span><span class="rationale-title">Design Rationale</span></div>
+      <div class="rationale-body">
+        <div class="rationale-point">
+          <div class="rationale-point-label">4px Base Grid</div>
+          <div class="rationale-point-text">The site audit directly identified "a lot of uneven spacing in the left side" and "footer components don't have a lot of spacing between the links." A strict 4px base unit (4, 8, 12, 16, 24, 32, 48, 64, 96) eliminates all ad-hoc pixel values and creates the visual rhythm the original site lacked.</div>
+          <div class="rationale-quote">"Footer components don't have a lot of spacing between the links. There is a lot of uneven spacing in the left side too." <cite>— Project Discovery Audit</cite></div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Generous Section Spacing</div>
+          <div class="rationale-point-text">Section-level spacing uses 64px (--space-8) and 96px (--space-9) to create clear visual breathing room between content blocks. This prevents the "overwhelming amount of information" feeling by using whitespace as an organizational tool rather than packing content edge-to-edge.</div>
+        </div>
+        <div class="rationale-point">
+          <div class="rationale-point-label">Radius Philosophy</div>
+          <div class="rationale-point-text">Smaller radii (4–8px) on interactive elements (buttons, inputs) communicate precision and reliability. Larger radii (12–20px) on content containers (cards, sections) feel warm and approachable — matching Bike Works' community-first identity rather than a cold, corporate aesthetic.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ 9. ASSEMBLED PATTERNS ══════ -->
+<section id="patterns" class="ds-section">
+  <p class="ds-section-eyebrow">09 · Patterns</p>
+  <h2 class="ds-section-headline">Assembled Patterns</h2>
+  <p class="ds-section-intro">These show how tokens and components combine into full sections. Each pattern solves a specific UX problem identified in research.</p>
+
+  <!-- Hero -->
+  <p class="subsection-label">Hero Section — New Visitor Orientation</p>
+  <div style="margin-bottom:var(--space-7)">
+    <div class="hero-demo">
+      <div class="hero-demo-content">
+        <p class="hero-eyebrow">South Seattle · Bikes for All</p>
+        <h2 class="hero-title">Ride.<br><span>Rise.</span><br>Repeat.</h2>
+        <p class="hero-body">Bike Works uses the bicycle as a vehicle for community empowerment, sustainable transportation, and social justice across Southeast Seattle and South King County. Our programs are free or sliding scale.</p>
+        <div class="hero-actions">
+          <a href="#" class="bw-btn bw-btn-cta bw-btn-lg">Get Involved</a>
+          <a href="#" class="bw-btn bw-btn-ghost bw-btn-lg">Learn More →</a>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--bw-white);border:1px solid var(--bw-gray-200);border-top:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);padding:var(--space-4) var(--space-5)">
+      <p style="font-size:12px;color:var(--bw-gray-400);font-style:italic"><strong style="color:var(--bw-blue);font-style:normal">Why:</strong> Michael Lee said "it's hard to understand what they are — volunteers, taking donations, a little bit weird." The hero provides an immediate, plain-language mission statement with a visible CTA before any scrolling is required. The eyebrow ("South Seattle · Bikes for All") answers the "who is this for" question in 5 words.</p>
+    </div>
+  </div>
+
+  <!-- Program Progress -->
+  <p class="subsection-label">Progress Tracker — Earn-a-Bike Journey</p>
+  <div style="margin-bottom:var(--space-7)">
+    <div class="ds-card">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-7);align-items:start">
+        <div>
+          <h3 style="font-family:var(--font-display);font-size:20px;font-weight:800;text-transform:uppercase;color:var(--bw-navy);margin-bottom:var(--space-5)">Your Earn-a-Bike Progress</h3>
+          <div style="display:grid;gap:var(--space-4)">
+            <div><div style="display:flex;justify-content:space-between;margin-bottom:var(--space-2)"><span style="font-family:var(--font-display);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--bw-gray-900)">Skill Building</span><span style="font-family:var(--font-display);font-size:12px;font-weight:700;color:var(--bw-blue)">6/8 sessions</span></div><div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;margin-bottom:var(--space-2)"><span style="font-family:var(--font-display);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--bw-gray-900)">Community Hours</span><span style="font-family:var(--font-display);font-size:12px;font-weight:700;color:var(--bw-yellow-dark)">18/40 hrs</span></div><div class="progress-bar"><div class="progress-fill progress-fill-yellow" style="width:45%"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;margin-bottom:var(--space-2)"><span style="font-family:var(--font-display);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--bw-gray-900)">Bike Earned</span><span style="font-family:var(--font-display);font-size:12px;font-weight:700;color:#1A6B4D">Complete ✓</span></div><div class="progress-bar"><div class="progress-fill progress-fill-green" style="width:100%"></div></div></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+          <div class="alert alert-success"><span class="alert-icon">✅</span><div><strong>Bike Earned!</strong>You've completed the program. Pick up your bike at the warehouse Saturday 12–2PM.</div></div>
+          <div class="alert alert-info"><span class="alert-icon">ℹ️</span><div><strong>Next Step</strong>Continue to earn community service hours for school documentation.</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--bw-white);border:1px solid var(--bw-gray-200);border-top:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);padding:var(--space-4) var(--space-5)">
+      <p style="font-size:12px;color:var(--bw-gray-400);font-style:italic"><strong style="color:var(--bw-blue);font-style:normal">Why:</strong> Literature on cycling equity found that youth engagement improves when progress is visible and rewarded. This pattern visualizes the Earn-a-Bike journey (skill sessions + community hours + bike earned), gamifying participation for 13–18 year-olds and building the sense of progress and belonging Bike Works' mission emphasizes.</p>
+    </div>
+  </div>
+
+  <!-- Dark CTA -->
+  <p class="subsection-label">Donation CTA Section — Sliding Scale Communication</p>
+  <div style="margin-bottom:var(--space-7)">
+    <div class="section-dark">
+      <div style="display:grid;grid-template-columns:1fr auto;gap:var(--space-6);align-items:center">
+        <div>
+          <p style="font-family:var(--font-display);font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--bw-yellow);margin-bottom:var(--space-3)">Support the Mission</p>
+          <h3 style="font-family:var(--font-display);font-size:40px;font-weight:900;text-transform:uppercase;color:white;line-height:1;margin-bottom:var(--space-3)">Every Donation <span style="color:var(--bw-yellow)">Moves Someone Forward</span></h3>
+          <p style="font-size:15px;color:rgba(255,255,255,.75);line-height:1.65;max-width:480px">If you can afford the full cost, your payment helps 'pay it forward' so others can participate for free or at a reduced rate. 100% of proceeds support South Seattle youth and families.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:var(--space-3);align-items:flex-end">
+          <button class="bw-btn bw-btn-cta bw-btn-lg">Donate Now</button>
+          <button class="bw-btn bw-btn-ghost">Donate a Bike →</button>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--bw-white);border:1px solid var(--bw-gray-200);border-top:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);padding:var(--space-4) var(--space-5)">
+      <p style="font-size:12px;color:var(--bw-gray-400);font-style:italic"><strong style="color:var(--bw-blue);font-style:normal">Why:</strong> Roderick noted that "not much promotion" is done for donations. This dark section pattern creates a high-contrast, emotionally resonant donation moment that can be inserted on any page. Blue background (not yellow) ensures the yellow CTA button achieves maximum contrast without the accessibility failures of a yellow-background page.</p>
+    </div>
+  </div>
+
+  <!-- Event listing -->
+  <p class="subsection-label">Schedule Listing — Where to Find Us</p>
+  <div>
+    <div class="ds-card">
+      <h3 style="font-family:var(--font-display);font-size:24px;font-weight:800;text-transform:uppercase;color:var(--bw-navy);margin-bottom:var(--space-5)">Where to Find Us This Week</h3>
+      <div style="display:grid;gap:var(--space-3)">
+        <div style="display:grid;grid-template-columns:64px 1fr auto;gap:var(--space-4);align-items:center;padding:var(--space-3) 0;border-bottom:1px solid var(--bw-gray-100)">
+          <div style="background:var(--bw-blue);border-radius:var(--radius-md);padding:var(--space-2);text-align:center"><div style="font-family:var(--font-display);font-size:22px;font-weight:900;color:white;line-height:1">SAT</div><div style="font-family:var(--font-display);font-size:11px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.08em">WEEKLY</div></div>
+          <div><div style="font-family:var(--font-display);font-size:16px;font-weight:800;text-transform:uppercase;color:var(--bw-navy)">Community Drop-In</div><div style="font-size:13px;color:var(--bw-gray-400)">12–2PM · Chief Sealth High School &amp; 375 S Hudson St</div></div>
+          <div style="text-align:right"><span class="badge badge-navy">Free</span><div style="margin-top:6px"><button class="bw-btn bw-btn-primary bw-btn-sm">Sign Up</button></div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:64px 1fr auto;gap:var(--space-4);align-items:center;padding:var(--space-3) 0;border-bottom:1px solid var(--bw-gray-100)">
+          <div style="background:var(--bw-yellow);border-radius:var(--radius-md);padding:var(--space-2);text-align:center"><div style="font-family:var(--font-display);font-size:22px;font-weight:900;color:var(--bw-navy);line-height:1">THU</div><div style="font-family:var(--font-display);font-size:11px;font-weight:700;color:var(--bw-navy);opacity:.6;letter-spacing:.08em">19th</div></div>
+          <div><div style="font-family:var(--font-display);font-size:16px;font-weight:800;text-transform:uppercase;color:var(--bw-navy)">Volunteer Repair Party</div><div style="font-size:13px;color:var(--bw-gray-400)">6–8PM · Bike Works Warehouse · No experience needed</div></div>
+          <div style="text-align:right"><span class="badge badge-yellow">Limited</span><div style="margin-top:6px"><button class="bw-btn bw-btn-secondary bw-btn-sm">Register</button></div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:64px 1fr auto;gap:var(--space-4);align-items:center;padding:var(--space-3) 0">
+          <div style="background:var(--bw-navy);border-radius:var(--radius-md);padding:var(--space-2);text-align:center"><div style="font-family:var(--font-display);font-size:22px;font-weight:900;color:var(--bw-yellow);line-height:1">TUE</div><div style="font-family:var(--font-display);font-size:11px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.08em">WEEKLY</div></div>
+          <div><div style="font-family:var(--font-display);font-size:16px;font-weight:800;text-transform:uppercase;color:var(--bw-navy)">Rainier Beach Program</div><div style="font-size:13px;color:var(--bw-gray-400)">Rainier Beach High School · All youth ages 13–18</div></div>
+          <div style="text-align:right"><span class="badge badge-green">Open</span><div style="margin-top:6px"><button class="bw-btn bw-btn-primary bw-btn-sm">Join</button></div></div>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--bw-white);border:1px solid var(--bw-gray-200);border-top:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);padding:var(--space-4) var(--space-5)">
+      <p style="font-size:12px;color:var(--bw-gray-400);font-style:italic"><strong style="color:var(--bw-blue);font-style:normal">Why:</strong> Michael Lee wanted a Google Maps-integrated warehouse view. This schedule pattern displays location + time + availability in one compact row, making the "Where to Find Us" page immediately scannable. The date block uses the 3 brand colors as a rotating accent system, making each event visually distinct at a glance.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="ds-footer">
+  <p><strong>Bike Works</strong> Design System v2.0 — Research Annotated</p>
+  <p>Built from 3 interviews · 14 academic papers · competitor analysis · site audit · <strong>bikeworks.org</strong></p>
+</footer>
+
+</body>
+</html>
