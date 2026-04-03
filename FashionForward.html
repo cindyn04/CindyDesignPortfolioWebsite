@@ -63,7 +63,9 @@
   /* HERO */
   .case-hero {
     min-height: 88vh;
-    background: var(--ink);
+    background:
+      linear-gradient(rgba(26,18,25,0.65), rgba(26,18,25,0.65)),
+      url("img/fashion-for-hero.png") center/cover no-repeat;
     display: flex; flex-direction: column; justify-content: flex-end;
     padding: 120px 60px 72px;
     position: relative; overflow: hidden;
@@ -342,49 +344,6 @@
   }
   .next-title:hover { gap: 14px; color: var(--plum); }
 
-  /* DESIGN MOCKUP PLACEHOLDER */
-  .mockup-bar {
-    height: 320px;
-    background: linear-gradient(135deg, #D6B8D3 0%, #A870A4 40%, #8B3A7E 100%);
-    display: flex; align-items: center; justify-content: center;
-    position: relative; overflow: hidden;
-  }
-  .mockup-bar::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40zm0-40h2l-2 2V0zm0 4l4-4h2l-6 6V4zm0 4l8-8h2L40 10V8zm0 4L52 0h2L40 14v-2zm0 4L56 0h2L40 18v-2zm0 4L60 0h2L40 22v-2zm0 4L64 0h2L40 26v-2zm0 4L68 0h2L40 30v-2zm0 4L72 0h2L40 34v-2zm0 4L76 0h2L40 38v-2zm0 4L80 0v2L42 40h-2zm4 0L80 4v2L46 40h-2zm4 0L80 8v2L50 40h-2zm4 0L80 12v2L54 40h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  }
-  .mockup-screen {
-    background: white;
-    width: 520px; height: 260px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-    border-radius: 4px;
-    padding: 20px;
-    position: relative; z-index: 1;
-    display: grid; grid-template-columns: 140px 1fr; gap: 0;
-    overflow: hidden;
-  }
-  .mock-sidebar {
-    background: #F8F4FF; border-right: 1px solid #EDE4F0;
-    padding: 14px;
-    display: flex; flex-direction: column; gap: 6px;
-  }
-  .mock-sidebar-item {
-    height: 8px; border-radius: 4px; background: #D8C8D5;
-  }
-  .mock-sidebar-item.active { background: var(--plum); width: 70%; }
-  .mock-main { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
-  .mock-topbar { display: flex; gap: 8px; margin-bottom: 4px; }
-  .mock-kpi {
-    flex: 1; height: 40px; background: #F8F4FF;
-    border: 1px solid #EDE4F0; border-radius: 2px;
-  }
-  .mock-chart-row { display: flex; gap: 8px; flex: 1; }
-  .mock-chart { flex: 1; background: #F8F4FF; border: 1px solid #EDE4F0; border-radius: 2px; }
-  .mock-chart-sm { width: 40%; background: #F3E6F1; border: 1px solid #EDE4F0; border-radius: 2px; }
-  .mock-table-row { height: 8px; background: #EDE4F0; border-radius: 3px; width: 90%; }
-  .mock-table-row.short { width: 60%; }
-
   /* ANIMATIONS */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
@@ -453,34 +412,7 @@
   <div class="scroll-hint">Scroll to explore ↓</div>
 </div>
 
-<!-- MOCKUP BAR -->
-<div class="mockup-bar">
-  <div class="mockup-screen">
-    <div class="mock-sidebar">
-      <div class="mock-sidebar-item active"></div>
-      <div class="mock-sidebar-item" style="width:85%"></div>
-      <div class="mock-sidebar-item" style="width:75%"></div>
-      <div class="mock-sidebar-item" style="width:80%"></div>
-      <div class="mock-sidebar-item" style="width:60%"></div>
-      <div class="mock-sidebar-item" style="width:85%"></div>
-    </div>
-    <div class="mock-main">
-      <div class="mock-topbar">
-        <div class="mock-kpi"></div>
-        <div class="mock-kpi"></div>
-        <div class="mock-kpi"></div>
-        <div class="mock-kpi"></div>
-      </div>
-      <div class="mock-chart-row" style="height: 80px;">
-        <div class="mock-chart"></div>
-        <div class="mock-chart-sm"></div>
-      </div>
-      <div class="mock-table-row"></div>
-      <div class="mock-table-row short"></div>
-      <div class="mock-table-row"></div>
-    </div>
-  </div>
-</div>
+
 
 <!-- BODY -->
 <div style="padding: 0 60px;">
@@ -762,6 +694,34 @@
     </div>
   </div>
 
+  <!-- 07 FINAL DESIGN OUTCOME -->
+  <div class="section reveal" style="border-bottom: none; padding-bottom: 40px;">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">07</span>
+      <span class="eyebrow-label">Final Design Outcome</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h2 class="section-heading">Final solution<br><em>in action</em></h2>
+    <p class="overview-body" style="margin-top: 12px;">The final product combines the hero dashboard with logistics, supplier, and audit views to deliver a complete, scalable Supply Chain Toolkit.</p>
+    <div class="final-outcome-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 24px;">
+      <figure style="margin:0;">
+        <img src="img/fashion-for-dash.png" alt="FashionForward Dashboard screenshot" style="width:100%; border-radius: 8px; box-shadow: 0 12px 24px rgba(0,0,0,0.12);" />
+        <figcaption style="margin-top: 8px; font-size: 13px; color: var(--ink-soft);">Centralized analytics dashboard with live metrics</figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <img src="img/fashion-for-logistics.png" alt="Logistics view screenshot" style="width:100%; border-radius: 8px; box-shadow: 0 12px 24px rgba(0,0,0,0.12);" />
+        <figcaption style="margin-top: 8px; font-size: 13px; color: var(--ink-soft);">Real-time logistics and shipment tracking</figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <img src="img/fashion-for-supplier.png" alt="Supplier portal screenshot" style="width:100%; border-radius: 8px; box-shadow: 0 12px 24px rgba(0,0,0,0.12);" />
+        <figcaption style="margin-top: 8px; font-size: 13px; color: var(--ink-soft);">Supplier onboarding and certification workflows</figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <img src="img/fashion-for-audit.png" alt="Audit center screenshot" style="width:100%; border-radius: 8px; box-shadow: 0 12px 24px rgba(0,0,0,0.12);" />
+        <figcaption style="margin-top: 8px; font-size: 13px; color: var(--ink-soft);">Audit and certification verification center</figcaption>
+      </figure>
+    </div>
+  </div>
 </div><!-- end max-width -->
 </div><!-- end padding -->
 
