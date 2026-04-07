@@ -1,5 +1,5 @@
 # Cindy Nguyen | UX Design Portfolio 
-# University of Washington Informatics '26 
+University of Washington Informatics '26 
 Human-Computer Interaction (HCI) | Design Systems | AI
 
 # About Me
