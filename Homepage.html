@@ -89,7 +89,7 @@
     top: -200px; right: -200px;
     width: 700px; height: 700px;
     background: radial-gradient(circle, rgba(139,58,126,0.08) 0%, transparent 70%);
-    border-radius: 50%;
+    border-radius: 0%;
     pointer-events: none;
   }
   .hero::after {
@@ -98,7 +98,7 @@
     bottom: -100px; left: 30%;
     width: 400px; height: 400px;
     background: radial-gradient(circle, rgba(45,139,122,0.06) 0%, transparent 70%);
-    border-radius: 50%;
+    border-radius: 0%;
     pointer-events: none;
   }
   .hero-text { position: relative; z-index: 1; }
@@ -174,20 +174,12 @@
     opacity: 0.35;
     z-index: 0;
   }
-  .hero-photo-placeholder {
+  .hero-photo {
     width: 100%;
+    height: auto;
     aspect-ratio: 4/5;
-    background: linear-gradient(135deg, var(--plum-pale) 0%, #E8D4E5 100%);
-    position: relative; z-index: 1;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 12px;
-    overflow: hidden;
-  }
-  .hero-photo-placeholder::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238B3A7E' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    object-fit: cover;
+    display: block;
   }
   .photo-label {
     font-family: 'Cormorant Garamond', serif;
@@ -253,6 +245,7 @@
     transition: background 0.3s;
     position: relative;
     overflow: hidden;
+    border-radius: 0;
   }
   .project-card:last-child { border-bottom: 1px solid var(--border); }
   .project-card:hover { background: var(--warm-white); }
@@ -261,14 +254,22 @@
 
   .project-visual {
     position: relative; overflow: hidden;
+    border-radius: 0;
   }
   .project-bg {
     position: absolute; inset: 0;
+    border-radius: 0 !important;
     transition: transform 0.6s cubic-bezier(.25,.46,.45,.94);
   }
   .project-card:hover .project-bg { transform: scale(1.03); }
-  .project-bg-1 { background: url("img/fashion-cover.png") center/cover no-repeat; }
-  .project-bg-2 { background: url("img/waypoint-cover.png") center/cover no-repeat; }
+  .project-bg-1 {
+    background: url("img/fashion-cover.png") center/cover no-repeat;
+    border-radius: 0 !important;
+  }
+  .project-bg-2 {
+    background: url("img/waypoint-cover.png") center/cover no-repeat;
+    border-radius: 0 !important;
+  }
   .project-bg-3 { background: linear-gradient(135deg, #F5D4A8 0%, #D4965A 40%, #C47A2C 100%); }
   .project-bg-4 { background: linear-gradient(135deg, #D4C4E0 0%, #9B7AB8 40%, #6B4C8F 100%); }
   .project-screen {
@@ -276,7 +277,7 @@
     bottom: 0; left: 50%; transform: translateX(-50%);
     width: 72%;
     background: white;
-    border-radius: 4px 4px 0 0;
+    /* border-radius: 4px 4px 0 0; */
     padding: 20px;
     box-shadow: 0 -8px 40px rgba(0,0,0,0.15);
     transition: transform 0.6s cubic-bezier(.25,.46,.45,.94);
@@ -550,7 +551,8 @@
     nav, section, footer { padding-left: 28px; padding-right: 28px; }
     nav.scrolled { padding-left: 28px; padding-right: 28px; }
     .hero { grid-template-columns: 1fr; padding: 120px 28px 60px; }
-    .hero-visual { display: none; }
+    .hero-visual { display: flex; justify-content: center; }
+    .hero-photo-frame { width: 100%; max-width: 380px; }
     .project-card, .project-card.reverse { grid-template-columns: 1fr; direction: ltr; }
     .project-visual { height: 260px; }
     .about-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -592,10 +594,7 @@
   </div>
   <div class="hero-visual">
     <div class="hero-photo-frame">
-      <div class="hero-photo-placeholder">
-        <span class="photo-label">Cindy Nguyen</span>
-        <span class="photo-sub">Seattle, WA</span>
-      </div>
+      <img class="hero-photo" src="img/cindy-pfp.png" alt="Cindy Nguyen" />
       <div class="hero-caption">UW Informatics · HCI</div>
     </div>
   </div>
@@ -771,10 +770,11 @@
           </div>
           <div class="meta-item">
             <span class="meta-label">Tools</span>
-            <span class="meta-value">Figma</span>
+            <span class="meta-value">Figma, VS Code</span>
           </div>
         </div>
-        <span class="coming-soon-badge">Coming Soon</span>
+        <!-- <span class="coming-soon-badge">Coming Soon</span> -->
+        <a href="ICHS.html" class="project-link">View Case Study <span class="arrow">→</span></a>
       </div>
     </div>
 
