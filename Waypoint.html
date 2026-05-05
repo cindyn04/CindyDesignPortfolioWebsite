@@ -138,37 +138,17 @@
   }
   .phone-mockup {
     width: 140px; height: 260px;
-    background: white;
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.2);
     position: relative; z-index: 1;
     overflow: hidden;
-    display: flex; flex-direction: column;
   }
   .phone-mockup.center { transform: translateY(-12px); box-shadow: 0 28px 80px rgba(0,0,0,0.3); }
-  .phone-screen-top {
-    height: 8px; background: #1E6258;
-    display: flex; align-items: center; justify-content: center;
+  .phone-mockup img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top;
+    display: block;
   }
-  .phone-notch {
-    width: 32px; height: 5px; background: rgba(0,0,0,0.2); border-radius: 3px;
-  }
-  .phone-body { flex: 1; padding: 8px; display: flex; flex-direction: column; gap: 6px; overflow: hidden; }
-  .ph-header { height: 10px; background: #E4F4F2; border-radius: 3px; }
-  .ph-search { height: 8px; background: #F0FAFA; border-radius: 10px; border: 1px solid #C8E8E4; }
-  .ph-tabs { display: flex; gap: 3px; }
-  .ph-tab { flex: 1; height: 6px; background: #E4F4F2; border-radius: 3px; }
-  .ph-tab.active { background: var(--teal); }
-  .ph-img { height: 48px; background: linear-gradient(135deg, #A8D8D1, #4AAFA0); border-radius: 4px; }
-  .ph-img-sm { height: 32px; background: linear-gradient(135deg, #C8E8E4, #7AC8BE); border-radius: 4px; }
-  .ph-row { height: 6px; background: #E4F4F2; border-radius: 3px; }
-  .ph-row.w80 { width: 80%; }
-  .ph-row.w60 { width: 60%; }
-  .ph-row.accent { background: var(--teal); opacity: 0.4; }
-  .ph-card { background: #F0FAFA; border-radius: 4px; padding: 6px; display: flex; flex-direction: column; gap: 4px; }
-  .ph-nav { height: 20px; background: #F0FAFA; border-top: 1px solid #E4F4F2; margin-top: auto; display: flex; gap: 8px; align-items: center; justify-content: center; padding: 0 8px; }
-  .ph-nav-dot { width: 5px; height: 5px; border-radius: 50%; background: #C8E8E4; }
-  .ph-nav-dot.active { background: var(--teal); }
 
   /* BODY */
   .body-wrap { padding: 0 60px; }
@@ -391,7 +371,9 @@
     .case-hero { padding-top: 110px; }
     .overview-grid, .two-col, .research-cols, .outcomes-grid,
     .reflection-grid, .personas-grid, .needs-strip, .features-strip { grid-template-columns: 1fr; }
-    .phone-mockup:not(.center) { display: none; }
+    .mockup-bar { gap: 16px; }
+    .phone-mockup { width: 100px; height: 190px; }
+    .phone-mockup.center { transform: translateY(-8px); }
   }
 </style>
 </head>
@@ -437,70 +419,16 @@
 <!-- MOCKUP BAR -->
 <div class="mockup-bar">
   <div class="phone-mockup">
-    <div class="phone-screen-top"><div class="phone-notch"></div></div>
-    <div class="phone-body">
-      <div class="ph-header"></div>
-      <div class="ph-img"></div>
-      <div class="ph-row w80"></div>
-      <div class="ph-row w60 accent"></div>
-      <div class="ph-row w80"></div>
-      <div class="ph-card">
-        <div class="ph-row w60"></div>
-        <div class="ph-row w80"></div>
-      </div>
-      <div class="ph-nav">
-        <div class="ph-nav-dot active"></div>
-        <div class="ph-nav-dot"></div>
-        <div class="ph-nav-dot"></div>
-        <div class="ph-nav-dot"></div>
-      </div>
-    </div>
+    <img src="img/wp-homepage.png" alt="WayPoint Homepage" />
   </div>
   <div class="phone-mockup center">
-    <div class="phone-screen-top"><div class="phone-notch"></div></div>
-    <div class="phone-body">
-      <div class="ph-tabs">
-        <div class="ph-tab active"></div>
-        <div class="ph-tab"></div>
-        <div class="ph-tab"></div>
-      </div>
-      <div class="ph-img" style="height: 72px;"></div>
-      <div class="ph-row w80"></div>
-      <div class="ph-row w60"></div>
-      <div class="ph-img-sm"></div>
-      <div class="ph-row w80 accent"></div>
-      <div class="ph-row w60"></div>
-      <div class="ph-nav">
-        <div class="ph-nav-dot"></div>
-        <div class="ph-nav-dot active"></div>
-        <div class="ph-nav-dot"></div>
-        <div class="ph-nav-dot"></div>
-      </div>
-    </div>
+    <img src="img/wp-diary.png" alt="WayPoint Travel Diary" />
+  </div>
+  <div class="phone-mockup center">
+    <img src="img/wp-journal.png" alt="WayPoint Journal" />
   </div>
   <div class="phone-mockup">
-    <div class="phone-screen-top"><div class="phone-notch"></div></div>
-    <div class="phone-body">
-      <div class="ph-search"></div>
-      <div class="ph-card">
-        <div class="ph-row w80 accent"></div>
-        <div class="ph-row w60"></div>
-      </div>
-      <div class="ph-card">
-        <div class="ph-row w80 accent"></div>
-        <div class="ph-row w60"></div>
-      </div>
-      <div class="ph-card">
-        <div class="ph-row w80 accent"></div>
-        <div class="ph-row w60"></div>
-      </div>
-      <div class="ph-nav">
-        <div class="ph-nav-dot"></div>
-        <div class="ph-nav-dot"></div>
-        <div class="ph-nav-dot"></div>
-        <div class="ph-nav-dot active"></div>
-      </div>
-    </div>
+    <img src="img/wp-travel.png" alt="WayPoint Future Travels" />
   </div>
 </div>
 
@@ -814,10 +742,39 @@
     </div>
   </div>
 
-  <!-- 07 REFLECTION -->
-  <div class="section reveal" style="border-bottom: none;">
+  <!-- 07 FINAL DESIGN OUTCOME -->
+  <div class="section reveal" style="border-bottom: none; padding-bottom: 40px;">
     <div class="section-eyebrow">
       <span class="eyebrow-num">07</span>
+      <span class="eyebrow-label">Final Design Outcome</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h2 class="section-heading">The final screens, <em>brought to life</em></h2>
+    <p class="overview-body" style="margin-top: 12px;">Four core screens that together deliver a complete, cohesive travel companion — from discovering new destinations to preserving the memories you've made.</p>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 32px;">
+      <figure style="margin:0;">
+        <img src="img/wp-homepage.png" alt="WayPoint Homepage screen" style="width:100%; border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,0.14);" />
+        <figcaption style="margin-top: 10px; font-size: 13px; color: var(--ink-soft);"><strong>Homepage Feed</strong> — Explore featured destinations and browse posts from the travel community</figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <img src="img/wp-diary.png" alt="WayPoint Travel Diary screen" style="width:100%; border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,0.14);" />
+        <figcaption style="margin-top: 10px; font-size: 13px; color: var(--ink-soft);"><strong>Travel Diary</strong> — Organize past trips with photos, dates, and captions across public, private, and draft categories</figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <img src="img/wp-journal.png" alt="WayPoint Journal screen" style="width:100%; border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,0.14);" />
+        <figcaption style="margin-top: 10px; font-size: 13px; color: var(--ink-soft);"><strong>Journal</strong> — Long-form reflections and storytelling with tags and public/private visibility controls</figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <img src="img/wp-travel.png" alt="WayPoint Future Travels screen" style="width:100%; border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,0.14);" />
+        <figcaption style="margin-top: 10px; font-size: 13px; color: var(--ink-soft);"><strong>Future Travels</strong> — Save and track upcoming destinations with notes, links, and visit status</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- 08 REFLECTION -->
+  <div class="section reveal" style="border-bottom: none;">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">08</span>
       <span class="eyebrow-label">Reflection &amp; Takeaways</span>
       <div class="eyebrow-line"></div>
     </div>

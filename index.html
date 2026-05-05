@@ -241,7 +241,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     border-top: 1px solid var(--border);
-    min-height: 420px;
+    min-height: 560px;
     transition: background 0.3s;
     position: relative;
     overflow: hidden;
@@ -260,14 +260,15 @@
     position: absolute; inset: 0;
     border-radius: 0 !important;
     transition: transform 0.6s cubic-bezier(.25,.46,.45,.94);
+    image-rendering: -webkit-optimize-contrast;
   }
   .project-card:hover .project-bg { transform: scale(1.03); }
   .project-bg-1 {
-    background: url("img/fashion-cover.png") center/cover no-repeat;
+    background: url("img/fashion-cover.png") center top/cover no-repeat;
     border-radius: 0 !important;
   }
   .project-bg-2 {
-    background: url("img/waypoint-cover.png") center/cover no-repeat;
+    background: url("img/waypoint-cover.png") center top/cover no-repeat;
     border-radius: 0 !important;
   }
   .project-bg-3 { background: linear-gradient(135deg, #F5D4A8 0%, #D4965A 40%, #C47A2C 100%); }
@@ -554,7 +555,7 @@
     .hero-visual { display: flex; justify-content: center; }
     .hero-photo-frame { width: 100%; max-width: 380px; }
     .project-card, .project-card.reverse { grid-template-columns: 1fr; direction: ltr; }
-    .project-visual { height: 260px; }
+    .project-visual { height: 360px; }
     .about-grid { grid-template-columns: 1fr; gap: 48px; }
     .scroll-indicator { left: 28px; }
   }
