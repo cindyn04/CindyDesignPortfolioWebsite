@@ -140,67 +140,25 @@
 
   /* ── MOCKUP BAR ── */
   .mockup-bar {
-    height: 340px;
+    height: 360px;
     background: linear-gradient(135deg, var(--bw-navy) 0%, #1A3A8A 50%, var(--bw-blue) 100%);
     display: flex; align-items: center; justify-content: center;
-    position: relative; overflow: hidden; gap: 24px; padding: 0 40px;
+    position: relative; overflow: hidden; gap: 28px; padding: 0 40px;
   }
   .mockup-bar::before {
     content: '';
     position: absolute; inset: 0;
     background: repeating-linear-gradient(-45deg, transparent, transparent 18px, rgba(245,197,24,.04) 18px, rgba(245,197,24,.04) 36px);
   }
-  .mockup-screen {
-    background: white;
-    width: 480px; height: 280px;
-    box-shadow: 0 24px 64px rgba(0,0,0,0.35);
-    border-radius: 6px;
-    padding: 16px;
+  .phone-mockup {
+    width: 148px; height: 286px;
+    border-radius: 22px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
     position: relative; z-index: 1;
-    overflow: hidden;
-    flex-shrink: 0;
+    overflow: hidden; flex-shrink: 0;
   }
-  .mock-topnav { height: 28px; background: #2B63C7; border-radius: 3px 3px 0 0; margin: -16px -16px 12px; display: flex; align-items: center; padding: 0 14px; gap: 8px; }
-  .mock-nav-dot { width: 32px; height: 6px; background: rgba(255,255,255,.2); border-radius: 3px; }
-  .mock-nav-dot.active { background: var(--bw-yellow); width: 24px; }
-  .mock-nav-logo { width: 16px; height: 16px; background: var(--bw-yellow); border-radius: 2px; margin-right: 8px; }
-  .mock-body { display: grid; grid-template-columns: 100px 1fr; gap: 10px; height: calc(100% - 40px); }
-  .mock-sidebar { display: flex; flex-direction: column; gap: 5px; }
-  .mock-sidebar-item { height: 7px; border-radius: 3px; background: #EEF0F4; }
-  .mock-sidebar-item.active-item { background: #2B63C7; }
-  .mock-main { display: flex; flex-direction: column; gap: 8px; }
-  .mock-color-strip { height: 24px; background: linear-gradient(90deg, #2B63C7, #4F8AE8, #F5C518, #0D1F4E); border-radius: 3px; opacity: .3; }
-  .mock-type-rows { display: flex; flex-direction: column; gap: 4px; }
-  .mock-type-row { height: 6px; background: #EEF0F4; border-radius: 3px; }
-  .mock-type-row.h1 { height: 14px; background: #0D1F4E; width: 70%; }
-  .mock-type-row.h2 { height: 10px; background: #2B63C7; width: 50%; }
-  .mock-btn-row { display: flex; gap: 6px; margin-top: 4px; }
-  .mock-btn { height: 18px; border-radius: 2px; }
-  .mock-btn.primary { width: 64px; background: #2B63C7; }
-  .mock-btn.cta { width: 48px; background: #F5C518; }
-  .mock-btn.outline { width: 56px; border: 1.5px solid #2B63C7; }
-  .mock-card-row { display: flex; gap: 6px; }
-  .mock-card { flex: 1; height: 36px; background: #F7F8FA; border: 1px solid #EEF0F4; border-radius: 4px; border-top: 3px solid #2B63C7; }
-  .mock-card:nth-child(2) { border-top-color: #F5C518; }
-  .mock-card:nth-child(3) { border-top-color: #0D1F4E; }
-
-  .mockup-screen-sm {
-    background: white;
-    width: 160px; height: 240px;
-    box-shadow: 0 16px 40px rgba(0,0,0,.3);
-    border-radius: 12px;
-    padding: 12px 10px;
-    position: relative; z-index: 1;
-    flex-shrink: 0;
-    display: flex; flex-direction: column; gap: 6px;
-    overflow: hidden;
-  }
-  .mock-mobile-top { height: 32px; background: #2B63C7; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-  .mock-mobile-logo { width: 14px; height: 14px; background: var(--bw-yellow); border-radius: 2px; }
-  .mock-mobile-item { height: 7px; background: #EEF0F4; border-radius: 3px; }
-  .mock-mobile-item.blue { background: #2B63C7; }
-  .mock-mobile-item.yellow { background: #F5C518; width: 60%; }
-  .mock-mobile-btn { height: 20px; background: #F5C518; border-radius: 3px; margin-top: 4px; }
+  .phone-mockup.center { transform: translateY(-16px); box-shadow: 0 32px 80px rgba(0,0,0,0.55); }
+  .phone-mockup img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
 
   /* ── LAYOUT ── */
   .container { max-width: 1100px; margin: 0 auto; padding: 0 60px; }
@@ -394,8 +352,9 @@
     .case-hero { padding-top: 110px; }
     .overview-grid, .two-col, .research-cols, .outcomes-grid, .reflection-grid { grid-template-columns: 1fr; }
     .ds-cta { flex-direction: column; padding: 32px; }
-    .mockup-screen-sm { display: none; }
-    .mockup-screen { width: 90%; }
+    .mockup-bar { gap: 14px; }
+    .phone-mockup { width: 100px; height: 194px; }
+    .phone-mockup.center { transform: translateY(-10px); }
   }
 </style>
 </head>
@@ -442,54 +401,17 @@
 
 <!-- MOCKUP BAR -->
 <div class="mockup-bar">
-  <div class="mockup-screen">
-    <div class="mock-topnav">
-      <div class="mock-nav-logo"></div>
-      <div class="mock-nav-dot active"></div>
-      <div class="mock-nav-dot"></div>
-      <div class="mock-nav-dot"></div>
-      <div class="mock-nav-dot"></div>
-      <div class="mock-nav-dot"></div>
-    </div>
-    <div class="mock-body">
-      <div class="mock-sidebar">
-        <div class="mock-sidebar-item active-item" style="width:80%"></div>
-        <div class="mock-sidebar-item" style="width:70%"></div>
-        <div class="mock-sidebar-item" style="width:85%"></div>
-        <div class="mock-sidebar-item" style="width:60%"></div>
-        <div class="mock-sidebar-item" style="width:75%"></div>
-        <div class="mock-sidebar-item" style="width:65%"></div>
-      </div>
-      <div class="mock-main">
-        <div class="mock-color-strip"></div>
-        <div class="mock-type-rows">
-          <div class="mock-type-row h1"></div>
-          <div class="mock-type-row h2"></div>
-          <div class="mock-type-row" style="width:80%"></div>
-          <div class="mock-type-row" style="width:65%"></div>
-        </div>
-        <div class="mock-btn-row">
-          <div class="mock-btn primary"></div>
-          <div class="mock-btn cta"></div>
-          <div class="mock-btn outline"></div>
-        </div>
-        <div class="mock-card-row">
-          <div class="mock-card"></div>
-          <div class="mock-card"></div>
-          <div class="mock-card"></div>
-        </div>
-      </div>
-    </div>
+  <div class="phone-mockup">
+    <img src="img/bw-homepage-mobile.png" alt="Bike Works Homepage — mobile" />
   </div>
-  <div class="mockup-screen-sm">
-    <div class="mock-mobile-top"><div class="mock-mobile-logo"></div></div>
-    <div class="mock-mobile-item blue" style="width:80%"></div>
-    <div class="mock-mobile-item" style="width:95%"></div>
-    <div class="mock-mobile-item" style="width:70%"></div>
-    <div class="mock-mobile-item yellow"></div>
-    <div class="mock-mobile-item" style="width:85%"></div>
-    <div class="mock-mobile-item" style="width:60%"></div>
-    <div class="mock-mobile-btn"></div>
+  <div class="phone-mockup center">
+    <img src="img/bw-bikes-for-all-mobile.png" alt="Bike Works Bikes for All — mobile" />
+  </div>
+  <div class="phone-mockup center">
+    <img src="img/bw-youth-program-mobile.png" alt="Bike Works Youth Program — mobile" />
+  </div>
+  <div class="phone-mockup">
+    <img src="img/bw-expanded-earn-a-bike-mobile.png" alt="Bike Works Earn-a-Bike — mobile" />
   </div>
 </div>
 
@@ -531,10 +453,87 @@
     </div>
   </div>
 
-  <!-- 02 PROBLEM & SOLUTION -->
+  <!-- 02 WHO IS BIKE WORKS -->
   <div class="section reveal">
     <div class="section-eyebrow">
       <span class="eyebrow-num">02</span>
+      <span class="eyebrow-label">Who is Bike Works</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h2 class="section-heading">A neighborhood shop that's really a <em>social justice mission</em></h2>
+    <div class="overview-grid" style="margin-top: 24px;">
+      <div>
+        <p class="overview-body">Bike Works has been rooted in South Seattle since 1996 — over 27 years of making bicycles a vehicle for equity, access, and youth empowerment in one of Seattle's most underserved communities.</p>
+        <p class="overview-body" style="margin-top: 16px;">On the surface, Bike Works looks like a bike shop. But it's far more: a free youth drop-in program where any young person can walk in and learn to build and repair bikes; an Earn-a-Bike program where youth earn their own bicycle through work and learning; and a community bike shop where everyone — regardless of income — can access repairs on a sliding scale.</p>
+        <p class="overview-body" style="margin-top: 16px;">Their seven core values — Bicycling, Access, Youth, Environment, Community, Social Justice, and Education — aren't marketing language. They're the architecture of every program they run. The challenge this project set out to solve was making those values as legible on the website as they are in real life.</p>
+      </div>
+      <div>
+        <img src="img/bw-who-is-bw.png" alt="Who is Bike Works" style="width:100%; border-radius: 8px; box-shadow: 0 12px 32px rgba(0,0,0,0.1);" />
+      </div>
+    </div>
+    <div style="margin-top: 40px;">
+      <img src="img/bw-youth-community.png" alt="Bike Works youth and community" style="width:100%; border-radius: 8px; box-shadow: 0 12px 32px rgba(0,0,0,0.1);" />
+    </div>
+    <div style="margin-top: 32px;">
+      <img src="img/bw-design-principles-and-values.png" alt="Bike Works design principles and values" style="width:100%; border-radius: 8px; box-shadow: 0 12px 32px rgba(0,0,0,0.1);" />
+    </div>
+  </div>
+
+  <!-- 03 USER PERSONAS -->
+  <div class="section reveal">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">03</span>
+      <span class="eyebrow-label">User Personas</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h2 class="section-heading">Three visitors, <em>three very different needs</em></h2>
+    <p class="overview-body" style="margin-bottom: 32px;">Through three user interviews, three distinct user archetypes emerged — each arriving at the Bike Works website with different goals, different levels of familiarity, and different barriers to finding what they need. Designing for all three meant the system couldn't afford ambiguity anywhere.</p>
+    <img src="img/bw-user-personas.png" alt="Bike Works user personas" style="width:100%; border-radius: 8px; box-shadow: 0 12px 32px rgba(0,0,0,0.1);" />
+    <div class="research-cols" style="margin-top: 32px;">
+      <div class="research-card">
+        <div class="research-icon">🚴</div>
+        <div class="research-title">Michael — The New Visitor</div>
+        <div class="research-body">A bike commuter who heard about Bike Works but can't immediately tell from the site what they do. His experience drove the decision to redesign the hero to answer who, what, and for whom — before any scrolling.</div>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🎓</div>
+        <div class="research-title">Leo — The Scanner</div>
+        <div class="research-body">A university student who gravitates toward Free and Low-Cost Services and finds the text-heavy layout exhausting to read. His feedback led to the FREE badge prominence and a stricter information hierarchy throughout the system.</div>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">💼</div>
+        <div class="research-title">Roderick — The Stakeholder</div>
+        <div class="research-body">Bike Works' own Comms & Grants Manager, who flagged the yellow accessibility failure firsthand and needed the donation CTA to be consistently visible. His input directly shaped the color system and the always-visible Support CTA in the nav.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 USER JOURNEY -->
+  <div class="section reveal">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">04</span>
+      <span class="eyebrow-label">User Journey</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h2 class="section-heading">Where the experience <em>breaks down</em></h2>
+    <p class="overview-body" style="margin-bottom: 32px;">Mapping the user journey from first visit to goal completion made the friction points impossible to ignore. A new visitor trying to find Bike Works' programs encountered two competing nav bars, a yellow-dominant homepage that failed accessibility tests, and pages full of dense text with no clear visual hierarchy to guide them — leaving most users unsure of what Bike Works even offered or whether it was for them.</p>
+    <img src="img/bw-user-journey-map.png" alt="Bike Works user journey map" style="width:100%; border-radius: 8px; box-shadow: 0 12px 32px rgba(0,0,0,0.1);" />
+    <div class="two-col" style="margin-top: 32px;">
+      <div class="panel blue-accent">
+        <div class="panel-label">Pain Points Identified</div>
+        <p class="panel-text">Dual navigation created immediate confusion. The yellow background failed WCAG contrast ratios. New visitors couldn't identify the organization's purpose from the hero alone. Free and low-cost programs were buried in dense copy instead of surfaced as primary signals.</p>
+      </div>
+      <div class="panel yellow-accent">
+        <div class="panel-label">Design Response</div>
+        <p class="panel-text">Every pain point in the journey map became a specific design system requirement: a single consolidated nav, accessible color pairings, a hero pattern that orients new visitors immediately, and FREE as the most visually prominent badge in the component library.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 PROBLEM & SOLUTION -->
+  <div class="section reveal">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">05</span>
       <span class="eyebrow-label">Problem &amp; Solution</span>
       <div class="eyebrow-line"></div>
     </div>
@@ -552,10 +551,10 @@
     </div>
   </div>
 
-  <!-- 03 RESEARCH -->
+  <!-- 06 RESEARCH -->
   <div class="section reveal">
     <div class="section-eyebrow">
-      <span class="eyebrow-num">03</span>
+      <span class="eyebrow-num">06</span>
       <span class="eyebrow-label">Research Foundation</span>
       <div class="eyebrow-line"></div>
     </div>
@@ -596,10 +595,10 @@
     </div>
   </div>
 
-  <!-- 04 KEY INSIGHTS -->
+  <!-- 07 KEY INSIGHTS -->
   <div class="section reveal">
     <div class="section-eyebrow">
-      <span class="eyebrow-num">04</span>
+      <span class="eyebrow-num">07</span>
       <span class="eyebrow-label">Key Research Findings</span>
       <div class="eyebrow-line"></div>
     </div>
@@ -631,10 +630,10 @@
     </div>
   </div>
 
-  <!-- 05 DESIGN SYSTEM PREVIEW -->
+  <!-- 08 DESIGN SYSTEM PREVIEW -->
   <div class="section reveal">
     <div class="section-eyebrow">
-      <span class="eyebrow-num">05</span>
+      <span class="eyebrow-num">08</span>
       <span class="eyebrow-label">System Overview</span>
       <div class="eyebrow-line"></div>
     </div>
@@ -707,10 +706,10 @@
     </div>
   </div>
 
-  <!-- 06 DESIGN DECISIONS -->
+  <!-- 09 DESIGN DECISIONS -->
   <div class="section reveal">
     <div class="section-eyebrow">
-      <span class="eyebrow-num">06</span>
+      <span class="eyebrow-num">09</span>
       <span class="eyebrow-label">Key Design Decisions</span>
       <div class="eyebrow-line"></div>
     </div>
@@ -763,10 +762,10 @@
     </table>
   </div>
 
-  <!-- 07 OUTCOMES -->
+  <!-- 10 OUTCOMES -->
   <div class="section reveal">
     <div class="section-eyebrow">
-      <span class="eyebrow-num">07</span>
+      <span class="eyebrow-num">10</span>
       <span class="eyebrow-label">System Deliverables</span>
       <div class="eyebrow-line"></div>
     </div>
@@ -832,10 +831,75 @@
     </div>
   </div>
 
-  <!-- 08 REFLECTION -->
+  <!-- 11 FINAL DESIGN OUTCOME -->
+  <div class="section reveal" style="padding-bottom: 40px;">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">11</span>
+      <span class="eyebrow-label">Final Design Outcome</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h2 class="section-heading">The redesign, <em>brought to life</em></h2>
+    <p class="overview-body" style="margin-top: 12px; margin-bottom: 40px;">From the homepage to program pages, the final design applies every system token and component — turning Bike Works' mission into something you can see, feel, and navigate without confusion.</p>
+
+    <div class="section-eyebrow" style="margin-bottom: 20px;">
+      <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--bw-blue); font-family: 'DM Mono', monospace; opacity: 0.8;">Desktop Interfaces</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-bottom: 48px;">
+      <figure style="margin:0;">
+        <img src="img/bw-homepage-desktop.png" alt="Bike Works Homepage — desktop" style="width:100%; border-radius: 8px; box-shadow: 0 12px 32px rgba(0,0,0,0.12);" />
+        <figcaption style="margin-top: 10px; font-size: 13px; color: var(--ink-soft);"><strong>Homepage</strong> — Single consolidated nav, plain-language hero, and impact stat cards that immediately communicate who Bike Works is and who it's for</figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <img src="img/bw-bikes-for-all-desktop.png" alt="Bikes for All — desktop" style="width:100%; border-radius: 8px; box-shadow: 0 12px 32px rgba(0,0,0,0.12);" />
+        <figcaption style="margin-top: 10px; font-size: 13px; color: var(--ink-soft);"><strong>Bikes for All</strong> — Program page with FREE badge prominence and a clear, scannable layout for visitors seeking accessible services</figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <img src="img/bw-earn-a-bike-desktop.png" alt="Earn-a-Bike — desktop" style="width:100%; border-radius: 8px; box-shadow: 0 12px 32px rgba(0,0,0,0.12);" />
+        <figcaption style="margin-top: 10px; font-size: 13px; color: var(--ink-soft);"><strong>Earn-a-Bike</strong> — Step-by-step progress tracker that makes the program journey transparent and motivating for prospective participants</figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <img src="img/bw-youth-program-desktop.png" alt="Youth Program — desktop" style="width:100%; border-radius: 8px; box-shadow: 0 12px 32px rgba(0,0,0,0.12);" />
+        <figcaption style="margin-top: 10px; font-size: 13px; color: var(--ink-soft);"><strong>Youth Program</strong> — Age-badged program cards and community-authentic imagery that speaks directly to Bike Works' core audience</figcaption>
+      </figure>
+    </div>
+
+    <div class="section-eyebrow" style="margin-bottom: 20px;">
+      <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--bw-blue); font-family: 'DM Mono', monospace; opacity: 0.8;">Mobile Interfaces</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;">
+      <figure style="margin:0;">
+        <img src="img/bw-homepage-mobile.png" alt="Bike Works Homepage — mobile" style="width:100%; border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,0.12);" />
+        <figcaption style="margin-top: 10px; font-size: 13px; color: var(--ink-soft);"><strong>Homepage</strong> — Mobile-first layout with accessible color pairings and clear mission statement above the fold</figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <img src="img/bw-homepage-open-side-menu-mobile.png" alt="Side menu open — mobile" style="width:100%; border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,0.12);" />
+        <figcaption style="margin-top: 10px; font-size: 13px; color: var(--ink-soft);"><strong>Navigation Menu</strong> — Single consolidated side menu replacing the original dual-nav system that confused users</figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <img src="img/bw-homepage-side-menu-select-option-mobile.png" alt="Side menu selection — mobile" style="width:100%; border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,0.12);" />
+        <figcaption style="margin-top: 10px; font-size: 13px; color: var(--ink-soft);"><strong>Menu Interaction</strong> — Active state highlights show clear wayfinding so users always know where they are</figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <img src="img/bw-bikes-for-all-mobile.png" alt="Bikes for All — mobile" style="width:100%; border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,0.12);" />
+        <figcaption style="margin-top: 10px; font-size: 13px; color: var(--ink-soft);"><strong>Bikes for All</strong> — Program content structured for mobile scannability with FREE badge leading the eye</figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <img src="img/bw-youth-program-mobile.png" alt="Youth Program — mobile" style="width:100%; border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,0.12);" />
+        <figcaption style="margin-top: 10px; font-size: 13px; color: var(--ink-soft);"><strong>Youth Program</strong> — Age-badged cards and action-oriented CTAs designed for a mobile-first youth audience</figcaption>
+      </figure>
+      <figure style="margin:0;">
+        <img src="img/bw-expanded-earn-a-bike-mobile.png" alt="Earn-a-Bike expanded — mobile" style="width:100%; border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,0.12);" />
+        <figcaption style="margin-top: 10px; font-size: 13px; color: var(--ink-soft);"><strong>Earn-a-Bike</strong> — Expanded program view showing the step tracker in a mobile-optimized layout</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- 12 REFLECTION -->
   <div class="section reveal" style="border-bottom: none;">
     <div class="section-eyebrow">
-      <span class="eyebrow-num">08</span>
+      <span class="eyebrow-num">12</span>
       <span class="eyebrow-label">Reflection &amp; Takeaways</span>
       <div class="eyebrow-line"></div>
     </div>
