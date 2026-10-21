@@ -3,7 +3,17 @@
     "allow": [
       "Bash(gh api *)",
       "Bash(gh repo *)",
-      "Bash(gh --version)"
+      "Bash(gh --version)",
+      "Bash(python3 -c \"import PIL; print\\(PIL.__version__\\)\")",
+      "Bash(curl -sI https://ichs-website-services-redesign.vercel.app)",
+      "Bash(curl -s https://ichs-website-services-redesign.vercel.app)",
+      "Bash(mkdir -p ichs)",
+      "Bash(curl -s https://ichs-website-services-redesign.vercel.app/assets/index-4csh2_sJ.js -o ichs/b.js)",
+      "Bash(dd if=b.js bs=1 skip=287500 count=4000)",
+      "Bash(grep -oE '\\(children|label|title|to|className\\):\"[^\"]{3,70}\"')",
+      "Bash(dd if=b.js bs=1 skip=233500 count=1400)",
+      "Bash(grep -oE '\\(children|label|title|to|className|id\\):\"[^\"]{3,70}\"')",
+      "Bash(node shoot.js)"
     ]
   }
 }

@@ -6,6 +6,7 @@
 <title>ICHS Website Redesign — Cindy Nguyen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="prototype/prototype.css">
 <style>
   :root {
     --cream: #FAF8F4;
@@ -945,7 +946,8 @@
       <div class="eyebrow-line" style="flex: 0; width: 60px;"></div>
     </div>
     <h2 class="section-heading" style="text-align: center;">See the redesign <em>in action</em></h2>
-    <p style="font-size: 15px; line-height: 1.8; color: var(--ink-soft); max-width: 520px; margin: 0 auto 36px;">The functional coded implementation of the ICHS Services page redesign is live — explore the responsive layouts, accessibility features, and redesigned navigation firsthand.</p>
+    <p style="font-size: 15px; line-height: 1.8; color: var(--ink-soft); max-width: 560px; margin: 0 auto 0;">The functional coded implementation of the ICHS Services page redesign is live. Click through it below, and switch between Desktop and Mobile to see the responsive layout. The notes beside each page tie every change to what we heard from ICHS staff and found in the site audit.</p>
+    <div id="ichs-prototype" style="text-align: left; margin-bottom: 40px;"></div>
     <div style="display: inline-flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center;">
       <a href="https://www.ichs.com/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 12px; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); text-decoration: none; border: 1px solid var(--purple); padding: 16px 32px; transition: background 0.25s, transform 0.2s;" onmouseover="this.style.background='var(--purple-pale)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='transparent';this.style.transform='translateY(0)'">↗ View Old ICHS Website</a>
       <a href="https://ichs-website-services-redesign.vercel.app" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 12px; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: white; text-decoration: none; background: var(--purple); padding: 16px 32px; transition: background 0.25s, transform 0.2s;" onmouseover="this.style.background='var(--purple-light)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--purple)';this.style.transform='translateY(0)'">↗ View Live Redesign</a>
@@ -974,6 +976,131 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.1 });
   revealEls.forEach(el => io.observe(el));
+</script>
+
+<script src="prototype/prototype.js"></script>
+<script>
+  const ichsSite = 'https://ichs-website-services-redesign.vercel.app';
+  const ichsStaff = 'Interviews · Community Access Specialists';
+  const ichsAudit = 'Audit of the existing Services page';
+
+  Prototype.mount(document.getElementById('ichs-prototype'), {
+    accent: '#6B4C8F',
+    stageHeight: 560,
+    kicker: 'Staff interviews & audit → change',
+    frames: {
+      desktop: { label: 'Desktop', type: 'browser' },
+      mobile: { label: 'Mobile', type: 'phone' },
+    },
+    start: 'home',
+    screens: [
+      {
+        id: 'home', frame: '*', label: 'Home', site: ichsSite + '/', url: 'ichs.com',
+        summary: 'This is the live build. Click anything inside the frame.',
+        pins: [
+          {
+            title: 'A language picker in the header',
+            feedback: 'The existing site had minimal multilingual support, even though ICHS serves a multilingual community.',
+            source: ichsAudit + ' · First-Generation Patient persona',
+            change: '“Select Language” opens a grid of the languages ICHS patients speak and translates the whole site. The choice stays as you move between pages.',
+            where: 'top-left of the header (the globe icon on mobile)',
+          },
+          {
+            title: 'Clear entry points for first-time visitors',
+            feedback: 'No clear entry point for first-time visitors.',
+            source: ichsAudit,
+            change: 'Each hero slide has one main action, starting with Call to Book an Appointment. Below it, a “Shortcut for Patients” row links to Appointments, MyChart, Clinic Services, After Hours Care, and Paying for your Care.',
+            where: 'the hero and the teal shortcut row under it',
+          },
+          {
+            title: '“Get Started with ICHS” in four steps',
+            feedback: 'Patients regularly called in to ask how the appointment process works.',
+            source: ichsStaff,
+            change: 'Numbered steps — Browse & Choose a Service → Call to Book an Appointment → Consult with a Doctor → Get Treatment & Support — next to a button with the phone number written out.',
+            where: 'scroll below the shortcut row',
+          },
+          {
+            title: 'A free language assistance notice on every page',
+            feedback: 'Patients called to ask whether help in their language was available.',
+            source: ichsStaff,
+            change: 'The footer states that language assistance is available free of charge, along with the number to call.',
+            where: 'the footer',
+          },
+          {
+            title: 'Built mobile-first',
+            feedback: 'Caregivers search on their phones while juggling other responsibilities, and the old mobile experience was an afterthought.',
+            source: 'Caregiver on Mobile persona',
+            change: 'Every page is responsive. Switch the toggle above to Mobile to try the same build at phone width.',
+            where: 'Desktop / Mobile toggle above',
+          },
+        ],
+      },
+      {
+        id: 'services', frame: '*', label: 'Services', site: ichsSite + '/services', url: 'ichs.com/services',
+        pins: [
+          {
+            title: 'Services grouped the way patients think',
+            feedback: 'Service categories reflected ICHS’s internal structure rather than how patients think about their health needs.',
+            source: ichsAudit,
+            change: 'Services are grouped into plain-language categories such as primary care, dental, behavioral health, and healthy aging.',
+            where: 'the service cards',
+          },
+          {
+            title: 'Search for a service directly',
+            feedback: 'The page’s density meant patients gave up and called instead.',
+            source: ichsStaff,
+            change: 'A “Search for Services” box lets patients type what they need instead of reading every category.',
+            where: 'top of the page',
+          },
+          {
+            title: 'Every service ends in a next step',
+            feedback: 'Patients called to ask what each clinic offers and how to get an appointment.',
+            source: ichsStaff,
+            change: 'Each service page has a breadcrumb back to Services and two actions: Call to Book an Appointment and Find a Provider.',
+            where: 'open any service card',
+          },
+        ],
+      },
+      {
+        id: 'locations', frame: '*', label: 'Locations', site: ichsSite + '/location', url: 'ichs.com/location',
+        pins: [
+          {
+            title: 'Find the nearest clinic by ZIP code',
+            feedback: 'No location filtering — patients had to read through every location one by one.',
+            source: ichsAudit,
+            change: 'Enter a ZIP code and “Find Closest” ranks all 13 clinic sites by distance. A separate search finds a clinic by name or address.',
+            where: 'the search panel at the top',
+          },
+          {
+            title: 'Filters with a one-click reset',
+            feedback: 'Navigation assumed a digital fluency many patients don’t have.',
+            source: ichsAudit + ' · Low digital literacy users',
+            change: 'A Filters button shows how many filters are on and has a single “Clear” to start over, so nobody gets stuck in a filtered view.',
+            where: 'the Filters button beside the search',
+          },
+        ],
+      },
+      {
+        id: 'providers', frame: '*', label: 'Find a Provider', site: ichsSite + '/providers', url: 'ichs.com/providers',
+        pins: [
+          {
+            title: 'Search by name, specialty, or condition',
+            feedback: 'Patients called in for information that was already on the site but hard to find.',
+            source: ichsStaff,
+            change: 'One search box accepts a doctor’s name, a specialty, or a condition, in whatever words the patient knows.',
+            where: 'top of the page',
+          },
+          {
+            title: 'Filter providers by the language they speak',
+            feedback: 'Patients rely on ICHS specifically because of its multilingual staff.',
+            source: 'First-Generation Patient persona',
+            change: 'Filter by Language, Location, and Service Type. Each provider’s languages and pronouns are on their profile.',
+            where: 'the filter row and provider cards',
+          },
+        ],
+      },
+    ],
+  });
 </script>
 </body>
 </html>

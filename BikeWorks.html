@@ -6,6 +6,7 @@
 <title>Bike Works Design System — Cindy Nguyen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="prototype/prototype.css">
 <style>
   :root {
     --cream: #FAF8F4;
@@ -839,7 +840,14 @@
       <div class="eyebrow-line"></div>
     </div>
     <h2 class="section-heading">The redesign, <em>brought to life</em></h2>
-    <p class="overview-body" style="margin-top: 12px; margin-bottom: 40px;">From the homepage to program pages, the final design applies every system token and component — turning Bike Works' mission into something you can see, feel, and navigate without confusion.</p>
+    <p class="overview-body" style="margin-top: 12px; margin-bottom: 8px;">From the homepage to program pages, the final design applies every system token and component — turning Bike Works' mission into something you can see, feel, and navigate without confusion.</p>
+
+    <div class="section-eyebrow" style="margin: 36px 0 0;">
+      <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--bw-blue); font-family: 'DM Mono', monospace; opacity: 0.8;">Clickable Prototype</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <p class="overview-body" style="margin-top: 16px; font-size: 15px;">Try the redesign: open the mobile menu, go from the homepage to Youth Programs, then on to Earn-a-Bike and Bikes-for-All. Each numbered pin marks a change that came straight from an interview or the site audit.</p>
+    <div id="bw-prototype" style="margin-bottom: 56px;"></div>
 
     <div class="section-eyebrow" style="margin-bottom: 20px;">
       <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--bw-blue); font-family: 'DM Mono', monospace; opacity: 0.8;">Desktop Interfaces</span>
@@ -954,6 +962,404 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.1 });
   revealEls.forEach(el => io.observe(el));
+</script>
+
+<script src="prototype/prototype.js"></script>
+<script>
+  // Shared nav-bar hotspots for the desktop pages (y / h are % of each page's height)
+  const bwDesktopNav = (y, h) => [
+    { x: 2.5, y, w: 14, h, to: 'd-home', label: 'Bike Works logo — go to homepage' },
+    { x: 17.5, y, w: 6, h, to: 'd-home' },
+    { x: 32, y, w: 8, h, to: 'd-youth', label: 'Programs — go to Youth Programs' },
+    { x: 50.5, y, w: 14, h, to: 'd-bfa' },
+    { x: 89, y, w: 8, h, toast: 'The donation flow was outside this project' },
+  ];
+  const bwMobileHeader = (y, h) => [
+    { x: 1.5, y, w: 13, h, to: 'm-menu', label: 'Open menu' },
+    { x: 15, y, w: 24, h, to: 'm-home', label: 'Bike Works logo — go to homepage' },
+    { x: 79, y, w: 19, h, toast: 'The donation flow was outside this project' },
+  ];
+
+  const bwPins = {
+    nav: {
+      title: 'One nav bar instead of two',
+      feedback: '“The website contains two nav bars, which could confuse the user and their journey.”',
+      source: 'Project discovery audit',
+      change: 'Every link, the contact icons, search, and Support are in one blue bar. Free & Low-Cost Services gets its own top-level link.',
+    },
+    support: {
+      title: 'Support is always one click away',
+      feedback: 'Donations need consistent visibility so they aren’t lost in the page.',
+      source: 'Roderick McClain · Comms & Grants Manager',
+      change: 'A permanent Support button on the right of the nav, on every page, at every screen size.',
+    },
+    hero: {
+      title: 'The hero says who, what, and for whom',
+      feedback: '“As an organization, it’s hard to understand what they are — volunteers, taking donations, a little bit weird.”',
+      source: 'Michael Lee · new visitor',
+      change: 'A plain-language mission and a “since 1996” line, all in the first view with no scrolling needed.',
+    },
+    quick: {
+      title: 'Quick links for the most common tasks',
+      feedback: 'Felt the site contained a lot of text and suggested communicating key information faster.',
+      source: 'Leo Fan · university student',
+      change: 'Give, donate, shop, blog, and calendar are icon shortcuts right under the hero, so nobody has to read through paragraphs to find them.',
+    },
+    yellow: {
+      title: 'Yellow is now an accent, not a background',
+      feedback: '“Bold yellow background will likely fail accessibility tests.” / “Extended reading is tiring.”',
+      source: 'Roderick McClain · Leo Fan',
+      change: 'Blue (#2B63C7) carries the surfaces. Yellow only appears on short headings and highlights that pass WCAG AA contrast.',
+    },
+    stats: {
+      title: 'Impact numbers build trust',
+      feedback: 'Underserved communities disengage when organizations don’t clearly show tangible impact.',
+      source: 'Literature review · cycling equity',
+      change: '4,000+ bikes refurbished, 700+ donated to youth, and 20+ school partners shown as large stat cards.',
+    },
+    spacing: {
+      title: 'Even spacing on a 4px grid',
+      feedback: '“A lot of uneven spacing in the left side.” Footer links had almost no space between them.',
+      source: 'Project discovery audit',
+      change: 'Every card, gap, and margin uses the 4px spacing scale, so rows line up and the page reads as polished.',
+    },
+  };
+
+  Prototype.mount(document.getElementById('bw-prototype'), {
+    accent: '#2B63C7',
+    stageHeight: 600,
+    kicker: 'Interview & audit feedback → change',
+    frames: {
+      desktop: { label: 'Desktop', type: 'browser', url: 'bikeworks.org' },
+      mobile: { label: 'Mobile', type: 'phone' },
+    },
+    start: 'd-home',
+    screens: [
+      /* ── Desktop ── */
+      {
+        id: 'd-home', pair: 'home', frame: 'desktop', label: 'Homepage', url: 'bikeworks.org',
+        img: 'img/bw-homepage-desktop.png', alt: 'Bike Works homepage redesign, desktop',
+        summary: 'Try clicking Youth Programs, or Free & Low-Cost Services in the nav.',
+        hotspots: [
+          ...bwDesktopNav(0.15, 1.5),
+          { x: 66.6, y: 22.4, w: 30, h: 13.4, to: 'd-youth', label: 'Youth Programs card' },
+          { x: 3.4, y: 22.4, w: 30, h: 13.4, toast: 'Bike Shop page was outside this project' },
+          { x: 35, y: 22.4, w: 30, h: 13.4, toast: 'Adult Programs page was outside this project' },
+        ],
+        pins: [
+          { x: 70.8, y: 0.85, ...bwPins.nav },
+          { x: 93, y: 0.85, ...bwPins.support },
+          { x: 4.5, y: 4.9, ...bwPins.hero },
+          { x: 4, y: 18.9, ...bwPins.quick },
+          { x: 5.5, y: 23.8, ...bwPins.yellow },
+          { x: 38, y: 41.5, ...bwPins.stats },
+          { x: 50, y: 56.5, ...bwPins.spacing },
+        ],
+      },
+      {
+        id: 'd-youth', pair: 'youth', frame: 'desktop', label: 'Youth Programs', url: 'bikeworks.org/youth',
+        img: 'img/bw-youth-program-desktop.png', alt: 'Youth Programs page redesign, desktop',
+        summary: 'Click the Earn-A-Bike card to continue.',
+        hotspots: [
+          ...bwDesktopNav(0.2, 1.6),
+          { x: 37.3, y: 27.25, w: 25.4, h: 14, to: 'd-earn', label: 'Earn-A-Bike card' },
+          { x: 9, y: 17, w: 12.3, h: 1.2, toast: 'The drop-in sign-up form was outside this project' },
+        ],
+        pins: [
+          {
+            x: 7.2, y: 6.8, title: 'Age and area come first',
+            feedback: '“Hard to understand what they are.” Visitors couldn’t tell if a program was for them.',
+            source: 'Michael Lee · new visitor',
+            change: 'An “Ages 12–18 · South Seattle” badge is the first thing on the page, before the heading.',
+          },
+          {
+            x: 16, y: 31.5, title: 'Three programs, scannable at a glance',
+            feedback: 'Text-heavy pages were exhausting to read through.',
+            source: 'Leo Fan · university student',
+            change: 'Each program is a numbered card with a schedule badge (Every Saturday, 8 Week Program, After School), two lines of copy, and one action.',
+          },
+          {
+            x: 9.6, y: 47.2, title: 'A schedule replaces paragraphs',
+            feedback: 'No consistent content structure across pages.',
+            source: 'Project discovery audit',
+            change: '“Where to Find Us” uses the system’s schedule-listing pattern: day on the left, location on the right.',
+          },
+          {
+            x: 25, y: 59, title: 'Navy card for the key benefit',
+            feedback: 'Free and low-cost value was buried in dense copy.',
+            source: 'Leo Fan · university student',
+            change: 'Community service hours get a high-contrast navy card with its own Register button, instead of a sentence in a paragraph.',
+          },
+        ],
+      },
+      {
+        id: 'd-earn', pair: 'earn', frame: 'desktop', label: 'Earn-a-Bike', url: 'bikeworks.org/youth/earn-a-bike',
+        img: 'img/bw-earn-a-bike-desktop.png', alt: 'Earn-a-Bike page redesign, desktop',
+        summary: 'Use “Back to Youth Programs”, or jump to Bikes-for-All from the yellow card.',
+        hotspots: [
+          ...bwDesktopNav(0.4, 2.2),
+          { x: 8.6, y: 5.6, w: 16.6, h: 2.1, to: 'd-youth', label: 'Back to Youth Programs' },
+          { x: 41.2, y: 56, w: 17.6, h: 1.7, to: 'd-bfa', label: 'Learn more about Bikes-for-All' },
+          { x: 16.8, y: 43.4, w: 12.8, h: 1.7, toast: 'The camps page was outside this project' },
+        ],
+        pins: [
+          {
+            x: 25.8, y: 6.6, title: 'A clear way back',
+            feedback: 'Two competing nav bars made it easy to lose your place.',
+            source: 'Project discovery audit',
+            change: 'A “Back to Youth Programs” button sits above the title, so the program hierarchy is always visible.',
+          },
+          {
+            x: 13, y: 13.2, title: 'A pale yellow tint, not a full-strength background',
+            feedback: '“Color contrast works, but extended reading is tiring.”',
+            source: 'Leo Fan · university student',
+            change: 'Long text sits on a pale yellow tint with navy type. Full-strength yellow is kept for small accents.',
+          },
+          {
+            x: 31.5, y: 51.4, title: 'Free programs link to each other',
+            feedback: 'Was “immediately drawn to Free and Low-Cost Services.”',
+            source: 'Leo Fan · university student',
+            change: 'A cross-link sends youth to Bikes-for-All, so a visitor who misses one free program finds the next.',
+          },
+          {
+            x: 37.5, y: 66.9, title: 'The sliding scale is stated plainly',
+            feedback: 'Visitors need to see they can take part regardless of income.',
+            source: 'Literature review · cycling equity',
+            change: 'A full-width navy “Payment Info” band explains the sliding scale and “pay it forward” model in a few lines.',
+          },
+        ],
+      },
+      {
+        id: 'd-bfa', pair: 'bfa', frame: 'desktop', label: 'Bikes-for-All', url: 'bikeworks.org/bikes-for-all',
+        img: 'img/bw-bikes-for-all-desktop.png', alt: 'Bikes-for-All page redesign, desktop',
+        hotspots: [
+          ...bwDesktopNav(0.3, 1.7),
+          { x: 16.1, y: 18.7, w: 14.4, h: 1.3, toast: 'The application form was outside this project' },
+          { x: 10.9, y: 63.7, w: 78.3, h: 2, toast: 'Each question expands to show its answer' },
+        ],
+        pins: [
+          {
+            x: 12.6, y: 6.4, title: '“Free” is the first word',
+            feedback: 'Was “immediately drawn to Free and Low-Cost Services” and found these programs “highly valuable.”',
+            source: 'Leo Fan · university student',
+            change: 'The subheading opens with a bold “Free”, matching the FREE badge as the most prominent badge in the system.',
+          },
+          {
+            x: 12.2, y: 26.9, title: '“Who is this program for?” is answered directly',
+            feedback: '“Should provide a brief description of what kind of services they provide.”',
+            source: 'Michael Lee · new visitor',
+            change: 'A navy card lists who qualifies in short bullets, with the heading in accent yellow.',
+          },
+          {
+            x: 76, y: 32.4, title: 'Service area as scannable chips',
+            feedback: 'Felt the site had a lot of text and key information should come across faster.',
+            source: 'Leo Fan · university student',
+            change: 'ZIP codes appear as pills you can check in a second, instead of a sentence listing them.',
+          },
+          {
+            x: 10.6, y: 46.4, title: 'One path per type of visitor',
+            feedback: 'New visitors didn’t know which offer applied to them.',
+            source: 'User journey map',
+            change: '“Which Option Fits You?” splits individuals, organizations, and buyers into three cards, each with its own button.',
+          },
+          {
+            x: 86.2, y: 64.75, title: 'FAQ accordions shorten the page',
+            feedback: 'Pages were “excessively long and text-heavy.”',
+            source: 'Project discovery audit',
+            change: 'Eight common questions collapse into accordions, so the page stays short until someone needs the detail.',
+          },
+        ],
+      },
+
+      /* ── Mobile ── */
+      {
+        id: 'm-home', pair: 'home', frame: 'mobile', label: 'Homepage',
+        img: 'img/bw-homepage-mobile.png', alt: 'Bike Works homepage redesign, mobile',
+        summary: 'Tap the ☰ menu, or the Youth Programs card.',
+        hotspots: [
+          ...bwMobileHeader(2.2, 2.6),
+          { x: 64.5, y: 26.6, w: 29, h: 7.2, to: 'm-youth', label: 'Youth Programs card' },
+          { x: 6.5, y: 26.6, w: 29, h: 7.2, toast: 'Bike Shop page was outside this project' },
+          { x: 36, y: 26.6, w: 28, h: 7.2, toast: 'Adult Programs page was outside this project' },
+        ],
+        pins: [
+          { x: 87, y: 3.4, ...bwPins.support },
+          { x: 7, y: 12.2, ...bwPins.hero },
+          { x: 4, y: 23.6, ...bwPins.quick },
+          { x: 5, y: 27.3, ...bwPins.yellow },
+          { x: 39, y: 38.2, ...bwPins.stats },
+        ],
+      },
+      {
+        id: 'm-menu', pair: 'home', frame: 'mobile', label: 'Menu',
+        img: 'img/bw-homepage-open-side-menu-mobile.png', alt: 'Mobile side menu open',
+        summary: 'Tap Programs to expand it, or Free & Low Cost Services.',
+        hotspots: [
+          { x: 40, y: 2, w: 11, h: 3, to: 'm-home', label: 'Close menu' },
+          { x: 4, y: 5.4, w: 40, h: 2.4, to: 'm-home', label: 'Home' },
+          { x: 4, y: 9, w: 40, h: 2.4, toast: 'Bike Shop page was outside this project' },
+          { x: 4, y: 12.8, w: 40, h: 2.6, to: 'm-menu-programs', label: 'Programs — expand' },
+          { x: 4, y: 16.5, w: 40, h: 2.4, toast: 'Volunteering page was outside this project' },
+          { x: 4, y: 20.3, w: 40, h: 3.8, to: 'm-bfa', label: 'Free & Low Cost Services' },
+          { x: 4, y: 25.4, w: 40, h: 2.4, toast: 'About page was outside this project' },
+          { x: 51, y: 6, w: 49, h: 24, to: 'm-home', label: 'Close menu' },
+        ],
+        pins: [
+          { x: 44, y: 6.5, ...bwPins.nav },
+          {
+            x: 44, y: 22.1, title: 'Free services are a top-level item',
+            feedback: 'Was “immediately drawn to Free and Low-Cost Services.”',
+            source: 'Leo Fan · university student',
+            change: 'Free & Low Cost Services sits in the main menu, so it’s never buried under another section.',
+          },
+          {
+            x: 30, y: 28.1, title: 'High-contrast menu with yellow accents',
+            feedback: '“Bold yellow background will likely fail accessibility tests.”',
+            source: 'Roderick McClain · Comms & Grants Manager',
+            change: 'White text on blue for every item. Yellow is used only for the close icon and the dividers.',
+          },
+        ],
+      },
+      {
+        id: 'm-menu-programs', pair: 'home', frame: 'mobile', label: 'Menu › Programs',
+        img: 'img/bw-homepage-side-menu-select-option-mobile.png', alt: 'Mobile side menu with Programs expanded',
+        summary: 'Tap Youth Program to continue.',
+        hotspots: [
+          { x: 40, y: 2, w: 11, h: 3, to: 'm-home', label: 'Close menu' },
+          { x: 4, y: 5.3, w: 40, h: 2.2, to: 'm-home', label: 'Home' },
+          { x: 4, y: 12.6, w: 40, h: 2.4, to: 'm-menu', label: 'Programs — collapse' },
+          { x: 9, y: 16.2, w: 36, h: 1.8, toast: 'Adult Programs page was outside this project' },
+          { x: 9, y: 18.1, w: 36, h: 1.9, to: 'm-youth', label: 'Youth Program' },
+          { x: 4, y: 24.8, w: 40, h: 3.6, to: 'm-bfa', label: 'Free & Low Cost Services' },
+          { x: 51, y: 6, w: 49, h: 28, to: 'm-home', label: 'Close menu' },
+        ],
+        pins: [
+          {
+            x: 41, y: 13.8, title: 'Active state shows where you are',
+            feedback: 'Two nav bars made it hard to keep track of where you were.',
+            source: 'Project discovery audit',
+            change: 'The open section turns yellow, so the current location is always clear.',
+          },
+          {
+            x: 45, y: 18.1, title: 'Programs split by who they’re for',
+            feedback: '“Hard to understand what they are.”',
+            source: 'Michael Lee · new visitor',
+            change: 'Programs expand into Adult and Youth, so visitors pick by audience instead of guessing from program names.',
+          },
+        ],
+      },
+      {
+        id: 'm-youth', pair: 'youth', frame: 'mobile', label: 'Youth Programs',
+        img: 'img/bw-youth-program-mobile.png', alt: 'Youth Programs page redesign, mobile',
+        summary: 'Tap the Earn-A-Bike card to continue.',
+        hotspots: [
+          ...bwMobileHeader(1.8, 3),
+          { x: 50.7, y: 24.1, w: 41, h: 15.8, to: 'm-earn', label: 'Earn-A-Bike card' },
+        ],
+        pins: [
+          {
+            x: 9.5, y: 8.1, title: 'Age and area come first',
+            feedback: '“Hard to understand what they are.”',
+            source: 'Michael Lee · new visitor',
+            change: 'An “Ages 13–18 · South Seattle” badge leads the page.',
+          },
+          {
+            x: 13, y: 28.9, title: 'Schedule badges on every card',
+            feedback: 'Text-heavy pages were exhausting to read through.',
+            source: 'Leo Fan · university student',
+            change: 'Numbered cards with a when-badge, short copy, and one action each.',
+          },
+          {
+            x: 7.5, y: 61.1, title: 'Where to find us, as a schedule',
+            feedback: 'No consistent content structure across pages.',
+            source: 'Project discovery audit',
+            change: 'Day-by-location rows that are easy to read on a phone.',
+          },
+          {
+            x: 22, y: 69.6, title: 'Navy card for the key benefit',
+            feedback: 'Free and low-cost value was buried in dense copy.',
+            source: 'Leo Fan · university student',
+            change: 'Community service hours get their own high-contrast card.',
+          },
+        ],
+      },
+      {
+        id: 'm-earn', pair: 'earn', frame: 'mobile', label: 'Earn-a-Bike',
+        img: 'img/bw-expanded-earn-a-bike-mobile.png', alt: 'Earn-a-Bike page with expanded takeaways, mobile',
+        hotspots: [
+          ...bwMobileHeader(1.6, 2.6),
+          { x: 26, y: 13.8, w: 48, h: 1.6, toast: 'The drop-in sign-up form was outside this project' },
+        ],
+        pins: [
+          {
+            x: 4.5, y: 5.8, title: 'When and where, right under the title',
+            feedback: '“Should provide a brief description of what kind of services they provide.”',
+            source: 'Michael Lee · new visitor',
+            change: 'The drop-in time and room sit right under the page title.',
+          },
+          {
+            x: 83, y: 20.7, title: 'Takeaways as accordions',
+            feedback: 'Felt the site contained a lot of text.',
+            source: 'Leo Fan · university student',
+            change: 'Eligibility, skills, impact, rewards, and mission each get a one-line summary that expands for detail.',
+          },
+          {
+            x: 33, y: 44.6, title: 'Icons make the benefits scannable',
+            feedback: 'Visitors wanted to see quickly why a program was worth joining.',
+            source: 'Leo Fan · university student',
+            change: 'Six benefit tiles, each with an icon, a short title, and a two-line description, instead of a paragraph.',
+          },
+          {
+            x: 22, y: 82.9, title: 'The sliding scale is stated plainly',
+            feedback: 'Visitors need to see they can take part regardless of income.',
+            source: 'Literature review · cycling equity',
+            change: 'A navy Payment Info band explains the sliding scale in plain words.',
+          },
+        ],
+      },
+      {
+        id: 'm-bfa', pair: 'bfa', frame: 'mobile', label: 'Bikes-for-All',
+        img: 'img/bw-bikes-for-all-mobile.png', alt: 'Bikes-for-All page redesign, mobile',
+        hotspots: [
+          ...bwMobileHeader(2.5, 3),
+          { x: 10, y: 18.5, w: 25.4, h: 1.5, toast: 'The application form was outside this project' },
+          { x: 5, y: 62.3, w: 89, h: 2.2, toast: 'Each question expands to show its answer' },
+        ],
+        pins: [
+          {
+            x: 5.5, y: 10.1, title: '“Free” is the first word',
+            feedback: 'Was “immediately drawn to Free and Low-Cost Services.”',
+            source: 'Leo Fan · university student',
+            change: 'The subheading opens with a bold “Free”.',
+          },
+          {
+            x: 22, y: 24.6, title: '“Who is this program for?” is answered directly',
+            feedback: '“Should provide a brief description of what kind of services they provide.”',
+            source: 'Michael Lee · new visitor',
+            change: 'Who qualifies, as a short list on a navy card.',
+          },
+          {
+            x: 50, y: 42.5, title: 'Service area as scannable chips',
+            feedback: 'Key information should come across faster.',
+            source: 'Leo Fan · university student',
+            change: 'ZIP codes appear as pills, two rows deep.',
+          },
+          {
+            x: 6, y: 51.6, title: 'One path per type of visitor',
+            feedback: 'New visitors didn’t know which offer applied to them.',
+            source: 'User journey map',
+            change: 'Three option cards, each with its own button.',
+          },
+          {
+            x: 89, y: 63.4, title: 'FAQ accordions shorten the page',
+            feedback: 'Pages were “excessively long and text-heavy.”',
+            source: 'Project discovery audit',
+            change: 'Questions collapse until someone taps one.',
+          },
+        ],
+      },
+    ],
+  });
 </script>
 </body>
 </html>

@@ -6,6 +6,7 @@
 <title>WayPoint Travel Diary — Cindy Nguyen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="prototype/prototype.css">
 <style>
   :root {
     --cream: #FAF8F4;
@@ -751,6 +752,9 @@
     </div>
     <h2 class="section-heading">The final screens, <em>brought to life</em></h2>
     <p class="overview-body" style="margin-top: 12px;">Four core screens that together deliver a complete, cohesive travel companion — from discovering new destinations to preserving the memories you've made.</p>
+
+    <p class="overview-body" style="margin-top: 16px; font-size: 15px;"><strong style="color: var(--teal); font-weight: 500;">Clickable prototype —</strong> tap the bottom tab bar to move through the app. Numbered pins show how the peer critique and interview insights shaped each screen.</p>
+    <div id="wp-prototype" style="margin-bottom: 48px;"></div>
     <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 32px;">
       <figure style="margin:0;">
         <img src="img/wp-homepage.png" alt="WayPoint Homepage screen" style="width:100%; border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,0.14);" />
@@ -825,6 +829,132 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.1 });
   revealEls.forEach(el => io.observe(el));
+</script>
+
+<script src="prototype/prototype.js"></script>
+<script>
+  // Bottom tab bar, the same on every screen (positions are % of the phone mockup)
+  const wpTabBar = [
+    { x: 12.4, to: 'home', label: 'Home feed' },
+    { x: 28.6, to: 'diary', label: 'Travel Diary' },
+    { x: 45, toast: 'Quick add opens a new photo dump or journal entry' },
+    { x: 62, to: 'journal', label: 'Journal' },
+    { x: 77, to: 'travel', label: 'Future Travels' },
+  ].map(h => ({ y: 89.3, w: 10, h: 6.4, ...h }));
+
+  const wpPeer = { source: 'Peer critique of the original proposal' };
+
+  Prototype.mount(document.getElementById('wp-prototype'), {
+    accent: '#2D8B7A',
+    maxWidth: 320,
+    kicker: 'Critique & interviews → change',
+    start: 'home',
+    screens: [
+      {
+        id: 'home', label: 'Home feed', img: 'img/wp-homepage.png', alt: 'WayPoint home feed',
+        summary: 'Tap the tab bar at the bottom of the phone to switch screens.',
+        hotspots: wpTabBar,
+        pins: [
+          {
+            x: 17.4, y: 19.7, title: 'Search for inspiration, not directions',
+            feedback: 'The activity finder and transit navigation were “superficial replications of existing apps” — the core purpose was getting lost.',
+            ...wpPeer,
+            change: 'Transit and activity tools were cut. Home keeps one search bar and four trip-type filters for finding places to dream about.',
+          },
+          {
+            x: 38, y: 49.2, title: 'Community feed, one story at a time',
+            feedback: 'Wanted “a community aspect for inspiration without being overwhelmed.”',
+            source: 'User interviews · Social Sharer',
+            change: 'One large photo per post with a short caption and a light like / reply / share row. Featured destinations sit above it as a short, swipeable row.',
+          },
+          {
+            x: 57.5, y: 89, title: 'Capture from any screen',
+            feedback: 'Low-friction entry is critical — any friction at capture time means memories are lost.',
+            source: 'Key insight 04',
+            change: 'A raised + button sits in the middle of the tab bar on every screen. The other four tabs cover only the memory-keeping features.',
+          },
+        ],
+      },
+      {
+        id: 'diary', label: 'Travel Diary', img: 'img/wp-diary.png', alt: 'WayPoint travel diary',
+        hotspots: wpTabBar,
+        pins: [
+          {
+            x: 71, y: 14.4, title: 'Public, Private, and Drafts as tabs',
+            feedback: 'People want to share highlights publicly but keep personal reflections private.',
+            source: 'Key insight 03 · Sharing is selective',
+            change: 'Visibility is the first control on the screen instead of a setting buried inside each post.',
+          },
+          {
+            x: 15, y: 19.5, title: 'Photo-first entries',
+            feedback: 'Users deeply value being able to visually revisit past trips.',
+            source: 'Key insight 05 · Memory preservation',
+            change: 'The photo takes about two-thirds of each card. Place, dates, and a one-line note sit underneath.',
+          },
+          {
+            x: 73, y: 33.4, title: 'Share on every entry',
+            feedback: 'Needs frictionless sharing from the phone.',
+            source: 'User interviews · Social Sharer',
+            change: 'A Share action on each trip card, so posting a highlight takes one tap.',
+          },
+        ],
+      },
+      {
+        id: 'journal', label: 'Journal', img: 'img/wp-journal.png', alt: 'WayPoint journal',
+        hotspots: wpTabBar,
+        pins: [
+          {
+            x: 69, y: 14.5, title: 'Private by default is one tap away',
+            feedback: 'Keep personal reflections private while still posting publicly.',
+            source: 'User interviews · Social Sharer',
+            change: 'The same Public / Private tabs as the Diary, so the visibility pattern works the same way everywhere.',
+          },
+          {
+            x: 17.4, y: 18, title: 'Search by tag',
+            feedback: 'Some travelers prefer long-form writing, and long writing needs a way to find it again.',
+            source: 'Key insight 01 · Travelers document differently',
+            change: 'Search plus a filter control scoped to tags, not a generic search bar.',
+          },
+          {
+            x: 36, y: 23.2, title: 'Tags as colored chips',
+            feedback: 'Users need easy ways to organize entries, and both scrapbook and long-form formats.',
+            source: 'User needs',
+            change: '#New Place, #First Impression, and #Tip chips in the yellow accent, with the date on the right of every card.',
+          },
+          {
+            x: 88, y: 30.7, title: 'Words get their own space',
+            feedback: 'The original app was “too much and confusing.”',
+            ...wpPeer,
+            change: 'Journal is a separate tab from the photo Diary, so the two ways of documenting a trip don’t crowd each other.',
+          },
+        ],
+      },
+      {
+        id: 'travel', label: 'Future Travels', img: 'img/wp-travel.png', alt: 'WayPoint future travels',
+        hotspots: wpTabBar,
+        pins: [
+          {
+            x: 75, y: 14.3, title: 'Trips sorted by status',
+            feedback: 'Users rely on Google Maps, Notes, Pinterest, and bookmarks at the same time.',
+            source: 'Key insight 02 · Planning is scattered',
+            change: 'Visited, Not Visited, and In Progress tabs turn a scattered wish list into one tracker.',
+          },
+          {
+            x: 34, y: 21.8, title: 'Status badge on every card',
+            feedback: 'Wants to save places quickly without over-planning.',
+            source: 'User interviews · Memory Keeper',
+            change: 'A yellow badge shows each place’s status, which updates as plans change.',
+          },
+          {
+            x: 13.5, y: 41, title: 'The saved link lives with the place',
+            feedback: 'Important links get lost when it’s time to actually travel.',
+            source: 'Key insight 02 · Planning is scattered',
+            change: 'Each destination stores its source link with a copy button, plus a short description.',
+          },
+        ],
+      },
+    ],
+  });
 </script>
 </body>
 </html>

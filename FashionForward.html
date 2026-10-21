@@ -6,6 +6,7 @@
 <title>FashionForward Supply Chain — Cindy Nguyen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="prototype/prototype.css">
 <style>
   :root {
     --cream: #FAF8F4;
@@ -736,6 +737,9 @@
     </div>
     <h2 class="section-heading">Final solution<br><em>in action</em></h2>
     <p class="overview-body" style="margin-top: 12px;">The final product combines the hero dashboard with logistics, supplier, and audit views to deliver a complete, scalable Supply Chain Toolkit.</p>
+
+    <p class="overview-body" style="margin-top: 16px; font-size: 15px;"><strong style="color: var(--plum); font-weight: 500;">Clickable prototype —</strong> move between screens with the sidebar, just like the real tool. Numbered pins mark each fix for the “cluttered, doesn’t feel like one product” feedback. Turn on <em>Before feedback</em> to compare a screen with its v1.</p>
+    <div id="ff-prototype" style="margin-bottom: 48px;"></div>
     <div class="final-outcome-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 24px;">
       <figure style="margin:0;">
         <img src="img/fashion-for-dash.png" alt="FashionForward Dashboard screenshot" style="width:100%; border-radius: 8px; box-shadow: 0 12px 24px rgba(0,0,0,0.12);" />
@@ -777,6 +781,165 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.1 });
   revealEls.forEach(el => io.observe(el));
+</script>
+
+<script src="prototype/prototype.js"></script>
+<script>
+  // Sidebar hotspots, shared by every screen (positions are % of the laptop mockup)
+  const ffSidebar = [
+    { y: 17.1, to: 'dash', label: 'Dashboard' },
+    { y: 21.8, to: 'logistics', label: 'Logistics' },
+    { y: 26.6, toast: 'Orders wasn’t part of the final screens' },
+    { y: 31.3, toast: 'Inventory wasn’t part of the final screens' },
+    { y: 36.2, to: 'audit', label: 'Audit & Certificates' },
+    { y: 40.9, toast: 'Revenue wasn’t part of the final screens' },
+    { y: 45.7, toast: 'Shipment & Tracker wasn’t part of the final screens' },
+    { y: 50.6, to: 'supplier', label: 'Supplier' },
+    { y: 55.3, toast: 'Customers wasn’t part of the final screens' },
+  ].map(h => ({ x: 13, w: 13, h: 4, ...h }));
+
+  const ffFeedback = '“The overall dashboard feels cluttered — there’s too much competing for attention.”';
+  const ffFeedback2 = '“The screens don’t feel like they belong to the same product.”';
+  const ffSource = 'Usability feedback on v1';
+
+  Prototype.mount(document.getElementById('ff-prototype'), {
+    accent: '#6B4FD8',
+    maxWidth: 1000,
+    layout: 'stack',
+    kicker: 'Usability feedback → change',
+    start: 'dash',
+    screens: [
+      {
+        id: 'dash', label: 'Dashboard', img: 'img/fashion-for-dash.png', alt: 'FashionForward dashboard, final design',
+        summary: 'Use the sidebar to move between screens, or click Shipment tracking.',
+        compare: {
+          img: 'img/ff-olddash.png', label: 'Dashboard — v1',
+          note: 'v1 packed 11 widgets onto one screen, including five donut charts, a gauge, and two empty tables, next to boxed nav buttons. Everything competed for attention.',
+        },
+        hotspots: [
+          ...ffSidebar,
+          { x: 51.3, y: 74.7, w: 34.5, h: 14.7, to: 'logistics', label: 'Shipment tracking — open Logistics' },
+        ],
+        pins: [
+          {
+            x: 11.4, y: 19.1, title: 'A quieter sidebar',
+            feedback: ffFeedback, source: ffSource,
+            change: 'v1 boxed every nav item like a button. Now it’s a plain list with small icons, and only the active page is bold.',
+          },
+          {
+            x: 31.5, y: 25.3, title: 'One pattern for every KPI tile',
+            feedback: ffFeedback2, source: ffSource,
+            change: 'Each tile has the same parts in the same order: icon, label, value, sparkline. v1 mixed tile sizes and icon styles.',
+          },
+          {
+            x: 71.4, y: 20.1, title: 'Purple only for the main action',
+            feedback: ffFeedback, source: ffSource,
+            change: '“Add documents” is the only filled button. Secondary actions like Export are outlined.',
+          },
+          {
+            x: 47.5, y: 41.6, title: 'Fewer widgets, more space',
+            feedback: ffFeedback, source: ffSource,
+            change: 'The overview went from 11 widgets to 8. Audit risk, supplier compliance, and the empty product table moved to their own screens.',
+          },
+          {
+            x: 52.4, y: 81.5, title: 'Status pills shared across the product',
+            feedback: ffFeedback2, source: ffSource,
+            change: 'In transit, In progress, On hold, and Returned use the same pill component as the Logistics and Supplier tables.',
+          },
+        ],
+      },
+      {
+        id: 'logistics', label: 'Logistics', img: 'img/fashion-for-logistics.png', alt: 'FashionForward logistics view, final design',
+        compare: {
+          img: 'img/ff-warehouse-dash.png', label: 'Warehouse — v1',
+          note: 'v1 had no sidebar, oversized controls, and red/green buttons, so it looked like a different app from the dashboard.',
+        },
+        hotspots: ffSidebar,
+        pins: [
+          {
+            x: 37, y: 12.2, title: 'The same app shell on every screen',
+            feedback: ffFeedback2, source: ffSource,
+            change: 'Sidebar, search, notifications, and profile are identical on every page. The v1 warehouse screen had no sidebar at all.',
+          },
+          {
+            x: 69.2, y: 20.1, title: 'One button style, not red and green',
+            feedback: ffFeedback, source: ffSource,
+            change: '“Add new sensor” (green) and “Delete sensor” (red) became one primary and one outlined button.',
+          },
+          {
+            x: 31.2, y: 31.5, title: 'A one-line summary before the chart',
+            feedback: ffFeedback, source: ffSource,
+            change: 'A plain-language sentence explains what the sensors caught, so managers get the takeaway without reading the chart.',
+          },
+          {
+            x: 79.8, y: 27.4, title: 'The same time filter everywhere',
+            feedback: ffFeedback2, source: ffSource,
+            change: 'The v1 calendar dropdown was huge. It’s now the same compact “Monthly / All time” control used on the dashboard.',
+          },
+          {
+            x: 63.6, y: 77.5, title: 'Filled rows with colored status',
+            feedback: ffFeedback, source: ffSource,
+            change: 'The empty, heavily gridded table is now light rows with color-coded Delivered, Shipped, and In transit pills.',
+          },
+        ],
+      },
+      {
+        id: 'supplier', label: 'Supplier work order', img: 'img/fashion-for-supplier.png', alt: 'FashionForward supplier work order, final design',
+        compare: {
+          img: 'img/ff-product-details.png', label: 'Product details — v1',
+          note: 'v1 mixed bold and regular labels, put the bright green button next to other buttons, and only had a back arrow for navigation.',
+        },
+        hotspots: [
+          ...ffSidebar,
+          { x: 30.5, y: 24.2, w: 5, h: 3, to: 'supplier', label: 'Supplier list (this view)' },
+        ],
+        pins: [
+          {
+            x: 28.6, y: 25.7, title: 'Breadcrumbs instead of a back arrow',
+            feedback: ffFeedback2, source: ffSource,
+            change: '“Supplier → Work order #GM2004” shows where you are inside the same shell as every other screen.',
+          },
+          {
+            x: 29.4, y: 41.8, title: 'Label above value, in three even columns',
+            feedback: ffFeedback, source: ffSource,
+            change: 'Small grey labels over dark values, aligned on a three-column grid. v1 mixed bold labels inline with values.',
+          },
+          {
+            x: 75.8, y: 32.9, title: 'The finishing action is calmer',
+            feedback: ffFeedback, source: ffSource,
+            change: 'The bright green “Finish Production” is now a quiet tinted button, so it no longer outshouts the page.',
+          },
+          {
+            x: 66.3, y: 79.2, title: 'Status pills reused in tables',
+            feedback: ffFeedback2, source: ffSource,
+            change: 'The “Received” pills are the same component as the Logistics statuses.',
+          },
+        ],
+      },
+      {
+        id: 'audit', label: 'Certificate verification', img: 'img/fashion-for-audit.png', alt: 'FashionForward certificate verification center, final design',
+        summary: 'This screen was designed after the feedback, so there’s no v1 to compare.',
+        hotspots: ffSidebar,
+        pins: [
+          {
+            x: 35.5, y: 26.2, title: 'Kanban columns with counts',
+            feedback: ffFeedback, source: ffSource,
+            change: 'In v1, audit risk was four donut charts squeezed into a dashboard corner. Now they have their own To do → In progress → Completed board with a count on each column.',
+          },
+          {
+            x: 33.4, y: 30.6, title: 'The same card and tag styles',
+            feedback: ffFeedback2, source: ffSource,
+            change: 'Cards use the product’s radius, shadow, and pill tags, so a new screen still looks like the same tool.',
+          },
+          {
+            x: 74.6, y: 20.1, title: 'The same primary + secondary pair',
+            feedback: ffFeedback2, source: ffSource,
+            change: '“Share” and “Export” follow the same filled + outlined pattern as the Dashboard and Logistics headers.',
+          },
+        ],
+      },
+    ],
+  });
 </script>
 </body>
 </html>
