@@ -379,6 +379,54 @@
   .reflection-item-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
   .reflection-item-body { font-size: 14px; line-height: 1.7; color: var(--muted); }
 
+  /* PROBLEM */
+  .stats-row.stats-3 { grid-template-columns: repeat(3, 1fr); }
+  .quote-source {
+    margin-top: 12px; font-size: 12px; letter-spacing: 0.08em; color: rgba(255,255,255,0.5);
+  }
+  .hmw { padding: 32px; background: var(--purple-pale); border-left: 3px solid var(--purple); }
+  .hmw-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 2.6vw, 30px); font-weight: 400; line-height: 1.35; color: var(--ink);
+  }
+  .hmw-text em { font-style: italic; color: var(--purple); }
+
+  /* FINDINGS */
+  .finding { padding: 40px 0; border-top: 1px solid var(--border); }
+  .section-heading + .finding { border-top: none; padding-top: 8px; }
+  .finding-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 20px; }
+  .finding-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 400; color: var(--ink);
+  }
+  .finding-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 16px; }
+  .finding-note {
+    font-size: 13px; line-height: 1.65; color: var(--muted);
+    padding-left: 14px; border-left: 2px solid var(--border); margin-bottom: 16px;
+  }
+
+  /* SCREENSHOTS */
+  .shot { margin: 20px 0 0; }
+  .shot img {
+    display: block; width: 100%; height: auto;
+    border: 1px solid var(--border); border-radius: 6px;
+    box-shadow: 0 12px 32px rgba(26,18,25,0.08);
+    transition: transform 0.25s;
+  }
+  .shot a:hover img { transform: translateY(-2px); }
+  .shot-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* BEFORE / AFTER */
+  .ba { margin-bottom: 48px; }
+  .ba .priority-list li { font-size: 15px; line-height: 1.7; }
+  .ba-label {
+    display: inline-block; margin-bottom: 16px;
+    font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 4px 10px;
+  }
+  .ba-label.before { background: #F7E4E4; color: #A33A3A; }
+  .ba-label.after { background: #E8F5F2; color: var(--teal); }
+
   /* FOOTER NAV */
   .case-footer {
     background: var(--warm-white); padding: 60px;
@@ -430,7 +478,10 @@
     .status-badge { top: 80px; right: 24px; }
     .overview-grid, .two-col, .audience-grid, .priority-grid,
     .deliverables-grid, .reflection-grid, .metrics-cols,
-    .next-steps-strip, .team-grid { grid-template-columns: 1fr; }
+    .next-steps-strip, .team-grid, .stats-row.stats-3,
+    .finding-grid, .shot-pair { grid-template-columns: 1fr; }
+    .finding-grid { gap: 16px; }
+    .contribution-callout { padding: 28px 24px; gap: 20px; }
   }
 </style>
 </head>
@@ -439,15 +490,12 @@
 <!-- NAV -->
 <nav id="nav">
   <a href="index.html" class="nav-logo">🌸 <span>Cindy</span> Nguyen</a>
-  <a href="index.html" class="nav-back">← All Projects</a>
+  <a href="index.html#projects" class="nav-back">← All Projects</a>
 </nav>
 
 <!-- HERO -->
 <div class="case-hero">
-  <div class="status-badge">
-    <div class="status-dot"></div>
-    In Progress — Capstone 2026
-  </div>
+  <div class="status-badge">UW Capstone 2026</div>
   <div class="hero-meta">
     <div class="hero-meta-item">
       <span class="hero-meta-label">Client</span>
@@ -467,7 +515,7 @@
     </div>
   </div>
   <h1 class="case-title">ICHS Website<br><em>Redesign</em></h1>
-  <p class="case-tagline">A UW Capstone project redesigning ICHS's Services page to improve patient engagement, reduce call center burden, and make healthcare navigation genuinely accessible for non-English speakers and users with low digital literacy.</p>
+  <p class="case-tagline">Redesigning the ICHS website so patients, including non-English speakers and people less comfortable online, can find care without calling in.</p>
   <div class="hero-tags">
     <span class="hero-tag">UI/UX Design</span>
     <span class="hero-tag">UX Research</span>
@@ -518,160 +566,103 @@
 <div class="body-wrap">
 <div class="body-inner">
 
-  <!-- 01 OVERVIEW -->
+  <!-- 01 SPONSOR -->
   <div class="section reveal">
     <div class="section-eyebrow">
       <span class="eyebrow-num">01</span>
-      <span class="eyebrow-label">Project Overview</span>
+      <span class="eyebrow-label">Our Sponsor</span>
       <div class="eyebrow-line"></div>
     </div>
     <div class="overview-grid">
       <div>
-        <h2 class="section-heading">The <em>Problem</em></h2>
-        <p class="overview-body">ICHS's current website suffers from cluttered design and an overwhelming user experience. Patients — especially those with limited English proficiency or low digital literacy — struggle to find services, leading to high call volumes for information that's already available online.</p>
-        <p class="overview-body" style="margin-top: 16px;">This places real burden on front desk representatives, providers, and call center staff who field questions that a well-designed Services page could answer on its own. Our Capstone team is designing the solution that ICHS will implement in their <strong style="color: var(--purple);">2027 website revamp</strong>.</p>
+        <h2 class="section-heading">A community lifeline <em>since 1973</em></h2>
+        <p class="overview-body">International Community Health Services (ICHS) began as a small donated storefront in Seattle's International District. Fifty years later, it's Washington's largest Asian, Native Hawaiian, and Pacific Islander community health center, and no one is turned away for inability to pay.</p>
+        <p class="overview-body" style="margin-top: 16px;">Our UW Capstone team redesigned the ICHS website ahead of its <strong style="color: var(--purple);">2027 revamp</strong>, delivering Figma prototypes, a design system, a coded build, and handoff documentation.</p>
       </div>
       <div class="stats-row">
         <div class="stat-box">
+          <span class="stat-num">28,000+</span>
+          <span class="stat-label">Patients served each year</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">50+</span>
+          <span class="stat-label">Languages spoken</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">13</span>
+          <span class="stat-label">Clinic sites across Greater Seattle</span>
+        </div>
+        <div class="stat-box">
           <span class="stat-num">5</span>
-          <span class="stat-label">UW student designers on the Capstone team</span>
-        </div>
-        <div class="stat-box">
-          <span class="stat-num">2027</span>
-          <span class="stat-label">Target ICHS implementation year</span>
-        </div>
-        <div class="stat-box">
-          <span class="stat-num">AA</span>
-          <span class="stat-label">WCAG 2.1 accessibility compliance target</span>
-        </div>
-        <div class="stat-box">
-          <span class="stat-num">4</span>
-          <span class="stat-label">Core deliverables: designs, code, docs, research</span>
+          <span class="stat-label">UW students on the Capstone team</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 02 PROBLEM & SOLUTION -->
+  <!-- 02 PROBLEM -->
   <div class="section reveal">
     <div class="section-eyebrow">
       <span class="eyebrow-num">02</span>
-      <span class="eyebrow-label">Problem &amp; Solution</span>
+      <span class="eyebrow-label">The Problem</span>
       <div class="eyebrow-line"></div>
     </div>
-    <div class="two-col">
-      <div class="panel purple-accent">
-        <div class="panel-label">The Problem</div>
-        <div class="panel-heading">A cluttered experience that fails the patients who need it most.</div>
-        <p class="panel-text">ICHS serves a multilingual, multicultural community — yet its website's information architecture makes it difficult for non-English speakers and low digital literacy users to navigate basic services. The result: patients call in for help instead, creating pressure on staff and barriers to care.</p>
+    <h2 class="section-heading">Good care, <em>hard to find</em></h2>
+
+    <div class="stats-row stats-3" style="margin-bottom: 40px;">
+      <div class="stat-box">
+        <span class="stat-num">36%</span>
+        <span class="stat-label">of U.S. adults have low health literacy</span>
       </div>
-      <div class="panel teal-accent">
-        <div class="panel-label">The Solution</div>
-        <div class="panel-heading">A redesigned Services page built around the people ICHS actually serves.</div>
-        <p class="panel-text">We're delivering high-fidelity Figma prototypes, functional coded implementations, and detailed technical handoff documentation — all built on user research with ICHS patients and Community Access Specialists. The redesign prioritizes intuitive navigation, accessibility, and multilingual support from the ground up.</p>
+      <div class="stat-box">
+        <span class="stat-num">1 in 3</span>
+        <span class="stat-label">community health center patients has limited English proficiency</span>
       </div>
+      <div class="stat-box">
+        <span class="stat-num">70%</span>
+        <span class="stat-label">of ICHS patients rely on the call center and staff instead of the patient portal</span>
+      </div>
+    </div>
+
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-title">Services went undiscovered</div>
+        <div class="audience-body">Key offerings like vision and nutrition were invisible to patients.</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-title">Navigation overwhelmed users</div>
+        <div class="audience-body">Dropdown-heavy menus buried critical information.</div>
+      </div>
+      <div class="audience-card">
+        <div class="audience-title">Patients called instead</div>
+        <div class="audience-body">Confusion on the site turned into calls, overwhelming the call center.</div>
+      </div>
+    </div>
+
+    <div class="contribution-callout">
+      <div class="contribution-label">From ICHS</div>
+      <div>
+        <div class="contribution-text">"People don't scroll all the way down. If it's not obvious, they miss it."</div>
+        <div class="quote-source">Sharissa Tjok, Community Access Manager, ICHS</div>
+      </div>
+    </div>
+
+    <div class="hmw">
+      <div class="panel-label">Problem Statement</div>
+      <p class="hmw-text">How might patients easily understand and navigate ICHS services so they can <em>access care, opportunities, and resources</em> more effectively?</p>
     </div>
   </div>
 
-  <!-- 03 RESEARCH -->
+  <!-- 03 TEAM -->
   <div class="section reveal">
     <div class="section-eyebrow">
       <span class="eyebrow-num">03</span>
-      <span class="eyebrow-label">Research</span>
-      <div class="eyebrow-line"></div>
-    </div>
-    <h2 class="section-heading">Understanding the community <em>before designing for it</em></h2>
-    <p class="overview-body" style="margin-bottom: 32px;">Before any wireframe was drawn, we spent time understanding ICHS — not just as an organization, but as a community lifeline. We conducted stakeholder interviews with Community Access Specialists who work directly with patients, audited the existing website for usability failures, and reviewed comparable healthcare organization websites to understand what good navigation actually looks like for multilingual, low digital literacy audiences.</p>
-    <img src="img/ichs-research.png" alt="ICHS research findings" style="width:100%; border-radius: 8px; box-shadow: 0 12px 32px rgba(0,0,0,0.1); margin-bottom: 32px;" />
-    <div class="two-col">
-      <div class="panel purple-accent">
-        <div class="panel-label">What We Heard from Staff</div>
-        <div class="panel-heading">The website was creating work, not reducing it</div>
-        <p class="panel-text">ICHS Community Access Specialists told us that patients regularly called in to ask questions the website should have answered — service locations, appointment processes, language availability, and what each clinic offers. The site's density and unclear hierarchy meant patients gave up trying to navigate it and reached for the phone instead, adding pressure to already stretched frontline staff.</p>
-      </div>
-      <div class="panel teal-accent">
-        <div class="panel-label">What the Site Audit Revealed</div>
-        <div class="panel-heading">Critical failures in navigation, language, and hierarchy</div>
-        <p class="panel-text">The existing Services page had no clear entry point for first-time visitors, service categories that reflected internal ICHS structure rather than how patients think about their health needs, minimal multilingual support, and no location-based filtering — meaning patients trying to find their nearest clinic had to manually read through every location listed, one by one.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 04 USER PERSONAS -->
-  <div class="section reveal">
-    <div class="section-eyebrow">
-      <span class="eyebrow-num">04</span>
-      <span class="eyebrow-label">User Personas</span>
-      <div class="eyebrow-line"></div>
-    </div>
-    <h2 class="section-heading">The people this redesign <em>is built around</em></h2>
-    <p class="overview-body" style="margin-bottom: 32px;">From our research, three distinct user archetypes emerged — each arriving at the ICHS website with different needs, different levels of digital comfort, and different barriers to getting the help they came for. Every design decision throughout this project is traceable back to at least one of these people.</p>
-    <div class="audience-grid">
-      <div class="audience-card">
-        <div class="audience-icon">🌐</div>
-        <div class="audience-title">The First-Generation Patient</div>
-        <div class="audience-body">A patient who speaks limited English and relies on ICHS specifically because of its multilingual staff. They need plain-language content, language-toggle access, and a Services page that doesn't require fluent English literacy to navigate — barriers the current site puts in front of them at every step.</div>
-      </div>
-      <div class="audience-card">
-        <div class="audience-icon">📱</div>
-        <div class="audience-title">The Caregiver on Mobile</div>
-        <div class="audience-body">A parent or family member searching for services on their phone while juggling other responsibilities. They need fast, scannable information — not a desktop-optimized wall of text. The existing site's mobile experience was an afterthought; this persona made responsive design a non-negotiable P0 requirement.</div>
-      </div>
-      <div class="audience-card">
-        <div class="audience-icon">💼</div>
-        <div class="audience-title">The Frontline Staff Member</div>
-        <div class="audience-body">A Community Access Specialist who sometimes directs patients to the website — but can't do so confidently when the site doesn't reflect current services or make finding a clinic easy. This persona grounded our work in the real-world impact: a better website means fewer calls, faster answers, and more time for care.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 05 TARGET AUDIENCE -->
-  <div class="section reveal">
-    <div class="section-eyebrow">
-      <span class="eyebrow-num">05</span>
-      <span class="eyebrow-label">Who We're Designing For</span>
-      <div class="eyebrow-line"></div>
-    </div>
-    <h2 class="section-heading">Designing for <em>real community needs</em></h2>
-    <div class="audience-grid">
-      <div class="audience-card">
-        <div class="audience-icon">🏥</div>
-        <div class="audience-title">Current &amp; Prospective ICHS Patients</div>
-        <div class="audience-body">People actively seeking healthcare services who need to quickly understand what ICHS offers, where to go, and how to get an appointment.</div>
-      </div>
-      <div class="audience-card">
-        <div class="audience-icon">🌐</div>
-        <div class="audience-title">Limited English Proficiency Users</div>
-        <div class="audience-body">A core ICHS patient population who need multilingual support and plain-language content to access services without language as a barrier.</div>
-      </div>
-      <div class="audience-card">
-        <div class="audience-icon">📱</div>
-        <div class="audience-title">Low Digital Literacy Users</div>
-        <div class="audience-body">Patients who are less comfortable with digital navigation and benefit from clear hierarchy, minimal cognitive load, and intuitive affordances.</div>
-      </div>
-      <div class="audience-card">
-        <div class="audience-icon">💼</div>
-        <div class="audience-title">ICHS Staff &amp; Community Access Specialists</div>
-        <div class="audience-body">Frontline staff who currently field high call volumes because patients can't find information online — a burden the redesign directly aims to reduce.</div>
-      </div>
-      <div class="audience-card">
-        <div class="audience-icon">🤝</div>
-        <div class="audience-title">Donors &amp; Partners</div>
-        <div class="audience-body">Secondary audience who engage with ICHS's web presence to understand the organization's services and community impact.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 06 TEAM & INDIVIDUAL CONTRIBUTIONS -->
-  <div class="section reveal">
-    <div class="section-eyebrow">
-      <span class="eyebrow-num">06</span>
-      <span class="eyebrow-label">Team &amp; My Contributions</span>
+      <span class="eyebrow-label">Team &amp; My Role</span>
       <div class="eyebrow-line"></div>
     </div>
     <h2 class="section-heading">A collaborative team, <em>distinct roles</em></h2>
 
-    <div class="team-grid" style="margin-bottom: 40px;">
+    <div class="team-grid" style="margin-bottom: 32px;">
       <div class="team-card highlight">
         <div class="team-avatar mine">CN</div>
         <div class="team-name">Cindy Nguyen</div>
@@ -699,254 +690,188 @@
       </div>
     </div>
 
-    <div class="contribution-callout">
-      <div class="contribution-label">My Role</div>
-      <div class="contribution-text">"My focus has been on applying human-centered design principles to a community that deserves accessible, dignified healthcare navigation — not just a prettier webpage."</div>
-    </div>
-
-    <div class="two-col" style="margin-top: 0;">
-      <div class="panel purple-accent">
-        <div class="panel-label">As a Team</div>
-        <div class="panel-heading">Shared ownership across the full project lifecycle</div>
-        <p class="panel-text" style="margin-bottom: 12px;">Together, we conducted stakeholder interviews with ICHS Community Access Specialists, synthesized user research into design decisions, aligned on information architecture, and iterated on prototypes through collaborative critique sessions.</p>
-        <p class="panel-text">We divided responsibilities across design, frontend implementation, documentation, and research — ensuring each deliverable meets both ICHS's technical requirements and the needs of their patient community.</p>
-      </div>
-      <div class="panel teal-accent">
-        <div class="panel-label">My Individual Contributions</div>
-        <div class="panel-heading">UX design, accessibility, and research synthesis</div>
-        <p class="panel-text" style="margin-bottom: 12px;">I led UX design work on the ICHS website redesign in Figma, with a focus on information architecture, design system, and accessibility compliance (WCAG 2.1 AA). I contributed to user research synthesis — translating interviews with patients and staff into actionable design requirements.</p>
-        <p class="panel-text">I developed a comprehensive design system for ICHS that serves as a central reference for the development team. I also contributed to frontend implementation in HTML/CSS/JS, ensuring design intent carried through to code, and participated in documentation writing for the technical handoff to ICHS's development team.</p>
-      </div>
+    <div class="panel purple-accent">
+      <div class="panel-label">What I Did</div>
+      <p class="panel-text">I led UX design in Figma, covering information architecture, the ICHS design system, and WCAG 2.1 AA accessibility. I helped plan and synthesize usability testing, built front-end pieces in HTML/CSS/JS, and wrote handoff documentation for ICHS's developers.</p>
     </div>
   </div>
 
-  <!-- 07 PROCESS -->
+  <!-- 04 RESEARCH -->
   <div class="section reveal">
     <div class="section-eyebrow">
-      <span class="eyebrow-num">07</span>
-      <span class="eyebrow-label">Design Process</span>
+      <span class="eyebrow-num">04</span>
+      <span class="eyebrow-label">Research</span>
       <div class="eyebrow-line"></div>
     </div>
-    <h2 class="section-heading">From <em>research to prototype</em></h2>
+    <h2 class="section-heading">Testing the current site <em>first</em></h2>
+    <p class="overview-body" style="margin-bottom: 32px; max-width: 720px;">Before changing anything, we ran usability tests on the existing website to see how patients look for care and exactly where they get stuck. Five themes came up again and again:</p>
     <div class="insights-list">
       <div class="insight-row">
         <span class="insight-num">01</span>
-        <p class="insight-text"><strong>Stakeholder research with ICHS staff.</strong> We conducted interviews with Community Access Specialists who interact with patients daily — understanding exactly what questions patients ask by phone that the website should be answering, and what barriers they observe in real-time.</p>
+        <p class="insight-text"><strong>Patients value speed and clarity.</strong></p>
       </div>
       <div class="insight-row">
         <span class="insight-num">02</span>
-        <p class="insight-text"><strong>Audit of the existing Services page.</strong> We identified critical usability failures: overwhelming information density, unclear service categorization, no location-based filtering, and navigation patterns that assume digital fluency ICHS's patient population doesn't always have.</p>
+        <p class="insight-text"><strong>Task-first navigation works.</strong> Shortcuts beat browsing page by page.</p>
       </div>
       <div class="insight-row">
         <span class="insight-num">03</span>
-        <p class="insight-text"><strong>Information architecture redesign.</strong> We restructured the Services page hierarchy to reduce cognitive load — grouping services in ways that match how patients think about their health needs, not how ICHS organizes departments internally.</p>
+        <p class="insight-text"><strong>Language tools need visibility.</strong></p>
       </div>
       <div class="insight-row">
         <span class="insight-num">04</span>
-        <p class="insight-text"><strong>High-fidelity prototyping in Figma.</strong> Iterating from low-fi wireframes through mid-fi critiques to high-fidelity mockups, with each round informed by team feedback and alignment with ICHS brand guidelines and accessibility requirements.</p>
+        <p class="insight-text"><strong>Dense layouts create overload.</strong></p>
       </div>
       <div class="insight-row">
         <span class="insight-num">05</span>
-        <p class="insight-text"><strong>Functional code implementation.</strong> We built a working coded version of the redesigned Services page in HTML, CSS, JavaScript, and React — giving ICHS's development team a concrete implementation reference alongside the Figma files, not just visual mockups.</p>
+        <p class="insight-text"><strong>Confusing sites increase support calls.</strong></p>
       </div>
     </div>
   </div>
 
-  <!-- 08 FEATURE PRIORITIES -->
+  <!-- 05 USABILITY FINDINGS -->
   <div class="section reveal">
     <div class="section-eyebrow">
-      <span class="eyebrow-num">08</span>
-      <span class="eyebrow-label">Feature Priorities</span>
+      <span class="eyebrow-num">05</span>
+      <span class="eyebrow-label">User Testing &amp; Validation</span>
       <div class="eyebrow-line"></div>
     </div>
-    <h2 class="section-heading">What we built, and <em>what comes next</em></h2>
-    <div class="priority-grid">
-      <div class="priority-card">
-        <div class="priority-header">
-          <span class="priority-badge p0">P0 · Must Have</span>
-        </div>
-        <div class="priority-title">Core Accessibility &amp; Navigation</div>
-        <ul class="priority-list">
-          <li>Navigable, intuitive Services page with clear linguistic and navigation structure</li>
-          <li>Functional coded implementation demonstrating the redesigned Services page</li>
-          <li>WCAG 2.1 AA accessibility compliance throughout</li>
-          <li>Fully responsive design for mobile and desktop viewports</li>
-        </ul>
+    <h2 class="section-heading">Three findings, <em>three fixes</em></h2>
+
+    <div class="finding">
+      <div class="finding-head"><span class="insight-num">01</span><h3 class="finding-title">Booking next steps were unclear</h3></div>
+      <div class="finding-grid">
+        <div><div class="panel-label">What we saw</div><p class="panel-text">Users didn't know what would happen after clicking "Book Now."</p></div>
+        <div><div class="panel-label">What we changed</div><p class="panel-text">The button now reads "Call to Book an Appointment," with the phone number shown, so the next step is obvious.</p></div>
       </div>
-      <div class="priority-card">
-        <div class="priority-header">
-          <span class="priority-badge p1">P1–P2 · Should Have</span>
-        </div>
-        <div class="priority-title">Enhanced Usability Features</div>
-        <ul class="priority-list">
-          <li>Multilingual support for ICHS's non-English-speaking patient base</li>
-          <li>Location-based filtering to help patients find their nearest clinic</li>
-          <li>Search functionality for quick service discovery</li>
-          <li>Dynamic content loading for performance on lower-end devices</li>
-        </ul>
+      <p class="finding-note">ICHS can't book appointments online. Patients call the clinic or use MyChart, so the button has to say that plainly.</p>
+      <figure class="shot"><a href="img/ichs-test-booking.jpg" target="_blank" rel="noopener"><img src="img/ichs-test-booking.jpg" alt="Before: a vague Book Now button. After: Call to Book an Appointment with the phone number." loading="lazy"></a></figure>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head"><span class="insight-num">02</span><h3 class="finding-title">Language tools were hard to find</h3></div>
+      <div class="finding-grid">
+        <div><div class="panel-label">What we saw</div><p class="panel-text">Users, especially non-English speakers, missed the language selector. They didn't recognize the Google Translate icon.</p></div>
+        <div><div class="panel-label">What we changed</div><p class="panel-text">A labeled "Select Language" button with a universal globe icon, plus more languages shown with flags and each name in its own script. In the next test round, more users found it and translated the page.</p></div>
       </div>
+      <figure class="shot"><a href="img/ichs-test-language.jpg" target="_blank" rel="noopener"><img src="img/ichs-test-language.jpg" alt="Before: a small Google Translate dropdown. After: a labeled Select Language button with a grid of languages and flags." loading="lazy"></a></figure>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head"><span class="insight-num">03</span><h3 class="finding-title">Users didn't know where to start</h3></div>
+      <div class="finding-grid">
+        <div><div class="panel-label">What we saw</div><p class="panel-text">Key patient actions were buried several pages deep. Users wanted direct shortcuts.</p></div>
+        <div><div class="panel-label">What we changed</div><p class="panel-text">A "Shortcut for Patients" row (Appointments, MyChart, Clinic Services, After Hours Care, Billing) and a step-by-step "Get Started with ICHS" guide for first-time patients.</p></div>
+      </div>
+      <figure class="shot"><a href="img/ichs-test-start.jpg" target="_blank" rel="noopener"><img src="img/ichs-test-start.jpg" alt="Before: a plain list of patient links. After: a shortcut row and a Get Started with ICHS step list." loading="lazy"></a></figure>
     </div>
   </div>
 
-  <!-- 09 DELIVERABLES -->
+  <!-- 06 NAVIGATION -->
   <div class="section reveal">
     <div class="section-eyebrow">
-      <span class="eyebrow-num">09</span>
-      <span class="eyebrow-label">Deliverables</span>
+      <span class="eyebrow-num">06</span>
+      <span class="eyebrow-label">Navigation</span>
       <div class="eyebrow-line"></div>
     </div>
-    <h2 class="section-heading">Four deliverables, <em>one handoff</em></h2>
-    <div class="deliverables-grid">
-      <div class="deliverable-card">
-        <div class="deliverable-header">
-          <div class="deliverable-icon">🎨</div>
-          <div class="deliverable-title">High-Fidelity Designs</div>
-        </div>
-        <div class="deliverable-body">Complete Figma mockups and interactive prototypes of the redesigned website pages using a design system I created to ensure brand consistency, ready for stakeholder review and developer handoff.</div>
-        <ul class="deliverable-list">
-          <li>Full desktop and mobile layouts</li>
-          <li>Component library aligned with ICHS brand guidelines</li>
-          <li>Interactive prototype demonstrating user flows</li>
-          <li>Annotated design specs for developers</li>
-        </ul>
-      </div>
-      <div class="deliverable-card">
-        <div class="deliverable-header">
-          <div class="deliverable-icon">💻</div>
-          <div class="deliverable-title">Functional Code Implementation</div>
-        </div>
-        <div class="deliverable-body">A working coded redesigned website in HTML, CSS, JavaScript, and React — giving ICHS developers a concrete, testable reference implementation, not just static mockups.</div>
-        <ul class="deliverable-list">
-          <li>Semantic HTML with BEM (Block Element Modifier) CSS naming convention</li>
-          <li>WCAG 2.1 AA compliant markup and interactions</li>
-          <li>Responsive across mobile, tablet, and desktop</li>
-          <li>Version-controlled via GitHub with commit history</li>
-        </ul>
-      </div>
-      <div class="deliverable-card">
-        <div class="deliverable-header">
-          <div class="deliverable-icon">📄</div>
-          <div class="deliverable-title">Technical Documentation</div>
-        </div>
-        <div class="deliverable-body">Implementation guidelines and technical specifications written specifically for ICHS's development team to use during their 2027 website revamp.</div>
-        <ul class="deliverable-list">
-          <li>Component-by-component implementation notes</li>
-          <li>Accessibility compliance checklist</li>
-          <li>Maintenance and content update guidelines</li>
-          <li>Browser and device compatibility requirements</li>
-        </ul>
-      </div>
-      <div class="deliverable-card">
-        <div class="deliverable-header">
-          <div class="deliverable-icon">🔬</div>
-          <div class="deliverable-title">Research &amp; Validation</div>
-        </div>
-        <div class="deliverable-body">User research findings, usability testing results, and design rationale — documenting the evidence base behind every major design decision.</div>
-        <ul class="deliverable-list">
-          <li>Stakeholder interview synthesis and key findings</li>
-          <li>Usability testing protocols and results</li>
-          <li>Design decision documentation with supporting evidence</li>
-          <li>Recommendations for future ICHS research</li>
-        </ul>
-      </div>
+    <h2 class="section-heading">A nav bar <em>patients can scan</em></h2>
+
+    <div class="ba">
+      <span class="ba-label before">Before</span>
+      <ul class="priority-list">
+        <li>The call center number, which patients rely on to book, was hidden in a corner.</li>
+        <li>The language icon wasn't widely recognized, so people missed it.</li>
+        <li>Services were one long vertical list with no clear grouping.</li>
+      </ul>
+      <figure class="shot"><a href="img/ichs-old-nav.jpg" target="_blank" rel="noopener"><img src="img/ichs-old-nav.jpg" alt="Old ICHS nav bar with a small language dropdown and a long vertical Services list." loading="lazy"></a></figure>
     </div>
 
-    <!-- Success Metrics -->
-    <div style="margin-top: 40px;">
-      <div class="section-eyebrow" style="margin-bottom: 20px;">
-        <span class="eyebrow-label">How We'll Measure Success</span>
-        <div class="eyebrow-line"></div>
-      </div>
-      <div class="metrics-cols">
-        <div class="metrics-card">
-          <span class="metrics-card-label">Qualitative Indicators</span>
-          <ul class="metrics-list">
-            <li>Patients can quickly identify available ICHS services without calling in</li>
-            <li>Users navigate without feeling overwhelmed or lost</li>
-            <li>ICHS stakeholders confirm improved intuitiveness and patient-centeredness</li>
-            <li>Code is maintainable and well-documented for the dev team</li>
-          </ul>
-        </div>
-        <div class="metrics-card">
-          <span class="metrics-card-label">Quantitative Metrics (Post-Implementation)</span>
-          <ul class="metrics-list">
-            <li>Increased traffic to Services page</li>
-            <li>Reduced bounce rate on service entry points</li>
-            <li>Increased click-throughs from landing page to Services to Location to Provider</li>
-            <li>Higher accessibility scores on Lighthouse and WAVE audits</li>
-          </ul>
-        </div>
-      </div>
+    <div class="ba">
+      <span class="ba-label after">After</span>
+      <ul class="priority-list">
+        <li>The call center number and working hours sit up front in the header.</li>
+        <li>The Services menu runs horizontally in three groups: <strong>General &amp; Urgent</strong>, <strong>Specialized</strong>, and <strong>Wellness</strong>. We used the same three groups everywhere services appear.</li>
+      </ul>
+      <figure class="shot"><a href="img/ichs-new-nav.jpg" target="_blank" rel="noopener"><img src="img/ichs-new-nav.jpg" alt="New ICHS nav bar with a labeled language picker, visible call center number, and services grouped into three columns." loading="lazy"></a></figure>
     </div>
   </div>
 
-  <!-- 10 NEXT STEPS -->
+  <!-- 07 LOCATIONS -->
   <div class="section reveal">
     <div class="section-eyebrow">
-      <span class="eyebrow-num">10</span>
-      <span class="eyebrow-label">Next Steps</span>
+      <span class="eyebrow-num">07</span>
+      <span class="eyebrow-label">Find a Location</span>
       <div class="eyebrow-line"></div>
     </div>
-    <h2 class="section-heading">Where the project <em>goes from here</em></h2>
-    <p style="font-size: 15px; line-height: 1.8; color: var(--ink-soft); max-width: 680px; margin-bottom: 8px;">We are currently in the design, development, and prototyping phase. Spring Quarter 2026 is focused on finalizing deliverables and preparing the complete handoff package for ICHS.</p>
-    <div class="next-steps-strip">
-      <div class="ns-box">
-        <span class="ns-num">01</span>
-        <span class="ns-text"><strong style="color: var(--ink);">Finalize high-fidelity prototypes</strong> — completing all screen states, edge cases, and accessibility annotations in Figma</span>
+    <h2 class="section-heading">From a map <em>to the closest clinic</em></h2>
+
+    <div class="ba">
+      <span class="ba-label before">Before</span>
+      <ul class="priority-list">
+        <li>A map with a few pins and no sign that it was interactive. To many users it looked like a static picture, and zooming took ⌘ + scroll.</li>
+        <li>Location cards left out clinic hours, so finding them took an extra step. Users who have to dig for simple information often leave the site.</li>
+      </ul>
+      <div class="shot-pair">
+        <figure class="shot"><a href="img/ichs-old-location-map.jpg" target="_blank" rel="noopener"><img src="img/ichs-old-location-map.jpg" alt="Old Find a Location page with a static-looking map of clinic pins." loading="lazy"></a></figure>
+        <figure class="shot"><a href="img/ichs-old-location-map-zoom.jpg" target="_blank" rel="noopener"><img src="img/ichs-old-location-map-zoom.jpg" alt="Old map prompting users to use command plus scroll to zoom." loading="lazy"></a></figure>
       </div>
-      <div class="ns-box">
-        <span class="ns-num">02</span>
-        <span class="ns-text"><strong style="color: var(--ink);">Usability testing</strong> — validating designs with ICHS patients and staff before finalizing the handoff documentation</span>
-      </div>
-      <div class="ns-box">
-        <span class="ns-num">03</span>
-        <span class="ns-text"><strong style="color: var(--ink);">Full-Stack Development</strong> — finalizing the implementation of the redesigned website with all features and functionality to react</span>
-      </div>
-      <div class="ns-box">
-        <span class="ns-num">04</span>
-        <span class="ns-text"><strong style="color: var(--ink);">Spring Quarter handoff</strong> — delivering the complete design, code, and documentation package to ICHS for their 2027 implementation</span>
-      </div>
+    </div>
+
+    <div class="ba">
+      <span class="ba-label after">After</span>
+      <ul class="priority-list">
+        <li>Users wanted to type an address or city and see the nearest clinic, so we replaced the map with search.</li>
+        <li>Filters sort A–Z or Z–A and narrow by clinic type: medical, dental, mobile health, or school clinic.</li>
+        <li>The closest clinic is featured with its distance. Every card shows the name, address, phone, and hours, with Get Directions and Learn More buttons.</li>
+      </ul>
+      <figure class="shot"><a href="img/ichs-new-location-cards.jpg" target="_blank" rel="noopener"><img src="img/ichs-new-location-cards.jpg" alt="Filters panel for sort order and clinic type above location cards with address, phone, and hours." loading="lazy"></a></figure>
+      <figure class="shot"><a href="img/ichs-new-location-closest.jpg" target="_blank" rel="noopener"><img src="img/ichs-new-location-closest.jpg" alt="Closest To You result showing the nearest clinic, its distance, and Get Directions and Learn More buttons." loading="lazy"></a></figure>
+    </div>
+
+    <div class="panel teal-accent">
+      <div class="panel-label">What I'd Change Next</div>
+      <p class="panel-text">The main search didn't handle ZIP codes, so our engineers added a separate ZIP field. Two search boxes doing similar jobs can confuse patients. Next, I'd merge them so one search bar accepts a ZIP code and returns the closest clinic.</p>
     </div>
   </div>
 
-  <!-- 11 REFLECTION -->
+  <!-- 08 REFLECTION -->
   <div class="section reveal" style="border-bottom: none;">
     <div class="section-eyebrow">
-      <span class="eyebrow-num">11</span>
-      <span class="eyebrow-label">Reflection &amp; Learnings So Far</span>
+      <span class="eyebrow-num">08</span>
+      <span class="eyebrow-label">Reflection</span>
       <div class="eyebrow-line"></div>
     </div>
     <div class="reflection-grid">
       <div class="reflection-aside">
         <div class="reflection-aside-label">Capstone Insight</div>
-        <div class="reflection-aside-quote">"Designing for accessibility isn't a checklist — it's a commitment to the people who are most often left out."</div>
+        <div class="reflection-aside-quote">"Designing for accessibility isn't a checklist. It's a commitment to the people who are most often left out."</div>
       </div>
       <div class="reflection-items">
         <div class="reflection-item">
-          <div class="reflection-item-title">Real-world constraints make better designers</div>
-          <div class="reflection-item-body">Working with an actual client — ICHS — means navigating brand guidelines, stakeholder priorities, and implementation timelines alongside user needs. It's sharpened my ability to advocate for the user while building trust and alignment with decision-makers.</div>
+          <div class="reflection-item-title">Test before you redesign</div>
+          <div class="reflection-item-body">Testing the old site first gave every change a clear reason, and a second round showed whether it worked.</div>
         </div>
         <div class="reflection-item">
-          <div class="reflection-item-title">Accessibility is a design foundation, not a feature</div>
-          <div class="reflection-item-body">Targeting WCAG 2.1 AA from the start has changed how I approach every design decision — color contrast, touch target sizes, reading order, language clarity. It's made the work better for everyone, not just users with disabilities.</div>
+          <div class="reflection-item-title">Real constraints shape the design</div>
+          <div class="reflection-item-body">ICHS can't book online, so the best fix wasn't a booking flow. It was telling patients exactly how to book.</div>
         </div>
         <div class="reflection-item">
-          <div class="reflection-item-title">Collaboration across disciplines requires shared language</div>
-          <div class="reflection-item-body">Working across design and frontend development within the same team has reinforced how important it is to document decisions clearly and build with implementation in mind. The gap between a beautiful Figma file and working, accessible code is narrowed by communication.</div>
+          <div class="reflection-item-title">Design and engineering need shared language</div>
+          <div class="reflection-item-body">The ZIP code field was a quick engineering fix that added a UX cost. Documenting decisions early keeps trade-offs like that visible.</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 12 VIEW LIVE SITE -->
+  <!-- 09 VIEW LIVE SITE -->
   <div class="section reveal" style="border-bottom: none; text-align: center; padding: 80px 0;">
     <div class="section-eyebrow" style="justify-content: center;">
-      <span class="eyebrow-num">12</span>
+      <span class="eyebrow-num">09</span>
       <span class="eyebrow-label">Live Website</span>
       <div class="eyebrow-line" style="flex: 0; width: 60px;"></div>
     </div>
     <h2 class="section-heading" style="text-align: center;">See the redesign <em>in action</em></h2>
-    <p style="font-size: 15px; line-height: 1.8; color: var(--ink-soft); max-width: 560px; margin: 0 auto 0;">The functional coded implementation of the ICHS Services page redesign is live. Click through it below, and switch between Desktop and Mobile to see the responsive layout. The notes beside each page tie every change to what we heard from ICHS staff and found in the site audit.</p>
+    <p style="font-size: 15px; line-height: 1.8; color: var(--ink-soft); max-width: 560px; margin: 0 auto 0;">Click through the live build below and switch between Desktop and Mobile. The notes beside each page tie every change to what we learned from testing and from ICHS staff.</p>
     <div id="ichs-prototype" style="text-align: left; margin-bottom: 40px;"></div>
     <div style="display: inline-flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center;">
       <a href="https://www.ichs.com/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 12px; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); text-decoration: none; border: 1px solid var(--purple); padding: 16px 32px; transition: background 0.25s, transform 0.2s;" onmouseover="this.style.background='var(--purple-pale)';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='transparent';this.style.transform='translateY(0)'">↗ View Old ICHS Website</a>
@@ -959,10 +884,13 @@
 
 <!-- FOOTER NAV -->
 <div class="case-footer">
-  <a href="index.html" class="back-link">← Back to all projects</a>
   <div class="next-project">
     <span class="next-label">Previous Project</span>
     <a href="BikeWorks.html" class="next-title">← Bike Works: Web Redesign</a>
+  </div>
+   <div class="next-project">
+    <span class="next-label">Next Project</span>
+    <a href="FashionForward.html" class="next-title"> Fashion Forward: Brand Identity →</a>
   </div>
 </div>
 
@@ -983,6 +911,7 @@
   const ichsSite = 'https://ichs-website-services-redesign.vercel.app';
   const ichsStaff = 'Interviews · Community Access Specialists';
   const ichsAudit = 'Audit of the existing Services page';
+  const ichsTesting = 'Usability testing';
 
   Prototype.mount(document.getElementById('ichs-prototype'), {
     accent: '#6B4C8F',
@@ -1000,15 +929,15 @@
         pins: [
           {
             title: 'A language picker in the header',
-            feedback: 'The existing site had minimal multilingual support, even though ICHS serves a multilingual community.',
-            source: ichsAudit + ' · First-Generation Patient persona',
+            feedback: 'Users, especially non-English speakers, missed the old language selector. They didn’t recognize the Google Translate icon.',
+            source: ichsTesting,
             change: '“Select Language” opens a grid of the languages ICHS patients speak and translates the whole site. The choice stays as you move between pages.',
             where: 'top-left of the header (the globe icon on mobile)',
           },
           {
             title: 'Clear entry points for first-time visitors',
-            feedback: 'No clear entry point for first-time visitors.',
-            source: ichsAudit,
+            feedback: 'Users didn’t know where to start and wanted direct shortcuts instead of browsing page by page.',
+            source: ichsTesting,
             change: 'Each hero slide has one main action, starting with Call to Book an Appointment. Below it, a “Shortcut for Patients” row links to Appointments, MyChart, Clinic Services, After Hours Care, and Paying for your Care.',
             where: 'the hero and the teal shortcut row under it',
           },
@@ -1029,7 +958,7 @@
           {
             title: 'Built mobile-first',
             feedback: 'Caregivers search on their phones while juggling other responsibilities, and the old mobile experience was an afterthought.',
-            source: 'Caregiver on Mobile persona',
+            source: ichsStaff,
             change: 'Every page is responsive. Switch the toggle above to Mobile to try the same build at phone width.',
             where: 'Desktop / Mobile toggle above',
           },
@@ -1042,7 +971,7 @@
             title: 'Services grouped the way patients think',
             feedback: 'Service categories reflected ICHS’s internal structure rather than how patients think about their health needs.',
             source: ichsAudit,
-            change: 'Services are grouped into plain-language categories such as primary care, dental, behavioral health, and healthy aging.',
+            change: 'Services are grouped into three plain-language categories: General & Urgent, Specialized, and Wellness. The same groups appear in the nav menu.',
             where: 'the service cards',
           },
           {
@@ -1066,15 +995,15 @@
         pins: [
           {
             title: 'Find the nearest clinic by ZIP code',
-            feedback: 'No location filtering — patients had to read through every location one by one.',
-            source: ichsAudit,
+            feedback: 'The old map didn’t look interactive. Users wanted to type an address and see the nearest clinic.',
+            source: ichsTesting,
             change: 'Enter a ZIP code and “Find Closest” ranks all 13 clinic sites by distance. A separate search finds a clinic by name or address.',
             where: 'the search panel at the top',
           },
           {
             title: 'Filters with a one-click reset',
             feedback: 'Navigation assumed a digital fluency many patients don’t have.',
-            source: ichsAudit + ' · Low digital literacy users',
+            source: ichsAudit,
             change: 'A Filters button shows how many filters are on and has a single “Clear” to start over, so nobody gets stuck in a filtered view.',
             where: 'the Filters button beside the search',
           },
@@ -1093,7 +1022,7 @@
           {
             title: 'Filter providers by the language they speak',
             feedback: 'Patients rely on ICHS specifically because of its multilingual staff.',
-            source: 'First-Generation Patient persona',
+            source: ichsStaff,
             change: 'Filter by Language, Location, and Service Type. Each provider’s languages and pronouns are on their profile.',
             where: 'the filter row and provider cards',
           },
